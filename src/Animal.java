@@ -1,7 +1,7 @@
 public class Animal extends AThing{
 
-    private Animal nextAnimal;
-    private Animal prevAnimal;
+    protected Animal nextAnimal;
+    protected Animal prevAnimal;
 
     public Animal getNextAnimal(){
         return nextAnimal;
