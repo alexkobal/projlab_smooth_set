@@ -4,7 +4,8 @@ public class Entry {
     private int orangutansToPush;
 
     public void pushOrangutan(){
-
+        Orangutan orangutan = new Orangutan();
+        orangutan.move(entryTile);
     }
 
     public void addOrangutan(int n){
@@ -12,6 +13,8 @@ public class Entry {
     }
 
     public void nextTurn(){
-
+        if(orangutansToPush > 0){
+            pushOrangutan();
+        }
     }
 }

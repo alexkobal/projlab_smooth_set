@@ -1,4 +1,6 @@
 public class AThing {
+    protected Tile isOn;
+
     public boolean hitBy(Panda panda){
         return false;
     }
