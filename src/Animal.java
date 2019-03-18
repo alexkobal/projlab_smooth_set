@@ -1,25 +1,23 @@
-public class Animal extends AThing{
+import proj_lab.AThing;
+import proj_lab.Animal;
+import proj_lab.Tile;
 
-    protected Animal nextAnimal;
-    protected Animal prevAnimal;
-    protected int valami;
-
-    public Animal getNextAnimal(){
-        return nextAnimal;
-    }
-    public void setNextAnimal(Animal animal){
-        nextAnimal = animal;
-    }
-    public Animal getPrevAnimal(){
-        return prevAnimal;
-    }
-    public void setPrevAnimal(Animal animal){
-        prevAnimal = animal;
-    }
-
-    public void move(Tile tile){
-
-    }
-
+public abstract class Animal extends AThing {
+	
+	protected Animal prevAnimal;
+	protected Animal nextAnimal;
+	protected Tile prevTile;
+	
+	public abstract void move(Tile tile);
+	public abstract void kill();
+	
+	public void connectChain() {}
+	
+	public void leaveTile(Tile t) {
+		//megfelel� setterek ami �tmozgatja az �llatot (loseLife()- al egy�tt)
+	}
+	
+	
+	
 
 }
