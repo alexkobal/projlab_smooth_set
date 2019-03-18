@@ -1,9 +1,16 @@
 public class Panda extends Animal{
 
-    public boolean isInChain(){
+    public boolean isInChain()
+    {
         if(prevAnimal != null){
             return true;
         }
         return false;
     }
+    
+    public void unchain()
+    {
+    	
+    }
+    
 }
