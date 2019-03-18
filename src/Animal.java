@@ -2,6 +2,7 @@ public class Animal extends AThing{
 
     protected Animal nextAnimal;
     protected Animal prevAnimal;
+    protected int valami;
 
     public Animal getNextAnimal(){
         return nextAnimal;
