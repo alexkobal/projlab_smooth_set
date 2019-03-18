@@ -1,6 +1,4 @@
-import proj_lab.AThing;
-import proj_lab.Animal;
-import proj_lab.Tile;
+
 
 public abstract class Animal extends AThing {
 	

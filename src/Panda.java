@@ -1,6 +1,4 @@
-import proj_lab.Animal;
-import proj_lab.Orangutan;
-import proj_lab.Tile;
+
 
 public class Panda extends Animal {
 	

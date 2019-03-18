@@ -1,7 +1,4 @@
-import proj_lab.Armchair;
-import proj_lab.Orangutan;
-import proj_lab.Panda;
-import proj_lab.Tile;
+
 
 public class LazyPanda extends Panda {
 	private int sleepTime; //Jelenlegi alv�si id�
