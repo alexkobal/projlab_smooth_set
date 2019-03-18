@@ -48,8 +48,9 @@ public class Panda extends Animal {
 		//+Megfelel� setterek
 		
 	}
-	
-	public void connectChain() {
-		//m�g mindig nem tudom mit csin�l
+
+	@Override
+	public void connectChain(Animal animal) {
+
 	}
 }

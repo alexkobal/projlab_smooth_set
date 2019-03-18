@@ -3,7 +3,7 @@ import java.util.*;
 public class Tile
 {
     protected AThing contains;          //protected, hogy a BrokenTile ne getteljen/setteljen
-    protected List<Tile> neighbors;
+    protected ArrayList<Tile> neighbors;
 
     public Tile()
     {

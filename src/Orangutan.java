@@ -27,4 +27,8 @@ public class Orangutan extends Animal{
 		//nem �rtem mit csin�l
 	}
 
+	@Override
+	public void connectChain(Animal animal) {
+
+	}
 }

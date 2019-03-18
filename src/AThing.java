@@ -5,11 +5,15 @@
 	 * This class has all of the collide (virtual) methods.
 	 * isOn is the Tile where the thing is placed on.
 **/
-public class AThing 
+public abstract class AThing
 {
     protected Tile isOn;
 
-    /**
+	public Tile getIsOn() {
+		return isOn;
+	}
+
+	/**
 	 * HitBy Panda
 	 * <p>
 	 * This function is called when a Panda collides with the object (this object).

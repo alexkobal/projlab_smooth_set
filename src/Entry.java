@@ -15,6 +15,7 @@ public class Entry {
     public void nextTurn(){
         if(orangutansToPush > 0){
             pushOrangutan();
+            orangutansToPush--;
         }
     }
 }

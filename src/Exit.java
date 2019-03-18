@@ -10,7 +10,7 @@ public class Exit extends AThing {
         return true;
     }
     public boolean hitBy(Panda panda){
-        if(panda.isInChain()){
+        if(!panda.isInChain()){
             return false;
         }
         nextPanda = (Panda) panda.getNextAnimal();

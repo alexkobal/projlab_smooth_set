@@ -4,7 +4,7 @@ public class Armchair extends AThing implements IPandaEffective{
 	
 	public void effect()
 	{
-		isOn.notifyNeighbours();
+		isOn.notifyNeighbors();
 	}
 	
 	public boolean isOccupied()

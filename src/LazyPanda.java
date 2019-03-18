@@ -9,11 +9,12 @@ public class LazyPanda extends Panda {
 	}
 	
 	public boolean hitBy(Armchair ac) {
-		
+
 		sleepTime = pandasRegularSleepTime;
-		
+
 		//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
-		leaveTile( ac.getIsOn() );
+		leaveTile(ac.getIsOn());
+		return false;
 	}
 	
 	public void move(Tile tile) {
