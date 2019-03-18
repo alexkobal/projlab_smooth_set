@@ -58,7 +58,7 @@ public class Tile
         }
     }
 
-    public List<Tile> getNeighbors()
+    public ArrayList<Tile> getNeighbors()
     {
         return neighbors;
     }
