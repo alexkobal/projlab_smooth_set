@@ -59,7 +59,7 @@ public class LazyPanda extends Panda {
 	 * <p>
 	 * When an Orangutan hits a LazyPanda, the Panda will check if it is not sleeping.
 	 * If it is sleeping, it wont connect to the chain.
-	 * @param  or is the Orangutan which hits the Panda.
+	 * @param  or is the Orangutan which hits the Panda..
 	 */
 	public boolean hitBy(Orangutan or) {
 		if(sleepTime == 0) {

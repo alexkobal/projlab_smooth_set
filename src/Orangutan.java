@@ -28,7 +28,7 @@ public class Orangutan extends Animal{
 	 * kill()
 	 * <p>
 	 * When an Orangutan dies, this function will be called.
-	 * The Orangutan will release its chain, then will reduce the count.
+	 * The Orangutan will release its chain, then will reduce the count..
 	 */
 	
 	public void kill() {

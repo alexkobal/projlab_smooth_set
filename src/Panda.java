@@ -73,7 +73,7 @@ public class Panda extends Animal {
 	/**
 	 * kill
 	 * <p>
-	 * When a Panda dies this function will be called.
+	 * When a Panda dies this function will be called..
 	 */	
 	
 	public void kill() {
