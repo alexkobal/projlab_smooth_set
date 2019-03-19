@@ -2,6 +2,13 @@
 
 public class Panda extends Animal {
 	
+	/**
+	 * HitBy Orangutan
+	 * <p>n Orangutan hits a Panda this function will be called.
+	 * If the Panda was in another chain, first of all it will release that chain, and will join the new Orangutans chain.
+	 * @param  or is the Orangutan which hits the Panda.
+	 */
+	
 	
 	public boolean hitBy(Orangutan or) {
 		
@@ -13,6 +20,13 @@ public class Panda extends Animal {
 		//Megfelel� setterek
 		return true;
 	}
+	
+	/**
+	 * unchain()
+	 * <p>
+	 * When a Panda has to release its chain, this function will be called.
+	 * The function will recursively find the end of the chain, then will release the hands one by one.
+	 */
 	
 	public void unchain() {
 		
@@ -28,6 +42,12 @@ public class Panda extends Animal {
 		return;
 	}
 	
+	/**
+	 * isInChain()
+	 * <p>
+	 * Returns whether a Panda is in a chain or not. 
+	 */
+	
 	public boolean isInChain() {
 		if(prevAnimal == null && nextAnimal== null) {
 			return false;
@@ -37,11 +57,24 @@ public class Panda extends Animal {
 		}
 	}
 	
+	/**
+	 * move(tile)
+	 * <p>
+	 * When a Panda wants to move to a tile this function will be called.
+	 * @param  tile is the Tile where the Panda wants to move.
+	 */
+	
 	public void move(Tile tile) {
 		if( tile.placeThing(this) ) {
 			tile.loseLife(); //Ha siker�l l�pnie, levon egyet a csempe �let�b�l ahov� l�pett
 		}
 	}
+	
+	/**
+	 * kill
+	 * <p>
+	 * When a Panda dies this function will be called.
+	 */	
 	
 	public void kill() {
 		unchain();

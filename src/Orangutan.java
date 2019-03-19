@@ -4,6 +4,14 @@ public class Orangutan extends Animal{
 	
 	private static int count;
 	
+	/**
+	 * move(Tile)
+	 * <p>
+	 * When an Orangutan moves, this function will be called.
+	 * If the move is not possible the Orangutan will release its chain.
+	 * @param tile is the Tile, where the Orangutan should move.
+	 */
+	
 	public void move(Tile tile) {
 		
 		if( tile.placeThing(this) ) {
@@ -16,15 +24,18 @@ public class Orangutan extends Animal{
 		
 	}
 	
+	/**
+	 * kill()
+	 * <p>
+	 * When an Orangutan dies, this function will be called.
+	 * The Orangutan will release its chain, then will reduce the count.
+	 */
+	
 	public void kill() {
 		
 		prevAnimal.unchain();
 		count--;
 		//Plusz a sz�ks�ges setterek
-	}
-	
-	public void connectChain() {
-		//nem �rtem mit csin�l
 	}
 
 	@Override
