@@ -12,11 +12,11 @@ public class Tile
     }
 
 
-    public boolean placeThing(AThing thing)
+    /*public boolean placeThing(AThing thing)
     {
         if(contains != null)
         {
-            Main.printer.functionCall(contains.name, "hitby", thing.name);
+            Main.printer.functionCall("Thing", "hitby", "Thing");   //temporary commented but need to be deleted
             boolean res = contains.hitBy(thing);
             Main.printer.returnFromFunctionCall();
 
@@ -26,25 +26,80 @@ public class Tile
         // UNDER CONSTRUCTION
 
         return false;
+    }*/
+
+    public boolean placeThing(Panda panda){
+        if(contains != null)
+        {
+            return contains.hitBy(panda);
+        }
+
+        // UNDER CONSTRUCTION
+
+        return false;
     }
+    public boolean placeThing(Orangutan orangutan){
+        if(contains != null)
+        {
+            return contains.hitBy(orangutan);
+        }
+
+        // UNDER CONSTRUCTION
+
+        return false;
+    }
+    public boolean placeThing(VendingMachine vm){
+        if(contains != null)
+        {
+            return contains.hitBy(vm);
+        }
+
+        // UNDER CONSTRUCTION
+
+        return false;
+    }
+    public boolean placeThing(GameMachine gm){
+        if(contains != null)
+        {
+            return contains.hitBy(gm);
+        }
+
+        // UNDER CONSTRUCTION
+
+        return false;
+    }
+    public boolean placeThing(Armchair armchair){
+        if(contains != null)
+        {
+            return contains.hitBy(armchair);
+        }
+
+        // UNDER CONSTRUCTION
+
+        return false;
+    }
+
+
+
 
     /*
     * Minden nem üres szomszédot értesítünk, hogy a rajtunk lévő AThing (itt most Armchair, GameMachine, VendingMachine)
     * akar valamit (=lejátszódik az effect() függvénye)
     *
     */
+    /*
     public void notifyNeighbors()
     {
         for(Tile neighbor : neighbors)
         {
             if(neighbor.getContains() != null)
             {
-                Main.printer.functionCall("nt", "placeThing");
+                Main.printer.functionCall("nt", "placeThing");  // Need to be implemented in AThing and deleted here
                 placeThing(contains);
                 Main.printer.returnFromFunctionCall();
             }
         }
-    }
+    }*/
 
     // virtuális függvény, hogy a sima tile kompatibilis legyen a brokentile-lal
     public void loseLife(){}

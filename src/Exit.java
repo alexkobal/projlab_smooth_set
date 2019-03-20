@@ -62,4 +62,9 @@ public class Exit extends AThing {
             nextPanda.move(isOn);
         }
     }
+
+    @Override
+    public void notifyNeighbors() {
+
+    }
 }

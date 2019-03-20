@@ -79,12 +79,34 @@ public class Main
     // Orangutan exits with two pandas
     static void test1()
     {
-
+        System.out.println("test print");
+        RegularTile tile = new RegularTile();
+        Orangutan orangutan = new Orangutan();
+        Panda panda = new Panda();
+        tile.setContains(panda);
+        tile.placeThing(orangutan);
+        System.out.println("end test print");
     }
 
     // Orangutan with a chained panda hits a standalone Panda
     static void test2()
     {
+        RegularTile tile = new RegularTile();
+        RegularTile n1 = new RegularTile();
+        RegularTile n2 = new RegularTile();                 // creating objects
+        VendingMachine vm = new VendingMachine(0);
+        Panda panda = new Panda();
+
+        vm.setIsOn(tile);
+        tile.setContains(vm);  // placing vm on tile
+
+        panda.setIsOn(n1);
+        n1.setContains(panda); // placing panda on n1
+
+        tile.addNeighbor(n1);
+        tile.addNeighbor(n2);  // blank neighbor
+
+        vm.effect();
 
     }
 

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.SimpleTimeZone;
+
 /**
 	 * AThing
 	 * <p>
@@ -5,12 +8,16 @@
 	 * This class has all of the collide (virtual) methods.
 	 * isOn is the Tile where the thing is placed on.
 **/
-public abstract class AThing
+public abstract class AThing implements IThing
 {
     protected Tile isOn;
 
 	public Tile getIsOn() {
 		return isOn;
+	}
+
+	public void setIsOn(Tile isOn) {
+		this.isOn = isOn;
 	}
 
 	/**
@@ -32,6 +39,7 @@ public abstract class AThing
 	 */
     public boolean hitBy(Orangutan orangutan)
     {
+    	System.out.println("Orangutan");
         return false;
     }
 
@@ -43,6 +51,7 @@ public abstract class AThing
 	 */
     public boolean hitBy(VendingMachine vm)
     {
+    	System.out.println("hitBy(VM)");
         return false;
     }
     
@@ -67,4 +76,12 @@ public abstract class AThing
     {
         return false;
     }
+
+    public boolean hitBy(AThing thing){
+		System.out.println("AThing");
+    	return false;
+	}
+
+	public abstract void notifyNeighbors();
+
 }

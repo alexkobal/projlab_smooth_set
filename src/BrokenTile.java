@@ -16,7 +16,7 @@ public class BrokenTile extends Tile
             unlink();
             Main.printer.returnFromFunctionCall();
 
-            Main.printer.functionCall(contains.name, "kill"); //What is name??
+            Main.printer.functionCall("Animal", "kill"); //What is name??
             ((Animal) contains).kill();
             Main.printer.returnFromFunctionCall();
         }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class GameMachine extends AThing implements IPandaEffective{
 
 	private int baseTinkleTime;
@@ -11,10 +13,24 @@ public class GameMachine extends AThing implements IPandaEffective{
 	public void effect()
 	{
 		if(tinkleTime <= 0) {
-			isOn.notifyNeighbors();
+			notifyNeighbors();
 			tinkleTime = baseTinkleTime;
 		}else{
 			tinkleTime--;
+		}
+	}
+
+	@Override
+	public void notifyNeighbors() {
+		ArrayList<Tile> neighbors = isOn.getNeighbors();
+		for(Tile neighbor : neighbors)
+		{
+			if(neighbor.getContains() != null)
+			{
+				Main.printer.functionCall("nt", "placeThing");
+				neighbor.placeThing(this);
+				Main.printer.returnFromFunctionCall();
+			}
 		}
 	}
 }
