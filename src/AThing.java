@@ -8,7 +8,7 @@ import java.util.SimpleTimeZone;
 	 * This class has all of the collide (virtual) methods.
 	 * isOn is the Tile where the thing is placed on.
 **/
-public abstract class AThing implements IThing
+public abstract class AThing
 {
     protected Tile isOn;
 
@@ -77,11 +77,6 @@ public abstract class AThing implements IThing
         return false;
     }
 
-    public boolean hitBy(AThing thing){
-		System.out.println("AThing");
-    	return false;
-	}
-
-	public abstract void notifyNeighbors();
+	public void notifyNeighbors(){}
 
 }

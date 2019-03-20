@@ -56,9 +56,4 @@ public class Entry extends AThing{
 			orangutansToPush--;
 		}
 	}
-
-	@Override
-	public void notifyNeighbors() {
-
-	}
 }

@@ -33,6 +33,4 @@ public abstract class Animal extends AThing {
 	
 	public void unchain() {}
 
-	@Override
-	public abstract void notifyNeighbors();
 }

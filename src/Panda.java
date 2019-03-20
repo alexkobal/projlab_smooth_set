@@ -86,18 +86,4 @@ public class Panda extends Animal {
 	public void connectChain(Animal animal) {
 
 	}
-
-	@Override
-	public void notifyNeighbors() {
-		ArrayList<Tile> neighbors = isOn.getNeighbors();
-		for(Tile neighbor : neighbors)
-		{
-			if(neighbor.getContains() != null)
-			{
-				Main.printer.functionCall("nt", "placeThing");
-				neighbor.placeThing(this);
-				Main.printer.returnFromFunctionCall();
-			}
-		}
-	}
 }
