@@ -16,7 +16,7 @@ public class ScaredPanda extends Panda
 	public boolean hitBy(GameMachine gm)
 	{
 		unchain();
-		return true;
+		return false;
 	}
 	
 }

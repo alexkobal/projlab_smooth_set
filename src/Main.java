@@ -136,10 +136,19 @@ public class Main
 
     }
 
-    // Gamemachine notifies ScaredPanda
+    // GameMachine notifies ScaredPanda
     static void test8()
     {
+		GameMachine gm = new GameMachine(0);
+		ScaredPanda scaredPanda = new ScaredPanda();
+		RegularTile gmTile = new RegularTile();
+		RegularTile spTile = new RegularTile();
 
+		gmTile.addNeighbor(spTile);
+		gmTile.placeThing(gm);
+		spTile.placeThing(scaredPanda);
+
+		gm.effect();
     }
 
     // Panda leaves chain
