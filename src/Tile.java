@@ -11,23 +11,6 @@ public class Tile
         neighbors = new ArrayList<Tile>();
     }
 
-
-    /*public boolean placeThing(AThing thing)
-    {
-        if(contains != null)
-        {
-            Main.printer.functionCall("Thing", "hitby", "Thing");   //temporary commented but need to be deleted
-            boolean res = contains.hitBy(thing);
-            Main.printer.returnFromFunctionCall();
-
-            return res;
-        }
-
-        // UNDER CONSTRUCTION
-
-        return false;
-    }*/
-
     public boolean placeThing(Panda panda){
         if(contains != null)
         {
@@ -35,8 +18,7 @@ public class Tile
         }
 
         // UNDER CONSTRUCTION
-
-        return false;
+        return setContains(panda);
     }
     public boolean placeThing(Orangutan orangutan){
         if(contains != null)
@@ -45,8 +27,7 @@ public class Tile
         }
 
         // UNDER CONSTRUCTION
-
-        return false;
+        return setContains(orangutan);
     }
     public boolean placeThing(VendingMachine vm){
         if(contains != null)
@@ -55,8 +36,7 @@ public class Tile
         }
 
         // UNDER CONSTRUCTION
-
-        return false;
+        return setContains(vm);
     }
     public boolean placeThing(GameMachine gm){
         if(contains != null)
@@ -65,41 +45,23 @@ public class Tile
         }
 
         // UNDER CONSTRUCTION
-
-        return false;
+        return setContains(gm);
     }
-    public boolean placeThing(Armchair armchair){
-        if(contains != null)
-        {
+    public boolean placeThing(Armchair armchair) {
+        if (contains != null) {
             return contains.hitBy(armchair);
         }
 
         // UNDER CONSTRUCTION
-
-        return false;
+        return setContains(armchair);
     }
-
-
-
 
     /*
     * Minden nem üres szomszédot értesítünk, hogy a rajtunk lévő AThing (itt most Armchair, GameMachine, VendingMachine)
     * akar valamit (=lejátszódik az effect() függvénye)
-    *
+    * azóta a notifyNeighbors a tárgyak felelősége lett, így ez a komment az AThing-be meg azokra a leszármazottakra
+    * vonatkozik, ahol a notifyNeighbors() függvényt felülírták.
     */
-    /*
-    public void notifyNeighbors()
-    {
-        for(Tile neighbor : neighbors)
-        {
-            if(neighbor.getContains() != null)
-            {
-                Main.printer.functionCall("nt", "placeThing");  // Need to be implemented in AThing and deleted here
-                placeThing(contains);
-                Main.printer.returnFromFunctionCall();
-            }
-        }
-    }*/
 
     // virtuális függvény, hogy a sima tile kompatibilis legyen a brokentile-lal
     public void loseLife(){}
@@ -121,12 +83,23 @@ public class Tile
 
     public void addNeighbor(Tile tile)
     {
-        neighbors.add(tile);
+        if(!neighbors.contains((Tile)tile)) {
+            neighbors.add(tile);
+            tile.neighbors.add(this);
+        }
     }
 
-    public void setContains(AThing thing)
+    //Privát kell, hogy legyen, lefuttat még egy ellenőrzést, hogy valóban üres
+    //a csempe, és utána beállítja a contains-t booleannal tér vissza, hogy ezt a
+    //placeThing-ben felhasználhassuk. Így ha be szeretnénk állítani a tárgyat a
+    //csempén, mindíg a placeThing-et használjuk.
+    private boolean setContains(AThing thing)
     {
-        contains = thing;
+        if(contains == null) {
+            contains = thing;
+            return true;
+        }
+        return false;
     }
 
     public AThing getContains()
