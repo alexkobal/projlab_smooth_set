@@ -28,7 +28,8 @@ public abstract class Animal extends AThing {
 	public abstract void connectChain(Animal animal);
 	
 	public void leaveTile(Tile t) {
-		//megfelelő setterek ami átmozgatja az állatot (loseLife()- al együtt)
+		isOn.clearTile();
+		isOn = null;
 	}
 	
 	public void unchain() {}

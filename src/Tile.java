@@ -92,7 +92,7 @@ public class Tile
     //a csempe, és utána beállítja a contains-t booleannal tér vissza, hogy ezt a
     //placeThing-ben felhasználhassuk. Így ha be szeretnénk állítani a tárgyat a
     //csempén, mindíg a placeThing-et használjuk.
-    private boolean setContains(AThing thing)
+    protected boolean setContains(AThing thing)
     {
         if(contains == null) {
             contains = thing;
@@ -106,4 +106,10 @@ public class Tile
     {
         return contains;
     }
+
+    public void clearTile(){
+    	contains = null;
+	}
+
+
 }

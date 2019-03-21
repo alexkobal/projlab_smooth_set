@@ -97,7 +97,16 @@ public class Main
     // Basic hitBy
     static void test4()
     {
+		RegularTile oTile = new RegularTile();
+		RegularTile vmTile = new RegularTile();
+		Orangutan orangutan = new Orangutan();
+		VendingMachine vm = new VendingMachine(0);
 
+		oTile.addNeighbor(vmTile);
+		oTile.placeThing(orangutan);
+		vmTile.placeThing(vm);
+
+		orangutan.move(vmTile);
     }
 
     // Orangutan uses Wardrobe
