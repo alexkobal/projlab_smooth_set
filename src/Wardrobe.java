@@ -29,10 +29,12 @@ public class Wardrobe extends AThing{
      * </p>
      * @param animal This is the animal that is going through the Wardrobe.
      */
-    public void pushOut(Animal animal){
+    private void pushOut(Animal animal){
         ArrayList<Tile> neighbors = isOn.getNeighbors();
         Random random = new Random();
+        Main.printer.functionCall("animal", "move", "neighbor");
         animal.move(neighbors.get(random.nextInt() % neighbors.size()));
+        Main.printer.returnFromFunctionCall();
         // Nem feltetlen kerul at az allat a kovetkezo mezore.
     }
 
@@ -47,7 +49,9 @@ public class Wardrobe extends AThing{
      */
     @Override
     public boolean hitBy(Panda panda){
+        Main.printer.functionCall("outPont", "pushOut", "panda");
         outPoint.pushOut(panda);
+        Main.printer.returnFromFunctionCall();
         return true;
     }
 
@@ -62,7 +66,9 @@ public class Wardrobe extends AThing{
      */
     @Override
     public boolean hitBy(Orangutan orangutan) {
+        Main.printer.functionCall("outPont", "pushOut", "orangutan");
         outPoint.pushOut(orangutan);
+        Main.printer.returnFromFunctionCall();
         return true;
     }
 }

@@ -59,7 +59,9 @@ public class Exit extends AThing {
      */
     public void nextTurn(){
         if(nextPanda != null){
+            Main.printer.functionCall("nextPanda", "move", "isOn");
             nextPanda.move(isOn);
+            Main.printer.returnFromFunctionCall();
         }
     }
 }

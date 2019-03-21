@@ -29,7 +29,9 @@ public class Entry extends AThing{
 	 */
 	public void pushOrangutan(){
 		Orangutan orangutan = new Orangutan();
+		Main.printer.functionCall("orangutan", "move", "entryTile");
 		orangutan.move(entryTile);
+		Main.printer.returnFromFunctionCall();
 	}
 
 	/**
@@ -52,7 +54,9 @@ public class Entry extends AThing{
 	 */
 	public void nextTurn(){
 		if(orangutansToPush > 0){
+			Main.printer.functionCall("entry", "pushOrangutan");
 			pushOrangutan();
+			Main.printer.returnFromFunctionCall();
 			orangutansToPush--;
 		}
 	}

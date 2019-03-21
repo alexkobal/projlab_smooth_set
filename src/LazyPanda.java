@@ -6,8 +6,8 @@ public class LazyPanda extends Panda {
 	private int sleepTime; //Jelenlegi alv�si id�
 	private int pandasRegularSleepTime; //Pand�ra jellemz� alv�si id�
 	
-	public LazyPanda(int n) {
-		pandasRegularSleepTime = n;
+	public LazyPanda(int sleepTime) {
+		pandasRegularSleepTime = sleepTime;
 	}
 	
 	/**
