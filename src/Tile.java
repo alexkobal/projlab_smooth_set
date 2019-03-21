@@ -80,7 +80,6 @@ public class Tile
         return neighbors;
     }
 
-
     public void addNeighbor(Tile tile)
     {
         if(!neighbors.contains((Tile)tile)) {
@@ -97,6 +96,7 @@ public class Tile
     {
         if(contains == null) {
             contains = thing;
+            thing.setIsOn(this);
             return true;
         }
         return false;

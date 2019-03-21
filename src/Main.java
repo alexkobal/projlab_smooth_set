@@ -109,7 +109,16 @@ public class Main
     // Armchair notifies LazyPanda
     static void test6()
     {
+		Armchair armchair = new Armchair();
+		LazyPanda lzPanda = new LazyPanda(1);
+		RegularTile isOn = new RegularTile();
+		RegularTile neighbor = new RegularTile();
 
+		isOn.addNeighbor(neighbor);
+		isOn.placeThing(armchair);
+		neighbor.placeThing(lzPanda);
+
+		armchair.effect();
     }
 
     // VendingMachine notifies JumpingPanda
@@ -163,6 +172,7 @@ public class Main
     // Orangutan steps with two Pandas
     static void test15()
     {
+    	/*
     	Orangutan or = new Orangutan();
     	Panda p1 = new Panda();
     	Panda p2 = new Panda();
@@ -187,13 +197,14 @@ public class Main
     	t3.setContains(or);
     	
     	or.move(t4);
-    	
+    	*/
     	
     }
 
     // Orangutan steps to Wardrobe with Panda chain
     static void test16()
     {
+    	/*
     	Orangutan or = new Orangutan();
     	Panda p1 = new Panda();
     	Wardrobe in_wd = new Wardrobe();
@@ -225,6 +236,7 @@ public class Main
     	
     	or.move(t3);
     	or.move(t6);
+    	*/
 
     }
 }
