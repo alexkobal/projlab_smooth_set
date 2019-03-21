@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/*Main.printer.functionCall("nt", "placeThing");
+neighbor.placeThing(this);
+Main.printer.returnFromFunctionCall();*/
+
 public class Orangutan extends Animal{
 	
 	private static int count;
@@ -14,12 +18,19 @@ public class Orangutan extends Animal{
 	
 	public void move(Tile tile) {
 		
-		if( tile.placeThing(this) ) {
+		Main.printer.functionCall("tile", "placeThing", "this");
+		boolean placeThing_res = tile.placeThing(this);
+		Main.printer.returnFromFunctionCall();
+		
+		if( placeThing_res ) {
+			Main.printer.functionCall("prevAnimal", "move", "prevTile");
 			prevAnimal.move(prevTile);
+			Main.printer.returnFromFunctionCall();
 		} //Ha siker�lt mozognia a lehets�ges l�ncot h�zza maga ut�n
 		else {
-			
+			Main.printer.functionCall("prevAnimal", "unchain");
 			prevAnimal.unchain();
+			Main.printer.returnFromFunctionCall();
 		} //Ha nem siker�lt mozogni felbomlasztja a l�ncot
 		
 	}
@@ -33,7 +44,9 @@ public class Orangutan extends Animal{
 	
 	public void kill() {
 		
+		Main.printer.functionCall("prevAnimal", "unchain");
 		prevAnimal.unchain();
+		Main.printer.returnFromFunctionCall();
 		count--;
 		//Plusz a sz�ks�ges setterek
 	}

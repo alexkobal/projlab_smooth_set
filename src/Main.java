@@ -185,7 +185,32 @@ public class Main
     // Orangutan steps with two Pandas
     static void test15()
     {
-
+    	Orangutan or = new Orangutan();
+    	Panda p1 = new Panda();
+    	Panda p2 = new Panda();
+    	Tile t1 = new Tile();
+    	Tile t2 = new Tile();
+    	Tile t3 = new Tile();
+    	Tile t4 = new Tile();
+    	
+    	or.setIsOn(t3);
+    	or.setNextAnimal(p1);
+    	
+    	p1.setIsOn(t2);
+    	p1.setPrevAnimal(or);
+    	p1.setNextAnimal(p2);
+    	
+    	p2.setIsOn(t1);
+    	p2.setNextAnimal(null);
+    	p2.setPrevAnimal(p1);
+    	
+    	t1.setContains(p2);
+    	t2.setContains(p1);
+    	t3.setContains(or);
+    	
+    	or.move(t4);
+    	
+    	
     }
 
     // Orangutan steps to Wardrobe with Panda chain

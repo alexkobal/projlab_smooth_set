@@ -1,8 +1,10 @@
 
 
+
+
 public class LazyPanda extends Panda {
 	private int sleepTime; //Jelenlegi alv�si id�
-	private final int pandasRegularSleepTime; //Pand�ra jellemz� alv�si id�
+	private int pandasRegularSleepTime; //Pand�ra jellemz� alv�si id�
 	
 	public LazyPanda(int n) {
 		pandasRegularSleepTime = n;
@@ -21,7 +23,10 @@ public class LazyPanda extends Panda {
 		sleepTime = pandasRegularSleepTime;
 
 		//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
+		
+		Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
 		leaveTile(ac.getIsOn());
+		Main.printer.returnFromFunctionCall();
 		return false;
 	}
 	
