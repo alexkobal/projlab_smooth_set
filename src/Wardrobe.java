@@ -17,6 +17,10 @@ public class Wardrobe extends AThing{
      * </p>
      */
     private Wardrobe outPoint;
+    
+    public void setOutPoint(Wardrobe wd) {
+    	outPoint = wd;
+    }
 
     /**
      * pushOut Animal

@@ -216,6 +216,37 @@ public class Main
     // Orangutan steps to Wardrobe with Panda chain
     static void test16()
     {
+    	Orangutan or = new Orangutan();
+    	Panda p1 = new Panda();
+    	Wardrobe in_wd = new Wardrobe();
+    	Wardrobe out_wd = new Wardrobe();
+    	Tile t1 = new Tile();
+    	Tile t2 = new Tile();
+    	Tile t3 = new Tile();
+    	Tile t4 = new Tile();
+    	Tile t5 = new Tile();
+    	Tile t6 = new Tile();
+    	
+    	or.setIsOn(t1);
+    	or.setNextAnimal(p1);
+    	
+    	p1.setIsOn(t2);
+    	p1.setPrevAnimal(or);
+    	
+    	in_wd.setIsOn(t3);
+    	in_wd.setOutPoint(out_wd);
+    	
+    	out_wd.setIsOn(t4);
+    	out_wd.setOutPoint(in_wd);
+    	
+    	t1.setContains(or);
+    	t2.setContains(p1);
+    	t3.setContains(in_wd);
+    	t4.setContains(out_wd);
+    	t4.addNeighbor(t5);
+    	
+    	or.move(t3);
+    	or.move(t6);
 
     }
 }
