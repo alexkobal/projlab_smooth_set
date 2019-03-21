@@ -169,7 +169,14 @@ public class Main
     // Controller steps an unchained panda randomly
     static void test13()
     {
+		RegularTile pTile = new RegularTile();
+		RegularTile randTile = new RegularTile();
+		Panda panda = new Panda();
 
+		pTile.addNeighbor(randTile);
+		pTile.placeThing(panda);
+
+		Controller.movePandaRandomly(panda);
     }
 
     // Panda breaks BrokenTile with its move and falls

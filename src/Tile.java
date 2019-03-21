@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Tile
+public abstract class Tile
 {
     protected AThing contains;          //protected, hogy a BrokenTile ne getteljen/setteljen
     protected ArrayList<Tile> neighbors;

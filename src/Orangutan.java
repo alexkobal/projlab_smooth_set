@@ -36,6 +36,7 @@ public class Orangutan extends Animal{
 		boolean placeThing_res = tile.placeThing(this);
 		if(placeThing_res){
 			prevTile = tile;
+			tile.loseLife();
 			leaveTile(tile);
 			if(nextAnimal != null) {
 				nextAnimal.move(prevTile);
