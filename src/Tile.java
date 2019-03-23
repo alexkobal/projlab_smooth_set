@@ -34,26 +34,20 @@ public abstract class Tile
         {
             return contains.hitBy(vm);
         }
-
-        // UNDER CONSTRUCTION
-        return setContains(vm);
+        return false;
     }
     public boolean placeThing(GameMachine gm){
         if(contains != null)
         {
             return contains.hitBy(gm);
         }
-
-        // UNDER CONSTRUCTION
-        return setContains(gm);
+        return false;
     }
     public boolean placeThing(Armchair armchair) {
         if (contains != null) {
             return contains.hitBy(armchair);
         }
-
-        // UNDER CONSTRUCTION
-        return setContains(armchair);
+        return false;
     }
 
     /*
@@ -92,22 +86,21 @@ public abstract class Tile
     //a csempe, és utána beállítja a contains-t booleannal tér vissza, hogy ezt a
     //placeThing-ben felhasználhassuk. Így ha be szeretnénk állítani a tárgyat a
     //csempén, mindíg a placeThing-et használjuk.
-    protected boolean setContains(AThing thing)
-    {
-        if(contains == null) {
-            contains = thing;
-            thing.setIsOn(this);
-            return true;
-        }
-        return false;
-    }
+	protected boolean setContains(AThing thing)
+	{
+		if(contains == null) {
+			contains = thing;
+			thing.setIsOn(this);
+			return true;
+		}
+		return false;
+	}
 
-    public AThing getContains()
-    {
-        return contains;
-    }
+	public AThing getContains() {
+		return contains;
+	}
 
-    public void clearTile(){
+	public void clearTile(){
     	contains = null;
 	}
 
