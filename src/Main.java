@@ -157,7 +157,42 @@ public class Main
     // Two Orangutans enter
     static void test3()
     {
-
+    	
+    	Tile entryTile = new Tile();
+    	Tile emptyTile = new Tile();
+    	Tile nextTile = new Tile();
+    	
+    	Entry e = new Entry(emptyTile);
+    	
+    	
+    	emptyTile.addNeighbor(entryTile);
+    	emptyTile.addNeighbor(nextTile);
+    	nextTile.addNeighbor(emptyTile);
+    	
+    	//entryTile.placeThing(e);
+    	
+    	e.setIsOn(entryTile);
+    	
+    	printer.functionCall("e", "addOrangutan", "2");
+    	e.addOrangutan(2);
+        printer.returnFromFunctionCall();
+        
+        System.out.print("\n**** 1 korrel kesobb ****\n\n");
+    	
+    	
+        printer.functionCall("e", "nextTurn");
+    	e.nextTurn();
+    	printer.returnFromFunctionCall();
+    	
+    	System.out.print("\n**** 1 korrel kesobb ****\n\n");
+    	
+    	
+    	((Orangutan) emptyTile.contains).move(nextTile);
+    	
+    	printer.functionCall("e", "nextTurn");
+    	e.nextTurn();
+    	printer.returnFromFunctionCall();
+    	
     }
 
     // Basic hitBy
@@ -224,13 +259,41 @@ public class Main
     // Gamemachine notifies ScaredPanda
     static void test8()
     {
-
+    	RegularTile tile = new RegularTile();
+    	RegularTile n1 = new RegularTile();
+    	RegularTile n2 = new RegularTile();
+    	GameMachine gm = new GameMachine(0);
+    	ScaredPanda sPanda = new ScaredPanda();
+    	
+    	gm.setIsOn(tile);
+    	tile.setContains(gm);
+    	
+    	sPanda.setIsOn(n1);
+    	n1.setContains(sPanda);
+    	
+    	tile.addNeighbor(n1);
+    	tile.addNeighbor(n2);
+    	
+    	printer.functionCall("gm", "effect");
+    	gm.effect();
+    	printer.returnFromFunctionCall();
+    	
     }
 
     // Panda leaves chain
     static void test9()
     {
-
+    	Panda panda = new Panda();
+    	Panda nextPanda = new Panda();
+    	Orangutan animal = new Orangutan();
+    	
+    	
+    	animal.connectChain(nextPanda);
+    	animal.connectChain(panda);
+    	
+    	printer.functionCall("panda", "unchain");
+    	panda.unchain();
+    	printer.returnFromFunctionCall();
     }
 
     // Stucked Orangutan
@@ -278,7 +341,16 @@ public class Main
     // Single Orangutan steps to an empty tile
     static void test12()
     {
-
+    	Orangutan o = new Orangutan();
+    	Tile oTile = new Tile();
+    	Tile newTile = new Tile();
+    	
+    	oTile.placeThing(o);
+    	oTile.addNeighbor(newTile);
+    	
+    	printer.functionCall("o", "move", "emptyTile");
+    	o.move(newTile);
+    	printer.returnFromFunctionCall();
     }
 
     // Controller steps an unchained panda randomly
