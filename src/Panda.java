@@ -67,9 +67,9 @@ public class Panda extends Animal {
 	public void move(Tile tile) {
 		boolean placeThing_res = tile.placeThing(this);
 		if (placeThing_res) {
-			prevTile = tile;
+			prevTile = isOn;
 			tile.loseLife();
-			leaveTile(tile);
+			leaveTile(isOn);
 			if (nextAnimal != null) {
 				nextAnimal.move(prevTile);
 			}

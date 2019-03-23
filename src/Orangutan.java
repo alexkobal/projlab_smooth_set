@@ -17,27 +17,12 @@ public class Orangutan extends Animal{
 	 */
 	
 	public void move(Tile tile) {
-		/*
-		Main.printer.functionCall("tile", "placeThing", "this");
-		boolean placeThing_res = tile.placeThing(this);
-		Main.printer.returnFromFunctionCall();
-		
-		if( placeThing_res ) {
-			Main.printer.functionCall("prevAnimal", "move", "prevTile");
-			prevAnimal.move(prevTile);
-			Main.printer.returnFromFunctionCall();
-		} //Ha siker�lt mozognia a lehets�ges l�ncot h�zza maga ut�n
-		else {
-			Main.printer.functionCall("prevAnimal", "unchain");
-			prevAnimal.unchain();
-			Main.printer.returnFromFunctionCall();
-		} //Ha nem siker�lt mozogni felbomlasztja a l�ncot
-		*/
+
 		boolean placeThing_res = tile.placeThing(this);
 		if(placeThing_res){
-			prevTile = tile;
+			prevTile = isOn;
 			tile.loseLife();
-			leaveTile(tile);
+			leaveTile(isOn);
 			if(nextAnimal != null) {
 				nextAnimal.move(prevTile);
 			}
