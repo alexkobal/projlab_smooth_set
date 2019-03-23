@@ -14,6 +14,11 @@ public abstract class Animal extends AThing {
 		this.nextAnimal = nextAnimal;
 	}
 
+	public void setPrevTile(Tile prevTile)
+	{
+		this.prevTile = prevTile;
+	}
+	
 	public Animal getPrevAnimal() {
 		return prevAnimal;
 	}

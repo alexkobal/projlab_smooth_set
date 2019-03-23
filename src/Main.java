@@ -80,35 +80,78 @@ public class Main
     // Orangutan exits with two pandas
     static void test1()
     {
-        System.out.println("test print");
-        RegularTile tile = new RegularTile();
-        Orangutan orangutan = new Orangutan();
-        Panda panda = new Panda();
-        tile.setContains(panda);
-        tile.placeThing(orangutan);
-        System.out.println("end test print");
+    	Exit exit = new Exit();
+        RegularTile exitTile = new RegularTile();
+        exit.setIsOn(exitTile);
+        exitTile.setContains(exit);
+        
+        
+        Orangutan o = new Orangutan();
+        RegularTile o_tile = new RegularTile();
+        o.setIsOn(o_tile);
+        o_tile.setContains(o);
+       
+        Panda p1 = new Panda();
+        RegularTile p1_tile = new RegularTile();
+        p1.setIsOn(p1_tile);
+        p1_tile.setContains(p1);
+        
+        Panda p2 = new Panda();
+        RegularTile p2_tile = new RegularTile();
+        p2.setIsOn(p2_tile);
+        p2_tile.setContains(p2);
+        
+        o.setPrevTile(p1_tile);
+        p1.setPrevTile(p2_tile);
+        
+        o.setNextAnimal(p1);
+        p1.setPrevAnimal(o);
+        p1.setNextAnimal(p2);
+        p2.setPrevAnimal(p1);
+        
+        
+        printer.functionCall("o", "move", "exitTile");
+        o.move(exitTile);
+        printer.returnFromFunctionCall();
+        
+        
+        System.out.print("\n**** 1 korrel kesobb ****\n\n");
+        printer.functionCall("exit", "nextTurn");
+        exit.nextTurn();
+        printer.returnFromFunctionCall();
+        
+        System.out.print("\n**** 1 korrel kesobb ****\n\n");
+        printer.functionCall("exit", "nextTurn");
+        exit.nextTurn();
+        printer.returnFromFunctionCall();
     }
 
     // Orangutan with a chained panda hits a standalone Panda
     static void test2()
     {
-        RegularTile tile = new RegularTile();
-        RegularTile n1 = new RegularTile();
-        RegularTile n2 = new RegularTile();                 // creating objects
-        VendingMachine vm = new VendingMachine(0);
-        Panda panda = new Panda();
-
-        vm.setIsOn(tile);
-        tile.setContains(vm);  // placing vm on tile
-
-        panda.setIsOn(n1);
-        n1.setContains(panda); // placing panda on n1
-
-        tile.addNeighbor(n1);
-        tile.addNeighbor(n2);  // blank neighbor
-
-        vm.effect();
-
+    	Orangutan o = new Orangutan();
+        RegularTile o_tile = new RegularTile();
+        o.setIsOn(o_tile);
+        o_tile.setContains(o);
+       
+        Panda p1 = new Panda();
+        RegularTile p1_tile = new RegularTile();
+        p1.setIsOn(p1_tile);
+        p1_tile.setContains(p1);
+        
+        Panda p2 = new Panda();
+        RegularTile p2_tile = new RegularTile();
+        p2.setIsOn(p2_tile);
+        p2_tile.setContains(p2);
+        
+        o.setPrevTile(p1_tile);
+        
+        o.setNextAnimal(p1);
+        p1.setPrevAnimal(o);
+        
+        printer.functionCall("o", "move", "tileOfFreePanda");
+        o.move(p2_tile);
+        printer.returnFromFunctionCall();
     }
 
     // Two Orangutans enter
@@ -126,7 +169,27 @@ public class Main
     // Orangutan uses Wardrobe
     static void test5()
     {
-
+    	Orangutan o = new Orangutan();
+        RegularTile o_tile = new RegularTile();
+        o.setIsOn(o_tile);
+        o_tile.setContains(o);
+        
+    	Wardrobe w1 = new Wardrobe();
+    	RegularTile w1_tile = new RegularTile();
+    	w1.setIsOn(w1_tile);
+        w1_tile.setContains(w1);
+        
+    	Wardrobe w2 = new Wardrobe();
+    	RegularTile w2_tile = new RegularTile();
+    	w2.setIsOn(w2_tile);
+        w2_tile.setContains(w2);
+        
+        w1.setOutPoint(w2);
+        w2_tile.addNeighbor(new Tile());
+        
+        printer.functionCall("o", "move", "w1_tile");
+        o.move(w1_tile);
+        printer.returnFromFunctionCall();
     }
 
     // Armchair notifies LazyPanda
@@ -138,7 +201,24 @@ public class Main
     // VendingMachine notifies JumpingPanda
     static void test7()
     {
+        RegularTile tile = new RegularTile();
+        RegularTile n1 = new RegularTile();
+        RegularTile n2 = new RegularTile();                 // creating objects
+        VendingMachine vm = new VendingMachine(0);
+        JumpingPanda panda = new JumpingPanda();
 
+        vm.setIsOn(tile);
+        tile.setContains(vm);  // placing vm on tile
+
+        panda.setIsOn(n1);
+        n1.setContains(panda); // placing panda on n1
+
+        tile.addNeighbor(n1);
+        tile.addNeighbor(n2);  // blank neighbor
+
+        printer.functionCall("vm", "effect");
+        vm.effect();
+        printer.returnFromFunctionCall();
     }
 
     // Gamemachine notifies ScaredPanda
@@ -162,7 +242,37 @@ public class Main
     // Orangutan hits chain
     static void test11()
     {
-
+    	Orangutan o = new Orangutan();
+        RegularTile o_tile = new RegularTile();
+        o.setIsOn(o_tile);
+        o_tile.setContains(o);
+        
+        Orangutan ch_o = new Orangutan();
+        RegularTile ch_o_tile = new RegularTile();
+        ch_o.setIsOn(ch_o_tile);
+        ch_o_tile.setContains(ch_o);
+        
+        Panda p1 = new Panda();
+        RegularTile p1_tile = new RegularTile();
+        p1.setIsOn(p1_tile);
+        p1_tile.setContains(p1);
+        
+        Panda p2 = new Panda();
+        RegularTile p2_tile = new RegularTile();
+        p2.setIsOn(p2_tile);
+        p2_tile.setContains(p2);
+        
+        ch_o.setPrevTile(p1_tile);
+        p1.setPrevTile(p2_tile);
+        
+        ch_o.setNextAnimal(p1);
+        p1.setPrevAnimal(ch_o);
+        p1.setNextAnimal(p2);
+        p2.setPrevAnimal(p1);
+        
+        printer.functionCall("o", "move", "tileOfChainedPanda");
+        o.move(p1_tile);
+        printer.returnFromFunctionCall();
     }
 
     // Single Orangutan steps to an empty tile
