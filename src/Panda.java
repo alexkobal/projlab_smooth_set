@@ -17,7 +17,16 @@ public class Panda extends Animal {
 			prevAnimal.unchain();
 		}
 		
-		//Megfelel� setterek
+		Tile orTile_temp = or.getIsOn(); //Temporális változó
+		or.setPrevTile(or.getIsOn());
+		or.setIsOn(this.isOn);
+
+		isOn.setContains(or);
+
+		prevTile = isOn;
+		isOn = orTile_temp;
+		orTile_temp.setContains(this);
+
 		return true;
 	}
 	
@@ -27,19 +36,28 @@ public class Panda extends Animal {
 	 * When a Panda has to release its chain, this function will be called.
 	 * The function will recursively find the end of the chain, then will release the hands one by one.
 	 */
+
+
 	
 	public void unchain() {
-		
-		if(prevAnimal == null) {
-			//Megfelel� setterek + return, (rekurzi� v�ge)
+		if( isInChain() ) {
+
+			if (nextAnimal == null) {
+				//Megfelel� setterek + return, (rekurzi� v�ge)
+				prevAnimal.setNextAnimal(null);
+				prevAnimal = null;
+				return;
+			} else {//Rekurziv h�v�sok folytat�sa
+				Main.printer.functionCall("prevAnimal", "unchain");
+				prevAnimal.unchain();
+				Main.printer.returnFromFunctionCall();
+			}
+
+			//megfelel� setter + return
+			prevAnimal.setNextAnimal(null);
+			prevAnimal = null;
 			return;
 		}
-		else {//Rekurziv h�v�sok folytat�sa
-			prevAnimal.unchain();
-		}
-		
-		//megfelel� setter + return
-		return;
 	}
 	
 	/**
@@ -66,7 +84,11 @@ public class Panda extends Animal {
 	
 	public void move(Tile tile) {
 		if( tile.placeThing(this) ) {
-			tile.loseLife(); //Ha siker�l l�pnie, levon egyet a csempe �let�b�l ahov� l�pett
+			if(nextAnimal != null){
+				Main.printer.functionCall("nextAnimal", "move", "prevTile");
+				nextAnimal.move(prevTile);
+				Main.printer.returnFromFunctionCall();
+			}
 		}
 	}
 	
@@ -79,6 +101,9 @@ public class Panda extends Animal {
 	public void kill() {
 		unchain();
 		//+Megfelel� setterek
+		isOn.setContains(null);
+		//Controller.removePanda(this) - ha majd lesz Controller
+		isOn = null;
 		
 	}
 

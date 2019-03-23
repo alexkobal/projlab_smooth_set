@@ -53,6 +53,8 @@ public class Orangutan extends Animal{
 		Main.printer.returnFromFunctionCall();
 		count--;
 		//Plusz a sz�ks�ges setterek
+		isOn.setContains(null);
+		isOn = null;
 	}
 
 	@Override
