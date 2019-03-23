@@ -1,3 +1,10 @@
+/**
+ * BrokenTile
+ * 
+ * <p>Breakable type of Tile. 
+ * <p> 'lifeTime' holds the remaining number of steps the tile can bear until breaking. (default 20)
+ */
+
 public class BrokenTile extends Tile
 {
     private int lifeTime;
@@ -7,16 +14,24 @@ public class BrokenTile extends Tile
         lifeTime = 20;
     }
 
+    
+    /**
+     * loseLife()
+     * <p> Decreases the 'lifeTime' by one. 
+     * If it reaches 0 then the function unlinks the tile and kills its 'contains'</p>  
+     * 
+     */    
+    @Override
     public void loseLife()
     {
         lifeTime--;
         if(lifeTime == 0)
         {
-            Main.printer.functionCall("bt", "unlink");
+            Main.printer.functionCall("this", "unlink");		//selfstimulus
             unlink();
             Main.printer.returnFromFunctionCall();
 
-            Main.printer.functionCall("Animal", "kill"); //What is name??
+            Main.printer.functionCall("contains", "kill");
             ((Animal) contains).kill();
             Main.printer.returnFromFunctionCall();
         }

@@ -19,14 +19,18 @@ public class LazyPanda extends Panda {
 	 */
 	
 	public boolean hitBy(Armchair ac) {
+		if(!ac.isOccupied())
+		{
+			sleepTime = pandasRegularSleepTime;
 
-		sleepTime = pandasRegularSleepTime;
+			//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
+			
+			Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
+			leaveTile(ac.getIsOn());
+			Main.printer.returnFromFunctionCall();
+			return false;
+		}
 
-		//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
-		
-		Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
-		leaveTile(ac.getIsOn());
-		Main.printer.returnFromFunctionCall();
 		return false;
 	}
 	

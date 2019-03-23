@@ -53,6 +53,7 @@ public class Main
                 e.printStackTrace();
             }
 
+            System.out.println();
             System.out.println("Uj forgatokonyv futtatasa? <I/N>");
             c = sc.next().charAt(0);
 

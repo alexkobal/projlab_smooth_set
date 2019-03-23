@@ -1,8 +1,19 @@
 import java.util.*;
 
+/**
+ * Tile superclass.
+ * 
+ * <p>The in-game objects are located on a map paved with tiles.
+ * Tiles are either breakable or non-breakable. 
+ * This class collects all the common behaviour of these two types and has compatibility purposes.</p>  
+ * 
+ * <p> Field 'contains' is the in-game object currently standing on the given tile.
+ * List of 'neighbors' stores all the adjacent tiles.</p>  
+ * 
+ */
 public class Tile
 {
-    protected AThing contains;          //protected, hogy a BrokenTile ne getteljen/setteljen
+    protected AThing contains;          
     protected ArrayList<Tile> neighbors;
 
     public Tile()
@@ -11,113 +22,142 @@ public class Tile
         neighbors = new ArrayList<Tile>();
     }
 
-
-    /*public boolean placeThing(AThing thing)
+    /**
+     * placeThing(panda: Panda)
+     * <p>Operation that checks whether our tile is empty and if so then it steps the panda there. 
+     * Otherwise it asks the non-null 'contains' if it allows a panda to step on it by calling the proper hitBy() function.</p>  
+     * 
+     * @param panda The panda who wants to step on the tile
+     * @return A boolean which indicates the success of a step. (true = successful, false = panda cannot step here)
+     */
+    public boolean placeThing(Panda panda)
     {
         if(contains != null)
         {
-            Main.printer.functionCall("Thing", "hitby", "Thing");   //temporary commented but need to be deleted
-            boolean res = contains.hitBy(thing);
-            Main.printer.returnFromFunctionCall();
-
+        	Main.printer.functionCall("contains", "hitBy", "panda");
+        	boolean res = contains.hitBy(panda);     
+        	Main.printer.returnFromFunctionCall();
+            return res;
+        } 
+        
+    	Main.printer.functionCall("panda", "leaveTile", "tile");
+    	panda.leaveTile(this);
+    	Main.printer.returnFromFunctionCall();
+    	return true;        
+    }
+    
+    /**
+     * placeThing(orangutan: Orangutan)
+     * <p>Operation that checks whether our tile is empty and if so then it steps the orangutan there. 
+     * Otherwise it asks the non-null 'contains' if it allows an orangutan to step on it by calling the proper hitBy() function.</p>  
+     * 
+     * @param orangutan The orangutan who wants to step on the tile
+     * @return A boolean which indicates the success of a step. (true = successful, false = orangutan cannot step here)
+     */
+    public boolean placeThing(Orangutan orangutan)
+    {
+    	if(contains != null)
+        {
+        	Main.printer.functionCall("contains", "hitBy", "orangutan");
+        	boolean res = contains.hitBy(orangutan);     
+        	Main.printer.returnFromFunctionCall();
+            return res;
+        } 
+        
+    	Main.printer.functionCall("orangutan", "leaveTile", "tile");
+    	orangutan.leaveTile(this);
+    	Main.printer.returnFromFunctionCall();
+    	return true;  
+    }
+    
+    /**
+     * placeThing(vm: VendingMachine)
+     * <p>The operation checks whether our tile is empty. If it's not then the method forwards the notification to 'contains' by calling its hitBy(vm)
+     * who will or will not react to that. Only JumpingPanda will react, that's the only scenario we return true. </p>      * 
+     * 
+     * @param vm The vending machine that wants to notify this tile's 'contains'.
+     * @return Returns the success of the notifying operation. (true: JumpingPanda was standing on this tile, false otherwise)
+     */
+    public boolean placeThing(VendingMachine vm)
+    {
+    	if(contains != null)
+        {
+        	Main.printer.functionCall("contains", "hitBy", "vm");
+        	boolean res = contains.hitBy(vm);     
+        	Main.printer.returnFromFunctionCall();
             return res;
         }
 
-        // UNDER CONSTRUCTION
-
-        return false;
-    }*/
-
-    public boolean placeThing(Panda panda){
-        if(contains != null)
-        {
-            return contains.hitBy(panda);
-        }
-
-        // UNDER CONSTRUCTION
-
         return false;
     }
-    public boolean placeThing(Orangutan orangutan){
+    
+    /**
+     * placeThing(gm: GameMachine)
+     * <p>The operation checks whether our tile is empty. If it's not then the method forwards the notification to 'contains' by calling its hitBy(gm)
+     * who will or will not react to that. Only ScaredPanda will react, that's the only scenario we return true.</p>     
+     * 
+     * @param gm The game machine that wants to notify this tile's 'contains'.
+     * @return Returns the success of the notifying operation. (true: ScaredPanda was standing on this tile, false otherwise)
+     */
+    public boolean placeThing(GameMachine gm)
+    {
         if(contains != null)
         {
-            return contains.hitBy(orangutan);
+        	Main.printer.functionCall("contains", "hitBy", "gm");
+        	boolean res = contains.hitBy(gm);     
+        	Main.printer.returnFromFunctionCall();
+            return res;
         }
-
-        // UNDER CONSTRUCTION
-
+        
         return false;
     }
-    public boolean placeThing(VendingMachine vm){
-        if(contains != null)
-        {
-            return contains.hitBy(vm);
-        }
-
-        // UNDER CONSTRUCTION
-
-        return false;
-    }
-    public boolean placeThing(GameMachine gm){
-        if(contains != null)
-        {
-            return contains.hitBy(gm);
-        }
-
-        // UNDER CONSTRUCTION
-
-        return false;
-    }
+    
+    /**
+     * placeThing(armchair: Armchair)
+     * <p>The operation checks whether our tile is empty. If it's not then the method forwards the notification to 'contains' by calling its hitBy(armchair)
+     * who will or will not react to that. Only LazyPandas can react. They react if the armchair is empty. In any other case we return false</p>   
+     * 
+     * @param armchair The armchair that wants to notify this tile's 'contains'.
+     * @return Returns the success of the notifying operation. (true: LazyPanda was standing on this tile and armchair is empty, false otherwise)
+     */
     public boolean placeThing(Armchair armchair){
         if(contains != null)
         {
-            return contains.hitBy(armchair);
+        	Main.printer.functionCall("contains", "hitBy", "armchair");
+        	boolean res = contains.hitBy(armchair);     
+        	Main.printer.returnFromFunctionCall();
+            return res;
         }
-
-        // UNDER CONSTRUCTION
 
         return false;
     }
 
-
-
-
-    /*
-    * Minden nem üres szomszédot értesítünk, hogy a rajtunk lévő AThing (itt most Armchair, GameMachine, VendingMachine)
-    * akar valamit (=lejátszódik az effect() függvénye)
-    *
-    */
-    /*
-    public void notifyNeighbors()
-    {
-        for(Tile neighbor : neighbors)
-        {
-            if(neighbor.getContains() != null)
-            {
-                Main.printer.functionCall("nt", "placeThing");  // Need to be implemented in AThing and deleted here
-                placeThing(contains);
-                Main.printer.returnFromFunctionCall();
-            }
-        }
-    }*/
-
-    // virtuális függvény, hogy a sima tile kompatibilis legyen a brokentile-lal
+    /**
+     * loseLife()
+     * <p>Virtual method. 
+     * Decreases the lifetime of a breakable type tile by 1.
+     * Does not do anything in this context, only has compatibility purposes.
+     * 
+     */
     public void loseLife(){}
 
-    // Az adott csempét elfelejtetjük a szomszédokkal
+    /**
+     * unlink()
+     * <p>Makes the tile unreachable from neighbors by removing it from their list of 'neighbors'.
+     * 
+     */
     public void unlink()
     {
         for(Tile neighbor : neighbors)
         {
-            neighbor.getNeighbors().remove(neighbor);
+            neighbor.getNeighbors().remove(this);
         }
     }
-
+    
     public ArrayList<Tile> getNeighbors()
     {
         return neighbors;
     }
-
 
     public void addNeighbor(Tile tile)
     {

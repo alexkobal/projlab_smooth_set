@@ -23,7 +23,7 @@ public class Armchair extends AThing implements IPandaEffective{
 		{
 			if(neighbor.getContains() != null)
 			{
-				Main.printer.functionCall("nt", "placeThing");
+				Main.printer.functionCall("nt", "placeThing", "armchair");
 				neighbor.placeThing(this);
 				Main.printer.returnFromFunctionCall();
 			}
