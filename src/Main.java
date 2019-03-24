@@ -406,7 +406,19 @@ public class Main
     // Controller steps an unchained panda randomly
     static void test13()
     {
+		Panda panda = new Panda();
+		Tile pTile = new RegularTile();
+		Tile randTile = new RegularTile();
+		Controller controller = new Controller();
 
+		pTile.setContains(panda);
+		panda.setIsOn(pTile);
+
+		pTile.addNeighbor(randTile);
+
+		printer.functionCall("controller", "movePandaRandomly", "panda");
+		controller.movePandaRandomly(panda);
+		printer.returnFromFunctionCall();
     }
 
     // Panda breaks BrokenTile with its move and falls

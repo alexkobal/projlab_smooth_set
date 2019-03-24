@@ -162,11 +162,12 @@ public class Tile
     public void addNeighbor(Tile tile)
     {
     	for(Tile n : neighbors) {
-			if (!n.equals(tile)) {
-				neighbors.add(tile);
-				tile.getNeighbors().add(this);
+			if (n.equals(tile)) {
+				return;
 			}
 		}
+		neighbors.add(tile);
+		tile.getNeighbors().add(this);
     }
 
     public void setContains(AThing thing)
