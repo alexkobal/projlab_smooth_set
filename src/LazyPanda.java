@@ -22,12 +22,17 @@ public class LazyPanda extends Panda {
 		if(!ac.isOccupied())
 		{
 			sleepTime = pandasRegularSleepTime;
+			ac.setPanda(this);
+			prevTile = isOn;
+			isOn = ac.getIsOn();
+			prevTile.setContains(null);
+
 
 			//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
 			
-			Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
+			/*Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
 			leaveTile(ac.getIsOn());
-			Main.printer.returnFromFunctionCall();
+			Main.printer.returnFromFunctionCall();*/
 			return false;
 		}
 
@@ -41,26 +46,20 @@ public class LazyPanda extends Panda {
 	 * If it is 0, it can move, otherwise not.
 	 * @param  tile is the Tile where the Panda should move.
 	 */
+
+
 	
 	public void move(Tile tile) {
 		if(sleepTime == 0) {
+			Main.printer.functionCall("super", "move", "tile");
 			super.move(tile);
+			Main.printer.returnFromFunctionCall();
 		}
 		else {
 			sleepTime -= 1;
 		}
 	}
-	
-	/**
-	 * leaveTile(Tile)
-	 * <p>
-	 * If the move is possible, this function will be called.
-	 * @param  t is the Tile where the Panda is able to move.
-	 */
-	
-	public void leaveTile(Tile t) {
-		//Megfelel� setterek de �gy, hogy a fotelre �ll�tja saj�t mag�t
-	}
+
 	
 	
 	/**
@@ -72,7 +71,9 @@ public class LazyPanda extends Panda {
 	 */
 	public boolean hitBy(Orangutan or) {
 		if(sleepTime == 0) {
+			Main.printer.functionCall("super", "hitBy", "or");
 			super.hitBy(or);
+			Main.printer.returnFromFunctionCall();
 			return true;
 		}
 		else {

@@ -24,16 +24,16 @@ public class Orangutan extends Animal{
 		
 		if(nextAnimal != null)
 		{
-			if( placeThing_res ) {
+			if( placeThing_res && nextAnimal != null ) {
 				Main.printer.functionCall("nextAnimal", "move", "prevTile");
 				nextAnimal.move(prevTile);
 				Main.printer.returnFromFunctionCall();
-			} //Ha siker�lt mozognia a lehets�ges l�ncot h�zza maga ut�n
-			else {
+			} //Ha sikerült mozognia a lehetséges láncot húzza maga után
+			else if(nextAnimal != null) {
 				Main.printer.functionCall("nextAnimal", "unchain");
 				nextAnimal.unchain();
 				Main.printer.returnFromFunctionCall();
-			} //Ha nem siker�lt mozogni felbomlasztja a l�ncot
+			} //Ha nem sikerült mozogni felbomlasztja a láncot
 		}
 		
 		
@@ -53,6 +53,8 @@ public class Orangutan extends Animal{
 		Main.printer.returnFromFunctionCall();
 		count--;
 		//Plusz a sz�ks�ges setterek
+		isOn.setContains(null);
+		isOn = null;
 	}
 
 	@Override

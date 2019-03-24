@@ -299,6 +299,26 @@ public class Main
     // Stucked Orangutan
     static void test10()
     {
+        Orangutan or = new Orangutan();
+        Panda p1 = new Panda();
+        GameMachine gm = new GameMachine(5);
+        Tile t1 = new Tile();
+        Tile t2 = new Tile();
+        Tile t3 = new Tile();
+
+        or.setIsOn(t1);
+        or.setNextAnimal(p1);
+
+        p1.setIsOn(t2);
+        p1.setPrevAnimal(or);
+
+        gm.setIsOn(t3);
+
+        t1.setContains(or);
+        t2.setContains(p1);
+        t3.setContains(gm);
+
+        or.move(t3);
 
     }
 
@@ -362,6 +382,14 @@ public class Main
     // Panda breaks BrokenTile with its move and falls
     static void test14()
     {
+        Panda p1 = new Panda();
+        BrokenTile bt = new BrokenTile(1);
+        Tile t1 = new Tile();
+
+        p1.setIsOn(t1);
+        t1.setContains(p1);
+
+        p1.move(bt);
 
     }
 

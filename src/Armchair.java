@@ -29,4 +29,6 @@ public class Armchair extends AThing implements IPandaEffective{
 			}
 		}
 	}
+
+	public void setPanda(LazyPanda p){panda = p;}
 }

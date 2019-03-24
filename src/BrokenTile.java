@@ -14,6 +14,8 @@ public class BrokenTile extends Tile
         lifeTime = 20;
     }
 
+    public BrokenTile(int n) {lifeTime = n;} // A teszt idejére csak
+
     
     /**
      * loseLife()
