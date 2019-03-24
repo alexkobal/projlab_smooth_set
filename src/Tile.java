@@ -13,9 +13,28 @@ import java.util.*;
  */
 public class Tile
 {
-    protected AThing contains;          
+    /**
+     * contains
+     * <p>
+     * This can hold the thing, which is on this Tile at the time.
+     */
+    protected AThing contains;
+
+    /**
+     * neighbors
+     * <p>
+     * This is this Tile's list of the neighbors.
+     * The tiles nearby this tile.
+     */
     protected ArrayList<Tile> neighbors;
 
+    /**
+     * Tile contstructor
+     * <p>
+     *     This is the constructor of the Tile class.
+     * </p>
+     * Inizializes the lists, and variables.
+     */
     public Tile()
     {
         contains = null;

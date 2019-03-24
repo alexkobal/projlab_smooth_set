@@ -19,11 +19,10 @@ public class JumpingPanda extends Panda
 	{
 		
 		this.unchain();							
-		//Szerintem érdemes az unchaint tenni előre, mert ha meghalna a panda,
-		//akkor is szét kell szednie a sort, amiben áll
+
 		
-		this.isOn.loseLife();					//Csökkenti az életét a csempének, mert ugrott rajta
-		return true;							//Ha ugrik, akkor true
+		this.isOn.loseLife();
+		return true;
 	}								
 
 }

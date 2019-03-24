@@ -1,5 +1,9 @@
-import java.util.ArrayList;
 
+/**
+ * Panda
+ * <p>
+ * This is Panda which extends the animal class. It represents all Panda kind of objects on the map.
+ **/
 public class Panda extends Animal {
 	
 	/**
@@ -8,8 +12,6 @@ public class Panda extends Animal {
 	 * If the Panda was in another chain, first of all it will release that chain, and will join the new Orangutans chain.
 	 * @param  or is the Orangutan which hits the Panda.
 	 */
-	
-	
 	public boolean hitBy(Orangutan or) {
 		
 		//Mögötte álló lánc felbontása ha van
@@ -36,9 +38,6 @@ public class Panda extends Animal {
 	 * When a Panda has to release its chain, this function will be called.
 	 * The function will recursively find the end of the chain, then will release the hands one by one.
 	 */
-
-
-	
 	public void unchain() {
 		if( isInChain() ) {
 
@@ -65,7 +64,6 @@ public class Panda extends Animal {
 	 * <p>
 	 * Returns whether a Panda is in a chain or not. 
 	 */
-	
 	public boolean isInChain() {
 		if(prevAnimal == null && nextAnimal== null) {
 			return false;
@@ -81,7 +79,6 @@ public class Panda extends Animal {
 	 * When a Panda wants to move to a tile this function will be called.
 	 * @param  tile is the Tile where the Panda wants to move.
 	 */
-	
 	public void move(Tile tile) {
 		Main.printer.functionCall("tile", "placeThing", "this");
 		boolean placeThing_res = tile.placeThing(this);
@@ -100,8 +97,7 @@ public class Panda extends Animal {
 	 * kill
 	 * <p>
 	 * When a Panda dies this function will be called..
-	 */	
-	
+	 */
 	public void kill() {
 		unchain();
 		//+Megfelel� setterek

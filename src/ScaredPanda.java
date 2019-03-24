@@ -6,6 +6,7 @@
 **/
 public class ScaredPanda extends Panda
 {
+
 	/**
 	 * HitBy GameMachine
 	 * <p>

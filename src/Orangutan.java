@@ -1,9 +1,9 @@
-import java.util.ArrayList;
 
-/*Main.printer.functionCall("nt", "placeThing");
-neighbor.placeThing(this);
-Main.printer.returnFromFunctionCall();*/
-
+/**
+ * Orangutan
+ * <p>
+ * This is Orangutan which extends the animal class. It represents the Orangutan kind of objects on the map.
+ **/
 public class Orangutan extends Animal{
 	
 	private static int count;
@@ -15,7 +15,6 @@ public class Orangutan extends Animal{
 	 * If the move is not possible the Orangutan will release its chain.
 	 * @param tile is the Tile, where the Orangutan should move.
 	 */
-	
 	public void move(Tile tile) {
 		
 		Main.printer.functionCall("tile", "placeThing", "this");
@@ -45,7 +44,6 @@ public class Orangutan extends Animal{
 	 * When an Orangutan dies, this function will be called.
 	 * The Orangutan will release its chain, then will reduce the count..
 	 */
-	
 	public void kill() {
 		
 		Main.printer.functionCall("prevAnimal", "unchain");
@@ -58,7 +56,5 @@ public class Orangutan extends Animal{
 	}
 
 	@Override
-	public void connectChain(Animal animal) {
-
-	}
+	public void connectChain(Animal animal) { }
 }

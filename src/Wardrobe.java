@@ -10,6 +10,7 @@ import java.util.Random;
  * </p>
  */
 public class Wardrobe extends AThing{
+
     /**
      * Wardrobe outPoint
      * <p>
@@ -20,6 +21,7 @@ public class Wardrobe extends AThing{
     public Wardrobe(Wardrobe outPoint){
         this.outPoint = outPoint;
     }
+
     /**
      * outPoint
      * <p>

@@ -1,11 +1,26 @@
-
-
-
-
+/**
+ * Lazy Panda
+ * <p>
+ * This special panda is sits down if an Armchair nearby notifies about itself.
+ * The panda is sits in the armchair and sleeps in it.
+ **/
 public class LazyPanda extends Panda {
+
+	/**
+	 * sleepTime
+	 * <p>
+	 * This is the variable which defines how long sleeps the panda in an armchair.
+	 */
 	private int sleepTime; //Jelenlegi alv�si id�
 	private int pandasRegularSleepTime; //Pand�ra jellemz� alv�si id�
-	
+
+	/**
+	 * Lazy Panda contstructor
+	 * <p>
+	 *     This is the constructor of the Lazy Panda class.
+	 * </p>
+	 * @param n This is the sleep time that going to be set when a Panda sits into an Armchair.
+	 */
 	public LazyPanda(int n) {
 		pandasRegularSleepTime = n;
 	}
@@ -17,7 +32,6 @@ public class LazyPanda extends Panda {
 	 * It will step to the Tile of the Armchair and will sleep there.
 	 * @param  ac is the Armchair which invites the Panda to sleep.
 	 */
-	
 	public boolean hitBy(Armchair ac) {
 		if(!ac.isOccupied())
 		{
@@ -46,9 +60,6 @@ public class LazyPanda extends Panda {
 	 * If it is 0, it can move, otherwise not.
 	 * @param  tile is the Tile where the Panda should move.
 	 */
-
-
-	
 	public void move(Tile tile) {
 		if(sleepTime == 0) {
 			Main.printer.functionCall("super", "move", "tile");
