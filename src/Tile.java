@@ -14,12 +14,12 @@ import java.util.*;
 public class Tile
 {
     protected AThing contains;          
-    protected ArrayList<Tile> neighbors;
+    protected HashSet<Tile> neighbors;
 
     public Tile()
     {
         contains = null;
-        neighbors = new ArrayList<Tile>();
+        neighbors = new HashSet<>();
     }
 
     /**
@@ -154,7 +154,7 @@ public class Tile
         }
     }
     
-    public ArrayList<Tile> getNeighbors()
+    public HashSet<Tile> getNeighbors()
     {
         return neighbors;
     }
@@ -162,6 +162,7 @@ public class Tile
     public void addNeighbor(Tile tile)
     {
         neighbors.add(tile);
+        tile.getNeighbors().add(this);
     }
 
     public void setContains(AThing thing)

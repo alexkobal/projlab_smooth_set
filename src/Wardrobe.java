@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -40,9 +41,9 @@ public class Wardrobe extends AThing{
      * @param animal This is the animal that is going through the Wardrobe.
      */
     public boolean pushOut(Animal animal){
-        ArrayList<Tile> neighbors = isOn.getNeighbors();
+        HashSet<Tile> neighbors = isOn.getNeighbors();
         for(Tile tile : neighbors){
-            if(tile.getContains() != null){
+            if(tile.getContains() == null){
                 animal.leaveTile(tile);
                 return true;
             }

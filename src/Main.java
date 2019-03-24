@@ -198,6 +198,17 @@ public class Main
     // Basic hitBy
     static void test4()
     {
+		Orangutan orangutan = new Orangutan();
+		Tile oTile = new RegularTile();
+		Tile vmTile = new RegularTile();
+		VendingMachine vm = new VendingMachine(1);
+
+		orangutan.setIsOn(oTile);
+		oTile.setContains(orangutan);
+
+		vm.setIsOn(vmTile);
+		vmTile.setContains(vm);
+
 
     }
 

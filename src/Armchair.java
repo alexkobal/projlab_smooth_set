@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Armchair extends AThing implements IPandaEffective{
 
@@ -18,7 +19,7 @@ public class Armchair extends AThing implements IPandaEffective{
 
 	@Override
 	public void notifyNeighbors() {
-		ArrayList<Tile> neighbors = isOn.getNeighbors();
+		HashSet<Tile> neighbors = isOn.getNeighbors();
 		for(Tile neighbor : neighbors)
 		{
 			if(neighbor.getContains() != null)
