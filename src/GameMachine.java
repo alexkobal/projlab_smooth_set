@@ -27,7 +27,7 @@ public class GameMachine extends AThing implements IPandaEffective{
 		{
 			if(neighbor.getContains() != null)
 			{
-				Main.printer.functionCall("nt", "placeThing");
+				Main.printer.functionCall("nt", "placeThing", "gm");
 				neighbor.placeThing(this);
 				Main.printer.returnFromFunctionCall();
 			}

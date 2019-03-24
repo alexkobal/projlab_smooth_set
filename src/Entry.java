@@ -37,6 +37,11 @@ public class Entry extends AThing{
 	 *     This function places an orangutan on the floor.
 	 * </p>
 	 */
+	public Entry(Tile _entryTile)
+	{
+		entryTile = _entryTile;
+	}
+	
 	public void pushOrangutan(){
 		Orangutan orangutan = new Orangutan();
 		Main.printer.functionCall("entry", "move", "entryTile");

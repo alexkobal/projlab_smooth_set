@@ -14,6 +14,11 @@ public abstract class Animal extends AThing {
 		this.nextAnimal = nextAnimal;
 	}
 
+	public void setPrevTile(Tile prevTile)
+	{
+		this.prevTile = prevTile;
+	}
+	
 	public Animal getPrevAnimal() {
 		return prevAnimal;
 	}
@@ -29,6 +34,11 @@ public abstract class Animal extends AThing {
 	
 	public void leaveTile(Tile t) {
 		//megfelelő setterek ami átmozgatja az állatot (loseLife()- al együtt)
+		t.setContains(this);
+		prevTile = isOn;
+		isOn = t;
+		prevTile.setContains(null);
+		t.loseLife();
 	}
 	
 	public void unchain() {}

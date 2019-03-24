@@ -1,3 +1,9 @@
+/**
+ * Printer
+ * <p> Singleton class that prints the function call tree.
+ *
+ */
+
 public class Printer
 {
 	private static Printer instance = null;
