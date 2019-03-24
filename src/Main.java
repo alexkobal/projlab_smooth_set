@@ -348,7 +348,9 @@ public class Main
         t2.setContains(p1);
         t3.setContains(gm);
 
+        printer.functionCall("or", "move", "t3");
         or.move(t3);
+        printer.returnFromFunctionCall();
 
     }
 
@@ -431,7 +433,9 @@ public class Main
         p1.setIsOn(t1);
         t1.setContains(p1);
 
+        printer.functionCall("p1", "move", "bt");
         p1.move(bt);
+        printer.returnFromFunctionCall();
 
     }
 
@@ -460,8 +464,10 @@ public class Main
     	t1.setContains(p2);
     	t2.setContains(p1);
     	t3.setContains(or);
-    	
+
+    	printer.functionCall("or", "move", "t4");
     	or.move(t4);
+    	printer.returnFromFunctionCall();
     	
     	
     }
@@ -498,9 +504,13 @@ public class Main
     	t3.setContains(in_wd);
     	t4.setContains(out_wd);
     	t4.addNeighbor(t5);
-    	
+
+    	printer.functionCall("or", "move", "t3");
     	or.move(t3);
+    	printer.returnFromFunctionCall();
+    	printer.functionCall("or", "move", "t6");
     	or.move(t6);
+    	printer.returnFromFunctionCall();
 
     }
 }
