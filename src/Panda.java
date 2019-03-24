@@ -12,7 +12,7 @@ public class Panda extends Animal {
 	
 	public boolean hitBy(Orangutan or) {
 		
-		//M�g�tte �ll� l�nc felbont�sa ha van
+		//Mögötte álló lánc felbontása ha van
 		if(prevAnimal != null) {
 			prevAnimal.unchain();
 		}
@@ -83,7 +83,11 @@ public class Panda extends Animal {
 	 */
 	
 	public void move(Tile tile) {
-		if( tile.placeThing(this) ) {
+		Main.printer.functionCall("tile", "placeThing", "this");
+		boolean placeThing_res = tile.placeThing(this);
+		Main.printer.returnFromFunctionCall();
+
+		if( placeThing_res ) {
 			if(nextAnimal != null){
 				Main.printer.functionCall("nextAnimal", "move", "prevTile");
 				nextAnimal.move(prevTile);
