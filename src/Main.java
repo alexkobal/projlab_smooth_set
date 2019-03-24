@@ -209,17 +209,18 @@ public class Main
         o.setIsOn(o_tile);
         o_tile.setContains(o);
         
-    	Wardrobe w1 = new Wardrobe();
+    	Wardrobe w1 = null;
+    	Wardrobe w2 = new Wardrobe(w1);
+    	w1 = new Wardrobe(w2);
+
     	RegularTile w1_tile = new RegularTile();
     	w1.setIsOn(w1_tile);
         w1_tile.setContains(w1);
-        
-    	Wardrobe w2 = new Wardrobe();
+
     	RegularTile w2_tile = new RegularTile();
     	w2.setIsOn(w2_tile);
         w2_tile.setContains(w2);
         
-        w1.setOutPoint(w2);
         w2_tile.addNeighbor(new Tile());
         
         printer.functionCall("o", "move", "w1_tile");
@@ -429,8 +430,11 @@ public class Main
     {
     	Orangutan or = new Orangutan();
     	Panda p1 = new Panda();
-    	Wardrobe in_wd = new Wardrobe();
-    	Wardrobe out_wd = new Wardrobe();
+
+    	Wardrobe in_wd = null;
+    	Wardrobe out_wd = new Wardrobe(in_wd);
+    	in_wd = new Wardrobe(out_wd);
+
     	Tile t1 = new Tile();
     	Tile t2 = new Tile();
     	Tile t3 = new Tile();
@@ -445,11 +449,9 @@ public class Main
     	p1.setPrevAnimal(or);
     	
     	in_wd.setIsOn(t3);
-    	in_wd.setOutPoint(out_wd);
     	
     	out_wd.setIsOn(t4);
-    	out_wd.setOutPoint(in_wd);
-    	
+
     	t1.setContains(or);
     	t2.setContains(p1);
     	t3.setContains(in_wd);

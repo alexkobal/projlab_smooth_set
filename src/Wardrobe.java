@@ -10,6 +10,16 @@ import java.util.Random;
  */
 public class Wardrobe extends AThing{
     /**
+     * Wardrobe outPoint
+     * <p>
+     *     Constructor for class Wardrobe
+     * </p>
+     * @param outPoint Wardrobe to be set as outPoint
+     */
+    public Wardrobe(Wardrobe outPoint){
+        this.outPoint = outPoint;
+    }
+    /**
      * outPoint
      * <p>
      *     This field is a reference to the Wardrobe where the Animal will come out
@@ -29,11 +39,15 @@ public class Wardrobe extends AThing{
      * </p>
      * @param animal This is the animal that is going through the Wardrobe.
      */
-    public void pushOut(Animal animal){
+    public boolean pushOut(Animal animal){
         ArrayList<Tile> neighbors = isOn.getNeighbors();
-        Random random = new Random();
-        animal.move(neighbors.get(random.nextInt() % neighbors.size()));
-        // Nem feltetlen kerul at az allat a kovetkezo mezore.
+        for(Tile tile : neighbors){
+            if(tile.getContains() != null){
+                animal.leaveTile(tile);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
