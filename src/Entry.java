@@ -8,6 +8,16 @@
 public class Entry extends AThing{
 
 	/**
+	 * Entry contstructor
+	 * <p>
+	 *     This is the constructor of the Entry class.
+	 * </p>
+	 * @param entryTile reference to the entry tile that is going to be set.
+	 */
+	public Entry(Tile entryTile){
+		this.entryTile = entryTile;
+	}
+	/**
 	 * entryTile
 	 * <p>
 	 *     This is the Tile where Entry places an Orangutan.
@@ -29,7 +39,9 @@ public class Entry extends AThing{
 	 */
 	public void pushOrangutan(){
 		Orangutan orangutan = new Orangutan();
+		Main.printer.functionCall("entry", "move", "entryTile");
 		orangutan.move(entryTile);
+		Main.printer.returnFromFunctionCall();
 	}
 
 	/**
@@ -52,7 +64,9 @@ public class Entry extends AThing{
 	 */
 	public void nextTurn(){
 		if(orangutansToPush > 0){
+			Main.printer.functionCall("entry", "pushOrangutan");
 			pushOrangutan();
+			Main.printer.returnFromFunctionCall();
 			orangutansToPush--;
 		}
 	}
