@@ -157,7 +157,7 @@ public class Main
     // Two Orangutans enter
     static void test3()
     {
-    	
+
     	Tile entryTile = new Tile();
     	Tile emptyTile = new Tile();
     	Tile nextTile = new Tile();
@@ -186,7 +186,8 @@ public class Main
     	
     	System.out.print("\n**** 1 korrel kesobb ****\n\n");
     	
-    	
+
+
     	((Orangutan) emptyTile.contains).move(nextTile);
     	
     	printer.functionCall("e", "nextTurn");
@@ -396,7 +397,8 @@ public class Main
     	Orangutan o = new Orangutan();
     	Tile oTile = new Tile();
     	Tile newTile = new Tile();
-    	
+
+    	o.setIsOn(oTile);
     	oTile.placeThing(o);
     	oTile.addNeighbor(newTile);
     	
