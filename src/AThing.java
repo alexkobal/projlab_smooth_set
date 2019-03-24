@@ -38,7 +38,6 @@ public abstract class AThing
 	 */
     public boolean hitBy(Orangutan orangutan)
     {
-    	System.out.println("Orangutan");
         return false;
     }
 

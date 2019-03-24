@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class VendingMachine extends AThing implements IPandaEffective{
 
@@ -23,7 +23,7 @@ public class VendingMachine extends AThing implements IPandaEffective{
 
 	@Override
 	public void notifyNeighbors() {
-		HashSet<Tile> neighbors = isOn.getNeighbors();
+		ArrayList<Tile> neighbors = isOn.getNeighbors();
 		for(Tile neighbor : neighbors)
 		{
 			if(neighbor.getContains() != null)

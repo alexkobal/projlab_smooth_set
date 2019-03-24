@@ -192,7 +192,6 @@ public class Main
     	printer.functionCall("e", "nextTurn");
     	e.nextTurn();
     	printer.returnFromFunctionCall();
-    	
     }
 
     // Basic hitBy
@@ -209,7 +208,11 @@ public class Main
 		vm.setIsOn(vmTile);
 		vmTile.setContains(vm);
 
+		oTile.addNeighbor(vmTile);
 
+		printer.functionCall("orangutan", "move", "vmTile");
+		orangutan.move(vmTile);
+		printer.returnFromFunctionCall();
     }
 
     // Orangutan uses Wardrobe
@@ -242,7 +245,22 @@ public class Main
     // Armchair notifies LazyPanda
     static void test6()
     {
+		Armchair armchair = new Armchair();
+		LazyPanda lazyPanda = new LazyPanda(1);
+		Tile lpTile = new RegularTile();
+		Tile aTile = new RegularTile();
 
+		lpTile.setContains(lazyPanda);
+		lazyPanda.setIsOn(lpTile);
+
+		aTile.setContains(armchair);
+		armchair.setIsOn(aTile);
+
+		aTile.addNeighbor(lpTile);
+
+		printer.functionCall("armchair", "effect");
+		armchair.effect();
+		printer.returnFromFunctionCall();
     }
 
     // VendingMachine notifies JumpingPanda
