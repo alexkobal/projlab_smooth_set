@@ -70,26 +70,4 @@ public class LazyPanda extends Panda {
 			sleepTime -= 1;
 		}
 	}
-
-	
-	
-	/**
-	 * HitBy Orangutan
-	 * <p>
-	 * When an Orangutan hits a LazyPanda, the Panda will check if it is not sleeping.
-	 * If it is sleeping, it wont connect to the chain.
-	 * @param  or is the Orangutan which hits the Panda..
-	 */
-	public boolean hitBy(Orangutan or) {
-		if(sleepTime == 0) {
-			Main.printer.functionCall("super", "hitBy", "or");
-			super.hitBy(or);
-			Main.printer.returnFromFunctionCall();
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
 }
