@@ -4,7 +4,7 @@
  * <p>
  * This is Panda which extends the animal class. It represents all Panda kind of objects on the map.
  **/
-public class Panda extends Animal {
+public abstract class Panda extends Animal {
 	
 	/**
 	 * HitBy Orangutan
@@ -47,9 +47,7 @@ public class Panda extends Animal {
 				prevAnimal = null;
 				return;
 			} else {//Rekurziv h�v�sok folytat�sa
-				Main.printer.functionCall("prevAnimal", "unchain");
 				prevAnimal.unchain();
-				Main.printer.returnFromFunctionCall();
 			}
 
 			//megfelel� setter + return
@@ -80,15 +78,11 @@ public class Panda extends Animal {
 	 * @param  tile is the Tile where the Panda wants to move.
 	 */
 	public void move(Tile tile) {
-		Main.printer.functionCall("tile", "placeThing", "this");
 		boolean placeThing_res = tile.placeThing(this);
-		Main.printer.returnFromFunctionCall();
 
 		if( placeThing_res ) {
 			if(nextAnimal != null){
-				Main.printer.functionCall("nextAnimal", "move", "prevTile");
 				nextAnimal.move(prevTile);
-				Main.printer.returnFromFunctionCall();
 			}
 		}
 	}

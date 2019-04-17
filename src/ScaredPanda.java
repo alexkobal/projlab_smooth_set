@@ -19,5 +19,10 @@ public class ScaredPanda extends Panda
 		unchain();
 		return true;
 	}
+
+	@Override
+	public String toString(){
+		return "s";
+	}
 	
 }

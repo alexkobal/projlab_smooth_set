@@ -11,7 +11,7 @@ import java.util.*;
  * List of 'neighbors' stores all the adjacent tiles.</p>  
  * 
  */
-public class Tile
+public abstract class Tile
 {
     /**
      * contains
@@ -53,16 +53,12 @@ public class Tile
     {
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "panda");
-        	boolean res = contains.hitBy(panda);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(panda);
             return res;
         } 
         
-    	Main.printer.functionCall("panda", "leaveTile", "tile");
     	panda.leaveTile(this);
-    	Main.printer.returnFromFunctionCall();
-    	return true;        
+    	return true;
     }
     
     /**
@@ -77,16 +73,12 @@ public class Tile
     {
     	if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "orangutan");
-        	boolean res = contains.hitBy(orangutan);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(orangutan);
             return res;
         } 
         
-    	Main.printer.functionCall("orangutan", "leaveTile", "tile");
     	orangutan.leaveTile(this);
-    	Main.printer.returnFromFunctionCall();
-    	return true;  
+    	return true;
     }
     
     /**
@@ -101,9 +93,7 @@ public class Tile
     {
     	if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "vm");
-        	boolean res = contains.hitBy(vm);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(vm);
             return res;
         }
 
@@ -122,9 +112,7 @@ public class Tile
     {
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "gm");
-        	boolean res = contains.hitBy(gm);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(gm);
             return res;
         }
         
@@ -142,9 +130,7 @@ public class Tile
     public boolean placeThing(Armchair armchair){
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "armchair");
-        	boolean res = contains.hitBy(armchair);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(armchair);
             return res;
         }
 

@@ -6,5 +6,8 @@
  */
 public class RegularTile extends Tile
 {
-
+	@Override
+	public String toString(){
+		return "r";
+	}
 }

@@ -52,10 +52,13 @@ public class VendingMachine extends AThing implements IPandaEffective{
 		{
 			if(neighbor.getContains() != null)
 			{
-				Main.printer.functionCall("nt", "placeThing", "vm");
 				neighbor.placeThing(this);
-				Main.printer.returnFromFunctionCall();
 			}
 		}
+	}
+
+	@Override
+	public String toString(){
+		return "v" + beepTime;
 	}
 }

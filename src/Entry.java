@@ -66,10 +66,13 @@ public class Entry extends AThing{
 	 */
 	public void nextTurn(){
 		if(orangutansToPush > 0){
-			Main.printer.functionCall("entry", "pushOrangutan");
 			pushOrangutan();
-			Main.printer.returnFromFunctionCall();
 			orangutansToPush--;
 		}
+	}
+
+	@Override
+	public String toString(){
+		return "x" + orangutansToPush;
 	}
 }

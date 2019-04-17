@@ -22,7 +22,10 @@ public class FloorMakingProgram {
 		floor.addThing(w1, 4);
 		floor.addThing(new Armchair(), 5);
 		floor.addThing(w2, 7);
-		floor.setEntry(new Entry(floor.getTile(6)), 9);
+		Entry entry = new Entry(floor.getTile(6));
+		entry.addOrangutan(2);
+		floor.setEntry(entry, 9);
+
 
 		int[][] matrix = {
 				{},			//0

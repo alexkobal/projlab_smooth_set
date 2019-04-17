@@ -17,21 +17,15 @@ public class Orangutan extends Animal{
 	 */
 	public void move(Tile tile) {
 		
-		Main.printer.functionCall("tile", "placeThing", "this");
 		boolean placeThing_res = tile.placeThing(this);
-		Main.printer.returnFromFunctionCall();
-		
+
 		if(nextAnimal != null)
 		{
 			if( placeThing_res && nextAnimal != null ) {
-				Main.printer.functionCall("nextAnimal", "move", "prevTile");
 				nextAnimal.move(prevTile);
-				Main.printer.returnFromFunctionCall();
 			} //Ha sikerült mozognia a lehetséges láncot húzza maga után
 			else if(nextAnimal != null) {
-				Main.printer.functionCall("nextAnimal", "unchain");
 				nextAnimal.unchain();
-				Main.printer.returnFromFunctionCall();
 			} //Ha nem sikerült mozogni felbomlasztja a láncot
 		}
 		
@@ -46,9 +40,7 @@ public class Orangutan extends Animal{
 	 */
 	public void kill() {
 		
-		Main.printer.functionCall("prevAnimal", "unchain");
 		prevAnimal.unchain();
-		Main.printer.returnFromFunctionCall();
 		count--;
 		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
@@ -57,4 +49,9 @@ public class Orangutan extends Animal{
 
 	@Override
 	public void connectChain(Animal animal) { }
+
+	@Override
+	public String toString(){
+		return "o";
+	}
 }

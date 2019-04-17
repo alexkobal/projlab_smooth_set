@@ -23,6 +23,10 @@ public class JumpingPanda extends Panda
 		
 		this.isOn.loseLife();
 		return true;
-	}								
+	}
 
+	@Override
+	public String toString(){
+		return "j";
+	}
 }

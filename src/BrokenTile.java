@@ -35,13 +35,14 @@ public class BrokenTile extends Tile
         lifeTime--;
         if(lifeTime == 0)
         {
-            Main.printer.functionCall("this", "unlink");		//selfstimulus
             unlink();
-            Main.printer.returnFromFunctionCall();
 
-            Main.printer.functionCall("contains", "kill");
             ((Animal) contains).kill();
-            Main.printer.returnFromFunctionCall();
         }
+    }
+
+    @Override
+    public String toString(){
+        return "b" + lifeTime;
     }
 }

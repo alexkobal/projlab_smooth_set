@@ -82,4 +82,9 @@ public class Wardrobe extends AThing{
         outPoint.pushOut(orangutan);
         return true;
     }
+
+    @Override
+    public String toString(){
+        return "w";
+    }
 }

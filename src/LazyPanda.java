@@ -62,12 +62,14 @@ public class LazyPanda extends Panda {
 	 */
 	public void move(Tile tile) {
 		if(sleepTime == 0) {
-			Main.printer.functionCall("super", "move", "tile");
 			super.move(tile);
-			Main.printer.returnFromFunctionCall();
 		}
 		else {
 			sleepTime -= 1;
 		}
+	}
+
+	public int getSleepTime() {
+		return sleepTime;
 	}
 }
