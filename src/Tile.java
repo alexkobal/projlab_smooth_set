@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -11,7 +12,7 @@ import java.util.*;
  * List of 'neighbors' stores all the adjacent tiles.</p>  
  * 
  */
-public abstract class Tile
+public abstract class Tile implements Serializable
 {
     /**
      * contains

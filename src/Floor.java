@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class Floor {
+public class Floor implements Serializable {
 	private int idx;
 	private HashMap<Integer, Tile> tiles;
 	private HashSet<AThing> things;

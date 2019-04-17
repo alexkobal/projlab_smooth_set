@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 
 public class FloorMakingProgram {
@@ -43,5 +44,25 @@ public class FloorMakingProgram {
 		floor.setNeighbors(matrix);
 
 		System.out.println(floor.toString());
+
+		try{
+			FileOutputStream fos = new FileOutputStream("test1.flr");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		Floor deserialisedFloor = null;
+		try{
+			FileInputStream fis = new FileInputStream("test1.flr");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			deserialisedFloor = (Floor)ois.readObject();
+			ois.close();
+			System.out.println(deserialisedFloor);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 }
