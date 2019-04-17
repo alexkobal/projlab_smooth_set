@@ -25,6 +25,23 @@ public class Floor {
 		}
 		idx++;
 	}
+	public Tile getTile(int key){
+		return tiles.get(key);
+	}
+	public void setTile(int key, Tile tile){
+		if(tiles.containsKey(key)){
+			tiles.replace(key, tile);
+		}else{
+			tiles.put(key, tile);
+		}
+	}
+
+	public void addThing(Wardrobe wardrobe, int tileIdx){
+		if(tiles.get(tileIdx).getContains() == null){
+			tiles.get(tileIdx).setContains(wardrobe);
+			things.add(wardrobe);
+		}
+	}
 
 	public void addThing(Armchair armchair, int tileIdx){
 		if(tiles.get(tileIdx).getContains() == null){
@@ -58,6 +75,14 @@ public class Floor {
 		if(tiles.get(tileIdx).getContains() == null){
 			tiles.get(tileIdx).setContains(exit);
 			this.exit = exit;
+		}
+	}
+
+	public void setNeighbors(int[][] matrix){
+		for(int i = 1; i < matrix.length; i++){
+			for(int j = 0; j < matrix[i].length; j++){
+				tiles.get(i).addNeighbor(tiles.get(matrix[i][j]));
+			}
 		}
 	}
 
@@ -101,8 +126,8 @@ public class Floor {
 				}
 			}
 			sb.append("\n");
-			sb.append(status());
 		}
+		sb.append(status());
 		return sb.toString();
 	}
 }
