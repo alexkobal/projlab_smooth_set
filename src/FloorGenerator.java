@@ -1,10 +1,10 @@
-import java.io.BufferedWriter;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class FloorGenerator {
+
 	public void generateFloor(int n, double entropy, OutputStream os) throws Exception{
 
 		PrintWriter writer = new PrintWriter(os);
@@ -22,7 +22,6 @@ public class FloorGenerator {
 			writer.printf("\n");
 		}
 		writer.close();
-		
 	}
 
 	private char randomNeighbor(double entropy){
@@ -32,5 +31,11 @@ public class FloorGenerator {
 			return 'X';
 		}
 		return '_';
+	}
+
+	private void addObjects(HashMap<Integer, AThing> objects, PrintWriter writer){
+		for(int i = 0; i < objects.size(); i++){
+
+		}
 	}
 }

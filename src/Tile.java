@@ -192,6 +192,7 @@ public class Tile
     public void setContains(AThing thing)
     {
         contains = thing;
+        thing.setIsOn(this);
     }
 
     public AThing getContains()
