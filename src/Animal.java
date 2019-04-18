@@ -6,7 +6,7 @@
  * </p>
  */
 public abstract class Animal extends AThing {
-
+	protected String name; //////////////////////////////////////////////////KONZULTÁLNI!!
 	/**
 	 * prevAnimal
 	 * <p>
@@ -33,6 +33,9 @@ public abstract class Animal extends AThing {
 	 */
 	protected Tile prevTile;
 
+	public void setName(String n) {this.name = n;}
+
+	public String getName() {return this.name;}
 
 	public void setPrevAnimal(Animal prevAnimal) {
 		this.prevAnimal = prevAnimal;
@@ -46,7 +49,7 @@ public abstract class Animal extends AThing {
 	{
 		this.prevTile = prevTile;
 	}
-	
+
 	public Animal getPrevAnimal() {
 		return prevAnimal;
 	}

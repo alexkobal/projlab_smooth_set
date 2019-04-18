@@ -9,6 +9,8 @@ import java.util.Random;
  **/
 public class Controller {
 
+	public ArrayList<Animal> animals = new ArrayList<>();
+
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
 		Random randomiser = new Random();
