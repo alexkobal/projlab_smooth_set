@@ -17,7 +17,7 @@ public class FloorMakingProgram {
 		floor.setExit(new Exit(), 1);
 		floor.addThing(new GameMachine(3), 3);
 
-		Wardrobe w1 = null;
+		Wardrobe w1 = null;//
 		Wardrobe w2 = new Wardrobe(w1);
 		w1 = new Wardrobe(w2);
 
