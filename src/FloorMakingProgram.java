@@ -19,7 +19,7 @@ public class FloorMakingProgram {
 
 		Wardrobe w1 = null;//
 		Wardrobe w2 = new Wardrobe(w1);
-		w1 = new Wardrobe(w2);
+		w1 = new Wardrobe(w2);//
 
 		floor.addThing(w1, 4);
 		floor.addThing(new Armchair(), 5);
