@@ -60,6 +60,6 @@ public class GameMachine extends AThing implements IPandaEffective{
 
 	@Override
 	public String toString(){
-		return "g" + tinkleTime;
+		return "g" /*+ tinkleTime*/;
 	}
 }
