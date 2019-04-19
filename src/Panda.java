@@ -81,8 +81,8 @@ public abstract class Panda extends Animal {
 		boolean placeThing_res = tile.placeThing(this);
 
 		if( placeThing_res ) {
-			if(nextAnimal != null){
-				nextAnimal.move(prevTile);
+			if(prevAnimal != null){
+				prevAnimal.move(prevTile);
 			}
 		}
 	}
