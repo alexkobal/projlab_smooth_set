@@ -19,13 +19,13 @@ public class Orangutan extends Animal{
 		
 		boolean placeThing_res = tile.placeThing(this);
 
-		if(nextAnimal != null)
+		if(prevAnimal != null)
 		{
-			if( placeThing_res && nextAnimal != null ) {
-				nextAnimal.move(prevTile);
+			if( placeThing_res && prevAnimal != null ) {
+				prevAnimal.move(prevTile);
 			} //Ha sikerült mozognia a lehetséges láncot húzza maga után
-			else if(nextAnimal != null) {
-				nextAnimal.unchain();
+			else if(prevAnimal != null) {
+				prevAnimal.unchain();
 			} //Ha nem sikerült mozogni felbomlasztja a láncot
 		}
 		
