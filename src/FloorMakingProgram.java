@@ -2,13 +2,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FloorMakingProgram {
+public class FloorMakingProgram
+{
 
-	public static void main(String[] args){
-		test1();
+	public static void main(String[] args)
+	{
+		test4();
 	}
 
-	private static void test1() {
+	private static void test1()
+	{
 		Floor floor = new Floor();
 		for(int i = 0; i < 9; i++){
 			floor.addTile(new RegularTile());
@@ -66,4 +69,193 @@ public class FloorMakingProgram {
 			e.printStackTrace();
 		}
 	}
+
+	private static void test4()
+	{
+		Floor floor = new Floor();
+		for(int i = 0; i < 6; i++){
+			floor.addTile(new RegularTile());
+		}
+
+		Wardrobe w1 = new Wardrobe(null);
+		Wardrobe w2 = new Wardrobe(null);
+		w1.setOutPoint(w2);
+		w2.setOutPoint(w1);
+
+		floor.addThing(w1, 1);
+		floor.addThing(w2, 6);
+
+		int[][] matrix =
+		{
+				{},
+				{2},
+				{1,3},
+				{2,4},
+				{3,5},
+				{4,6},
+				{5},
+		};
+
+		floor.setNeighbors(matrix);
+
+		System.out.println(floor.toString());
+
+		try{
+			FileOutputStream fos = new FileOutputStream("test4.flr");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		Floor Floor = null;
+		try{
+			FileInputStream fis = new FileInputStream("test4.flr");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Floor = (Floor)ois.readObject();
+			ois.close();
+			System.out.println(Floor);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	private static void test5()
+	{
+		Floor floor = new Floor();
+		for(int i = 0; i < 5; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		floor.addThing(new Armchair(), 3);
+
+		int[][] matrix =
+		{
+				{},
+				{2},
+				{1,3},
+				{2,4,5},
+				{3},
+				{3},
+		};
+
+		floor.setNeighbors(matrix);
+
+		System.out.println(floor.toString());
+
+		try
+		{
+			FileOutputStream fos = new FileOutputStream("test5.flr");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		Floor Floor = null;
+		try
+		{
+			FileInputStream fis = new FileInputStream("test5.flr");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Floor = (Floor)ois.readObject();
+			ois.close();
+			System.out.println(Floor);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private static void test17()
+	{
+		Floor floor = new Floor();
+		for(int i = 0; i < 4; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+
+		int[][] matrix =
+		{
+				{},
+				{2,4},
+				{1,3},
+				{2},
+				{1},
+		};
+
+		floor.setNeighbors(matrix);
+
+		System.out.println(floor.toString());
+
+		try{
+			FileOutputStream fos = new FileOutputStream("test17.flr");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		Floor Floor = null;
+		try{
+			FileInputStream fis = new FileInputStream("test17.flr");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Floor = (Floor)ois.readObject();
+			ois.close();
+			System.out.println(Floor);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	private static void test18()
+	{
+		Floor floor = new Floor();
+		for(int i = 0; i < 5; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		floor.setTile(2, new BrokenTile(20));
+
+		int[][] matrix = {
+				{},
+				{2},
+				{1,3},
+				{2,4},
+				{3,5},
+				{4},
+
+		};
+
+		floor.setNeighbors(matrix);
+
+		System.out.println(floor.toString());
+
+		try{
+			FileOutputStream fos = new FileOutputStream("test18.flr");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		Floor Floor = null;
+		try{
+			FileInputStream fis = new FileInputStream("test18.flr");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Floor = (Floor)ois.readObject();
+			ois.close();
+			System.out.println(Floor);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+
 }
