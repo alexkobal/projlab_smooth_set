@@ -89,10 +89,11 @@ public abstract class Animal extends AThing {
 	 */
 	public void leaveTile(Tile t) {
 		//megfelelő setterek ami átmozgatja az állatot (loseLife()- al együtt)
-		t.setContains(this);
+		//prevTile.setContains(null);
+		isOn.setContains(null);
 		prevTile = isOn;
 		isOn = t;
-		prevTile.setContains(null);
+		t.setContains(this);
 		t.loseLife();
 	}
 
