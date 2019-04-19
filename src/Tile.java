@@ -179,7 +179,8 @@ public abstract class Tile implements Serializable
     public void setContains(AThing thing)
     {
         contains = thing;
-        thing.setIsOn(this);
+        if(thing != null)
+            thing.setIsOn(this);
     }
 
     public AThing getContains()
