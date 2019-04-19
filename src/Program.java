@@ -43,6 +43,7 @@ public class Program {
 						Orangutan o = new Orangutan();
 						o.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
 						o.setName(part[2]);
+						o.setPrevTile(o.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(o);
 						Floor.getTile(Integer.parseInt(part[3])).setContains(o);
 						System.out.println(Floor);
@@ -51,6 +52,7 @@ public class Program {
 						JumpingPanda jp = new JumpingPanda();
 						jp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
 						jp.setName(part[2]);
+						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(jp);
 						Floor.getTile(Integer.parseInt(part[3])).setContains(jp);
 						System.out.println(Floor);
@@ -59,6 +61,7 @@ public class Program {
 						ScaredPanda sp = new ScaredPanda();
 						sp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
 						sp.setName(part[2]);
+						sp.setPrevTile(sp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(sp);
 						Floor.getTile(Integer.parseInt(part[3])).setContains(sp);
 						System.out.println(Floor);
@@ -68,6 +71,7 @@ public class Program {
 						LazyPanda lp = new LazyPanda(rnd);
 						lp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
 						lp.setName(part[2]);
+						lp.setPrevTile(lp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(lp);
 						Floor.getTile(Integer.parseInt(part[3])).setContains(lp);
 						System.out.println(Floor);
@@ -100,6 +104,8 @@ public class Program {
 							an = a;
 					}
 					an.move(Floor.getTile(Integer.parseInt(part[2])));
+
+					System.out.println(Floor);
 				}
 
 				else if(part[0].compareTo("run")==0)		//Minek??
