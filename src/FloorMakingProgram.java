@@ -7,9 +7,9 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		test1();
-		test2();
-		test3();
+		test13();
+		//test4();
+		//test3();
 	}
 
 	private static void test1()
@@ -204,6 +204,123 @@ public class FloorMakingProgram
 			e.printStackTrace();
 		}
 	}
+	
+	// VendingMachine makes JumpingPanda jump
+	private static void test10()
+	{
+		Floor floor = new Floor();
+		
+		for(int i = 0; i < 4; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		
+		floor.setTile(1, new BrokenTile(20));
+		floor.setTile(3, new BrokenTile(20));
+		floor.setTile(4, new BrokenTile(20));
+		floor.addThing(new VendingMachine(1), 2);
+		
+		int[][] mtx = {
+				{},
+				{2},
+				{1, 3, 4},
+				{2},
+				{2}
+		};
+		
+		floor.setNeighbors(mtx);		
+		Floor.serialise(floor, "test11.flr");
+		System.out.println(Floor.deserialise("test11.flr"));
+	}
+	
+	// Orangutan hits its own Panda chain
+	private static void test11()
+	{
+		Floor floor = new Floor();
+		for(int i = 0; i < 5; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		
+		int[][] mtx = {
+				{},
+				{2},
+				{1, 3, 4},
+				{2, 5},
+				{2, 5},
+				{3, 4}
+		};
+		
+		floor.setNeighbors(mtx);
+		Floor.serialise(floor, "test12.flr");
+		System.out.println(Floor.deserialise("test12.flr"));
+	}
+	
+	// Orangutan exits with two Pandas
+	private static void test12()
+	{
+		Floor floor = new Floor();
+		
+		RegularTile entryTile = new RegularTile();
+		for(int i = 0; i < 5 - 1; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		floor.addTile(entryTile);
+		
+		int[][] mtx = {
+				{},
+				{2},
+				{1, 3},
+				{2, 4},
+				{3, 5},
+				{4}
+		};
+		
+		floor.setEntry(new Entry(entryTile), 5);
+		floor.setExit(new Exit(), 1);
+		
+		floor.setNeighbors(mtx);
+		Floor.serialise(floor, "test13.flr");
+		System.out.println(Floor.deserialise("test13.flr"));
+	}
+	
+	/* Orangutan is exiting the floor with a Panda chain meanwhile a 
+	 * GameMachine scares one ScaredPanda in it who leaves the chain 
+	 * with all the Pandas behind.
+	 */
+	private static void test13()
+	{
+		Floor floor = new Floor();	
+		
+		RegularTile entryTile = new RegularTile();
+		floor.addTile(entryTile);
+		for(int i = 1; i < 8; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		
+		int[][] mtx = {
+				{},
+				{2},
+				{1, 3},
+				{2, 4},
+				{3, 5, 8},
+				{4, 6},
+				{5, 7},
+				{6},
+				{4}
+		};
+		
+		floor.addThing(new VendingMachine(1), 8);
+		floor.setEntry(new Entry(entryTile), 1);
+		floor.setExit(new Exit(), 7);
+		
+		floor.setNeighbors(mtx);
+		Floor.serialise(floor, "test14.flr");
+		System.out.println(Floor.deserialise("test14.flr"));
+	}
+	
 
 	private static void test17()
 	{
@@ -291,5 +408,6 @@ public class FloorMakingProgram
 		}
 	}
 
+	
 
 }
