@@ -12,8 +12,8 @@ public class Program {
 	private static void reader() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-		Floor Floor = null;
-		Controller ctrl = new Controller();
+		Floor floor = null;
+		Controller ctrl = null;
 
 
 		while (true) {
@@ -23,17 +23,22 @@ public class Program {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (line.length() == 0) break;
+
+			if (line.length() <= 0) {
+				break;
+			}
 
 			String[] part = line.split(" ");
+			for(String s : part){
+				System.out.println(s);
+			}
+
 			if(part.length > 1) {
 				if(part[0].compareTo("cm")==0)
 					try{
-						FileInputStream fis = new FileInputStream(part[1]);
-						ObjectInputStream ois = new ObjectInputStream(fis);
-						Floor = (Floor)ois.readObject();
-						ois.close();
-						System.out.println(Floor);
+						floor = Floor.deserialise(part[1]);
+						ctrl = new Controller(floor);
+						System.out.println(floor);
 					}catch (Exception e){
 						e.printStackTrace();
 					}
@@ -41,40 +46,40 @@ public class Program {
 				else if(part[0].compareTo("put")==0) {		//move-val kéne nem?
 					if (part[1].compareTo("orangutan") == 0) {
 						Orangutan o = new Orangutan();
-						o.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
+						o.setIsOn(floor.getTile(Integer.parseInt(part[3])));
 						o.setName(part[2]);
 						o.setPrevTile(o.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(o);
-						Floor.getTile(Integer.parseInt(part[3])).setContains(o);
-						System.out.println(Floor);
+						floor.getTile(Integer.parseInt(part[3])).setContains(o);
+						System.out.println(floor);
 					}
 					else if(part[1].compareTo("jpanda") == 0){
 						JumpingPanda jp = new JumpingPanda();
-						jp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
+						jp.setIsOn(floor.getTile(Integer.parseInt(part[3])));
 						jp.setName(part[2]);
 						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(jp);
-						Floor.getTile(Integer.parseInt(part[3])).setContains(jp);
-						System.out.println(Floor);
+						floor.getTile(Integer.parseInt(part[3])).setContains(jp);
+						System.out.println(floor);
 					}
 					else if(part[1].compareTo("spanda") == 0){
 						ScaredPanda sp = new ScaredPanda();
-						sp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
+						sp.setIsOn(floor.getTile(Integer.parseInt(part[3])));
 						sp.setName(part[2]);
 						sp.setPrevTile(sp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(sp);
-						Floor.getTile(Integer.parseInt(part[3])).setContains(sp);
-						System.out.println(Floor);
+						floor.getTile(Integer.parseInt(part[3])).setContains(sp);
+						System.out.println(floor);
 					}
 					else if(part[1].compareTo("lpanda") == 0){
 						int rnd = new Random().nextInt(5);
 						LazyPanda lp = new LazyPanda(rnd);
-						lp.setIsOn(Floor.getTile(Integer.parseInt(part[3])));
+						lp.setIsOn(floor.getTile(Integer.parseInt(part[3])));
 						lp.setName(part[2]);
 						lp.setPrevTile(lp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(lp);
-						Floor.getTile(Integer.parseInt(part[3])).setContains(lp);
-						System.out.println(Floor);
+						floor.getTile(Integer.parseInt(part[3])).setContains(lp);
+						System.out.println(floor);
 					}
 				}
 
@@ -103,18 +108,17 @@ public class Program {
 						if (a.getName().compareTo(part[1]) == 0)
 							an = a;
 					}
-					an.move(Floor.getTile(Integer.parseInt(part[2])));
+					an.move(floor.getTile(Integer.parseInt(part[2])));
 
-					System.out.println(Floor);
+					System.out.println(floor);
 				}
-
-				else if(part[0].compareTo("run")==0)		//Minek??
+			}else if(part.length == 1){
+				if(part[0].compareTo("run")==0)		//Minek??
 					System.out.println("runolok");
 
 				else if(part[0].compareTo("start")==0){
-					/*Magic*/
+					ctrl.start();
 				}
-
 				else
 					System.out.println("Unknown Command!");
 			}
@@ -125,6 +129,7 @@ public class Program {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 
 //		Floor Floor = null;
 //		try{

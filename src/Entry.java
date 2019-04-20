@@ -39,7 +39,7 @@ public class Entry extends AThing{
 	 *     This function places an orangutan on the floor.
 	 * </p>
 	 */
-	public void pushOrangutan(){
+	private void pushOrangutan(){
 		Orangutan orangutan = new Orangutan();
 		orangutan.setIsOn(entryTile);
 		entryTile.setContains(orangutan);
