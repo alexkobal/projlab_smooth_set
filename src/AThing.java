@@ -1,4 +1,4 @@
-
+import java.io.Serializable;
 
 /**
 	 * AThing
@@ -7,7 +7,7 @@
 	 * This class has all of the collide (virtual) methods.
 	 * isOn is the Tile where the thing is placed on.
 **/
-public abstract class AThing
+public abstract class AThing implements Serializable
 {
     protected Tile isOn;
 
@@ -38,7 +38,6 @@ public abstract class AThing
 	 */
     public boolean hitBy(Orangutan orangutan)
     {
-    	System.out.println("Orangutan");
         return false;
     }
 

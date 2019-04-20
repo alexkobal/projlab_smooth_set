@@ -17,6 +17,7 @@ public class Entry extends AThing{
 	public Entry(Tile entryTile){
 		this.entryTile = entryTile;
 	}
+
 	/**
 	 * entryTile
 	 * <p>
@@ -31,13 +32,13 @@ public class Entry extends AThing{
 	 * </p>
 	 */
 	private int orangutansToPush;
+
 	/**
 	 * pushOrangutan
 	 * <p>
 	 *     This function places an orangutan on the floor.
 	 * </p>
 	 */
-
 	public void pushOrangutan(){
 		Orangutan orangutan = new Orangutan();
 		orangutan.setIsOn(entryTile);
@@ -54,6 +55,7 @@ public class Entry extends AThing{
 	public void addOrangutan(int n){
 		orangutansToPush += n;
 	}
+
 	/**
 	 * nextTurn
 	 * <p>
@@ -64,10 +66,13 @@ public class Entry extends AThing{
 	 */
 	public void nextTurn(){
 		if(orangutansToPush > 0){
-			Main.printer.functionCall("entry", "pushOrangutan");
 			pushOrangutan();
-			Main.printer.returnFromFunctionCall();
 			orangutansToPush--;
 		}
+	}
+
+	@Override
+	public String toString(){
+		return "x" + orangutansToPush;
 	}
 }

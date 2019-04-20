@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -11,15 +12,34 @@ import java.util.*;
  * List of 'neighbors' stores all the adjacent tiles.</p>  
  * 
  */
-public class Tile
+public abstract class Tile implements Serializable
 {
-    protected AThing contains;          
-    protected HashSet<Tile> neighbors;
+    /**
+     * contains
+     * <p>
+     * This can hold the thing, which is on this Tile at the time.
+     */
+    protected AThing contains;
 
+    /**
+     * neighbors
+     * <p>
+     * This is this Tile's list of the neighbors.
+     * The tiles nearby this tile.
+     */
+    protected ArrayList<Tile> neighbors;
+
+    /**
+     * Tile contstructor
+     * <p>
+     *     This is the constructor of the Tile class.
+     * </p>
+     * Inizializes the lists, and variables.
+     */
     public Tile()
     {
         contains = null;
-        neighbors = new HashSet<>();
+        neighbors = new ArrayList<>();
     }
 
     /**
@@ -34,16 +54,12 @@ public class Tile
     {
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "panda");
-        	boolean res = contains.hitBy(panda);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(panda);
             return res;
         } 
         
-    	Main.printer.functionCall("panda", "leaveTile", "tile");
     	panda.leaveTile(this);
-    	Main.printer.returnFromFunctionCall();
-    	return true;        
+    	return true;
     }
     
     /**
@@ -58,16 +74,12 @@ public class Tile
     {
     	if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "orangutan");
-        	boolean res = contains.hitBy(orangutan);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(orangutan);
             return res;
         } 
         
-    	Main.printer.functionCall("orangutan", "leaveTile", "tile");
     	orangutan.leaveTile(this);
-    	Main.printer.returnFromFunctionCall();
-    	return true;  
+    	return true;
     }
     
     /**
@@ -82,9 +94,7 @@ public class Tile
     {
     	if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "vm");
-        	boolean res = contains.hitBy(vm);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(vm);
             return res;
         }
 
@@ -103,9 +113,7 @@ public class Tile
     {
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "gm");
-        	boolean res = contains.hitBy(gm);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(gm);
             return res;
         }
         
@@ -123,9 +131,7 @@ public class Tile
     public boolean placeThing(Armchair armchair){
         if(contains != null)
         {
-        	Main.printer.functionCall("contains", "hitBy", "armchair");
-        	boolean res = contains.hitBy(armchair);     
-        	Main.printer.returnFromFunctionCall();
+        	boolean res = contains.hitBy(armchair);
             return res;
         }
 
@@ -154,20 +160,27 @@ public class Tile
         }
     }
     
-    public HashSet<Tile> getNeighbors()
+    public ArrayList<Tile> getNeighbors()
     {
         return neighbors;
     }
 
     public void addNeighbor(Tile tile)
     {
-        neighbors.add(tile);
-        tile.getNeighbors().add(this);
+    	for(Tile n : neighbors) {
+			if (n.equals(tile)) {
+				return;
+			}
+		}
+		neighbors.add(tile);
+		tile.getNeighbors().add(this);
     }
 
     public void setContains(AThing thing)
     {
         contains = thing;
+        if(thing != null)
+            thing.setIsOn(this);
     }
 
     public AThing getContains()

@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -10,6 +10,7 @@ import java.util.Random;
  * </p>
  */
 public class Wardrobe extends AThing{
+
     /**
      * Wardrobe outPoint
      * <p>
@@ -20,6 +21,7 @@ public class Wardrobe extends AThing{
     public Wardrobe(Wardrobe outPoint){
         this.outPoint = outPoint;
     }
+
     /**
      * outPoint
      * <p>
@@ -41,7 +43,7 @@ public class Wardrobe extends AThing{
      * @param animal This is the animal that is going through the Wardrobe.
      */
     public boolean pushOut(Animal animal){
-        HashSet<Tile> neighbors = isOn.getNeighbors();
+        ArrayList<Tile> neighbors = isOn.getNeighbors();
         for(Tile tile : neighbors){
             if(tile.getContains() == null){
                 animal.leaveTile(tile);
@@ -79,5 +81,10 @@ public class Wardrobe extends AThing{
     public boolean hitBy(Orangutan orangutan) {
         outPoint.pushOut(orangutan);
         return true;
+    }
+
+    @Override
+    public String toString(){
+        return "w";
     }
 }

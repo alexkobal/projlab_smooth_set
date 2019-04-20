@@ -4,7 +4,6 @@
  * <p>Breakable type of Tile. 
  * <p> 'lifeTime' holds the remaining number of steps the tile can bear until breaking. (default 20)
  */
-
 public class BrokenTile extends Tile
 {
     private int lifeTime;
@@ -14,6 +13,13 @@ public class BrokenTile extends Tile
         lifeTime = 20;
     }
 
+    /**
+     * BrokenTile contstructor
+     * <p>
+     *     This is the constructor of the BrokenTile class.
+     * </p>
+     * @param n Is the value that is going to be set as life.
+     */
     public BrokenTile(int n) {lifeTime = n;} // A teszt idejére csak
 
     
@@ -29,13 +35,14 @@ public class BrokenTile extends Tile
         lifeTime--;
         if(lifeTime == 0)
         {
-            Main.printer.functionCall("this", "unlink");		//selfstimulus
             unlink();
-            Main.printer.returnFromFunctionCall();
 
-            Main.printer.functionCall("contains", "kill");
             ((Animal) contains).kill();
-            Main.printer.returnFromFunctionCall();
         }
+    }
+
+    @Override
+    public String toString(){
+        return "b" + lifeTime;
     }
 }

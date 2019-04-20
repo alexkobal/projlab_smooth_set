@@ -6,6 +6,7 @@
 **/
 public class ScaredPanda extends Panda
 {
+
 	/**
 	 * HitBy GameMachine
 	 * <p>
@@ -17,6 +18,11 @@ public class ScaredPanda extends Panda
 	{
 		unchain();
 		return true;
+	}
+
+	@Override
+	public String toString(){
+		return "s";
 	}
 	
 }
