@@ -5,7 +5,7 @@
  * This is Panda which extends the animal class. It represents all Panda kind of objects on the map.
  **/
 public abstract class Panda extends Animal {
-	
+
 	/**
 	 * HitBy Orangutan
 	 * <p>n Orangutan hits a Panda this function will be called.

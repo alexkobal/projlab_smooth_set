@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -30,17 +31,30 @@ public class Controller {
 	public void start(){
 		while(true) {
 			if(floor.getEntry() != null){
-				floor.getEntry().nextTurn();
+				Orangutan orangutan = floor.getEntry().nextTurn();
+				if(orangutan != null){
+					orangutans.add(orangutan);
+				}
 			}
 			if(floor.getExit() != null){
 				floor.getExit().nextTurn();
+			}
+			if(!orangutans.isEmpty()){
+				moveOrangutans();
 			}
 			System.out.println(floor.status());
 		}
 	}
 
 	public void moveOrangutans(){
-
+		for(Orangutan o : orangutans){
+			System.out.println("make a move " + o.getName());
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void movePandas(){

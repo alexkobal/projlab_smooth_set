@@ -5,8 +5,8 @@
  * This is Orangutan which extends the animal class. It represents the Orangutan kind of objects on the map.
  **/
 public class Orangutan extends Animal{
-	
 	private static int count;
+	private static int id = 1;
 	
 	/**
 	 * move(Tile)
@@ -45,6 +45,11 @@ public class Orangutan extends Animal{
 		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
+	}
+
+	public Orangutan(){
+		name = "o" + id;
+		id++;
 	}
 
 	@Override
