@@ -7,31 +7,34 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		test4();
+		test1();
+		test2();
+		test3();
 	}
 
 	private static void test1()
 	{
+		//Program starts and makes a map
+		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 9; i++){
 			floor.addTile(new RegularTile());
 		}
 		floor.setTile(8, new BrokenTile(20));
+		//Adding things to the floor
 		floor.setExit(new Exit(), 1);
 		floor.addThing(new GameMachine(3), 3);
-
-		Wardrobe w1 = null;
-		Wardrobe w2 = new Wardrobe(w1);
-		w1 = new Wardrobe(w2);
-
+		Wardrobe w1 = new Wardrobe();
+		Wardrobe w2 = new Wardrobe();
+		w1.setOutPoint(w2);
+		w2.setOutPoint(w1);
 		floor.addThing(w1, 4);
 		floor.addThing(new Armchair(), 5);
 		floor.addThing(w2, 7);
 		Entry entry = new Entry(floor.getTile(6));
 		entry.addOrangutan(2);
 		floor.setEntry(entry, 9);
-
-
+		//Setting neighbors
 		int[][] matrix = {
 				{},			//0
 				{2},		//1
@@ -44,34 +47,65 @@ public class FloorMakingProgram
 				{2,3,4,5,7},//8
 				{6}			//9
 		};
-
 		floor.setNeighbors(matrix);
-
-		System.out.println(floor.toString());
-
-		try{
-			FileOutputStream fos = new FileOutputStream("test1.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-
-		Floor Floor = null;
-		try{
-			FileInputStream fis = new FileInputStream("test1.flr");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Floor = (Floor)ois.readObject();
-			ois.close();
-			System.out.println(Floor);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		//Serialization
+		String filename = "test1.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-	private static void test4()
-	{
+	private static void test2(){
+		//Entry generates two orangutans and player steps with them
+		//Generating floor
+		Floor floor = new Floor();
+		for(int i = 0; i < 4; i ++){
+			floor.addTile(new RegularTile());
+		}
+		//Setting neighbors
+		int[][] matrix = {
+				{},		//0
+				{2},	//1
+				{1,3},	//2
+				{2,4},	//3
+				{3}		//4
+		};
+		floor.setNeighbors(matrix);
+		//Creating entry point;
+		Entry entry = new Entry(floor.getTile(2));
+		entry.addOrangutan(2);
+		floor.setEntry(entry, 1);
+		//Serialization
+		String filename = "test2.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
+	private static void test3(){
+		//Two orangutans wandering on the floor and
+		//suddenly one orangutan sees a panda and hits it.
+		//Generating floor
+		Floor floor = new Floor();
+		for(int i = 0; i < 6; i++){
+			floor.addTile(new RegularTile());
+		}
+		//Setting neighbors
+		int[][] matrix = {
+				{},		//0
+				{2},	//1
+				{1,3},	//2
+				{2,4},	//3
+				{3,5},	//4
+				{4,6},	//5
+				{5}		//6
+		};
+		floor.setNeighbors(matrix);
+		//Serialization
+		String filename = "test3.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
+	private static void test4(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 6; i++){
 			floor.addTile(new RegularTile());

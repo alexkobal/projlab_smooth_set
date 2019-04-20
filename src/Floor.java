@@ -1,4 +1,4 @@
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -130,5 +130,30 @@ public class Floor implements Serializable {
 		}
 		sb.append(status());
 		return sb.toString();
+	}
+
+	public static void serialise(Floor floor, String filename){
+		try{
+			FileOutputStream fos = new FileOutputStream(filename);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static Floor deserialise(String filename){
+
+		Floor floor = null;
+		try{
+			FileInputStream fis = new FileInputStream(filename);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			floor = (Floor)ois.readObject();
+			ois.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return floor;
 	}
 }

@@ -29,6 +29,8 @@ public class Wardrobe extends AThing{
      *     if it uses this Wardrobe.
      * </p>
      */
+
+    public Wardrobe(){};
     private Wardrobe outPoint;
     
     public void setOutPoint(Wardrobe wd) {
