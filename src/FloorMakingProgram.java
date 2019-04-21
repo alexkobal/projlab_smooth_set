@@ -7,14 +7,18 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		test13();
-		//test4();
+		//test1();
+		//test2();
 		//test3();
+		//test4();
+		//test13();
+		//test17();
+		//test18();
 	}
 
+	//Program starts and makes a map
 	private static void test1()
 	{
-		//Program starts and makes a map
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 9; i++){
@@ -53,9 +57,9 @@ public class FloorMakingProgram
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
-
+	//Entry generates two orangutans and player steps with them
 	private static void test2(){
-		//Entry generates two orangutans and player steps with them
+
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 4; i ++){
@@ -79,10 +83,9 @@ public class FloorMakingProgram
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
-
+	//Two orangutans wandering on the floor and suddenly one
+	// orangutan sees a panda and hits it.
 	private static void test3(){
-		//Two orangutans wandering on the floor and
-		//suddenly one orangutan sees a panda and hits it.
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 6; i++){
@@ -104,7 +107,7 @@ public class FloorMakingProgram
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
-
+	//Orangutan with PandaChain goes through a Wardrobe
 	private static void test4(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 6; i++){
@@ -154,7 +157,7 @@ public class FloorMakingProgram
 			e.printStackTrace();
 		}
 	}
-
+	//Armchair notifies some randomly stepping pandas
 	private static void test5()
 	{
 		Floor floor = new Floor();
@@ -232,8 +235,7 @@ public class FloorMakingProgram
 		Floor.serialise(floor, "test11.flr");
 		System.out.println(Floor.deserialise("test11.flr"));
 	}
-	
-	// Orangutan hits its own Panda chain
+	// Orangutan hits its own PandaChain
 	private static void test11()
 	{
 		Floor floor = new Floor();
@@ -255,7 +257,6 @@ public class FloorMakingProgram
 		Floor.serialise(floor, "test12.flr");
 		System.out.println(Floor.deserialise("test12.flr"));
 	}
-	
 	// Orangutan exits with two Pandas
 	private static void test12()
 	{
@@ -284,8 +285,7 @@ public class FloorMakingProgram
 		Floor.serialise(floor, "test13.flr");
 		System.out.println(Floor.deserialise("test13.flr"));
 	}
-	
-	/* Orangutan is exiting the floor with a Panda chain meanwhile a 
+	/* Orangutan is exiting the floor with a PandaChain meanwhile a
 	 * GameMachine scares one ScaredPanda in it who leaves the chain 
 	 * with all the Pandas behind.
 	 */
@@ -321,7 +321,7 @@ public class FloorMakingProgram
 		System.out.println(Floor.deserialise("test14.flr"));
 	}
 	
-
+	//Orangutan releases its PandaChain
 	private static void test17()
 	{
 		Floor floor = new Floor();
@@ -363,7 +363,7 @@ public class FloorMakingProgram
 			e.printStackTrace();
 		}
 	}
-
+	//Orangutan brings PandaChain over broken tile
 	private static void test18()
 	{
 		Floor floor = new Floor();
