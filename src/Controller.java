@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -16,6 +18,10 @@ public class Controller {
 	private ArrayList<Panda> pandas;
 	private ArrayList<Orangutan> orangutans;
 
+	private InputStreamReader isr = new InputStreamReader(System.in);
+	private BufferedReader br = new BufferedReader(isr);
+	private boolean exit = false;
+
 	public Controller(Floor floor){
 		this.floor = floor;
 		pandas = new ArrayList<>();
@@ -29,17 +35,55 @@ public class Controller {
 	}
 
 	public void start(){
-		while(true) {
-			if(floor.getEntry() != null){
+		while(!exit)
+		{
+			String line = null;
+			try {
+				line = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			if (line.length() <= 0) {
+				break;
+			}
+
+			String[] part = line.split(" ");
+			for(String s : part){
+				System.out.println(s);
+			}
+
+			if(part.length > 1) {
+				if (part[0].compareTo("move") == 0 && part.length == 3)
+				{
+					Animal selected = null;
+					for (Animal a: animals)
+					{
+						if (a.getName().compareTo(part[1]) == 0)
+							selected = a;
+					}
+					if(selected != null)
+					{
+						selected.move(floor.getTile(Integer.parseInt(part[2])));
+						System.out.println(selected.getName()+"moves to "+ part[2]+ "tile");
+					}
+				}
+			}
+
+			if(floor.getEntry() != null)
+			{
 				Orangutan orangutan = floor.getEntry().nextTurn();
-				if(orangutan != null){
+				if(orangutan != null)
+				{
 					orangutans.add(orangutan);
 				}
 			}
-			if(floor.getExit() != null){
+			if(floor.getExit() != null)
+			{
 				floor.getExit().nextTurn();
 			}
-			if(!orangutans.isEmpty()){
+			if(!orangutans.isEmpty())
+			{
 				moveOrangutans();
 			}
 			System.out.println(floor.status());
