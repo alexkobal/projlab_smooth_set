@@ -53,7 +53,18 @@ public class Orangutan extends Animal{
 	}
 
 	@Override
-	public void connectChain(Animal animal) { }
+	public void connectChain(Animal animal) {
+	    if(this.prevAnimal == null){
+	        this.prevAnimal = animal;
+	        animal.setNextAnimal(this);
+        }
+	    else{
+	        this.prevAnimal.setNextAnimal(animal);
+	        animal.setPrevAnimal(this.prevAnimal);
+	        animal.setNextAnimal(this);
+	        this.prevAnimal = animal;
+        }
+    }
 
 	@Override
 	public String toString(){
