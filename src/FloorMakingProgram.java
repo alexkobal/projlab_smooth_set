@@ -7,9 +7,10 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		test13();
+		//test13();
 		//test4();
 		//test3();
+		//test6();
 	}
 
 	private static void test1()
@@ -204,7 +205,111 @@ public class FloorMakingProgram
 			e.printStackTrace();
 		}
 	}
-	
+
+	private static void test6(){
+		Floor floor = new Floor();
+		for(int i = 0; i < 2; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+		floor.setTile(2, new BrokenTile(4));
+
+		int[][] matrix =
+				{
+						{},
+						{2},
+						{1},
+				};
+
+		floor.setNeighbors(matrix);
+
+		String filename = "test6.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
+	private static void test7(){
+		Floor floor = new Floor();
+		for(int i = 0; i < 7; i++){
+			floor.addTile(new RegularTile());
+		}
+
+		floor.addThing(new GameMachine(3), 7);
+
+		int[][] matrix =
+				{
+						{},
+						{2},
+						{1, 3},
+						{2, 4},
+						{3, 5, 7},
+						{4, 6},
+						{5},
+						{4},
+				};
+
+		floor.setNeighbors(matrix);
+
+		String filename = "test7.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
+	private static void test8(){
+		Floor floor = new Floor();
+		for(int i = 0; i < 8; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+
+		int[][] matrix =
+				{
+						{},
+						{2},
+						{1, 5},
+						{4},
+						{3, 5},
+						{2, 6, 7},
+						{5},
+						{5, 8},
+						{7}
+				};
+
+		floor.setNeighbors(matrix);
+
+		String filename = "test8.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
+	private static void test9(){
+		Floor floor = new Floor();
+		for(int i = 0; i < 9; i++)
+		{
+			floor.addTile(new RegularTile());
+		}
+
+		int[][] matrix =
+				{
+						{},
+						{2},
+						{1, 6},
+						{4},
+						{3, 5},
+						{4, 6},
+						{2, 5, 7, 8},
+						{6},
+						{6, 9},
+						{8}
+				};
+
+		floor.setNeighbors(matrix);
+
+		String filename = "test9.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
+	}
+
 	// VendingMachine makes JumpingPanda jump
 	private static void test10()
 	{

@@ -39,9 +39,9 @@ public class Orangutan extends Animal{
 	 * The Orangutan will release its chain, then will reduce the count..
 	 */
 	public void kill() {
-		
-		prevAnimal.unchain();
-		count--;
+
+		if(prevAnimal != null) prevAnimal.unchain();
+		//count--;   sehol nem növeljük!
 		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
