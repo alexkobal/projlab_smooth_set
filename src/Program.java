@@ -51,6 +51,7 @@ public class Program {
 						o.setName(part[2]);
 						o.setPrevTile(o.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(o);
+						ctrl.orangutans.add(o);
 						floor.getTile(Integer.parseInt(part[3])).setContains(o);
 						System.out.println(floor);
 					}
@@ -60,6 +61,7 @@ public class Program {
 						jp.setName(part[2]);
 						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(jp);
+						ctrl.pandas.add(jp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(jp);
 						System.out.println(floor);
 					}
@@ -69,6 +71,7 @@ public class Program {
 						sp.setName(part[2]);
 						sp.setPrevTile(sp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(sp);
+						ctrl.pandas.add(sp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(sp);
 						System.out.println(floor);
 					}
@@ -79,6 +82,7 @@ public class Program {
 						lp.setName(part[2]);
 						lp.setPrevTile(lp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						ctrl.animals.add(lp);
+						ctrl.pandas.add(lp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(lp);
 						System.out.println(floor);
 					}

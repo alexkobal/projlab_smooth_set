@@ -5,6 +5,8 @@
  * </p>
  */
 public class Exit extends AThing {
+    private int orangutansToPush = 0;
+
     /**
      * nextPanda
      * <p>
@@ -13,6 +15,13 @@ public class Exit extends AThing {
      * </p>
      */
     private Panda nextPanda;
+
+    public int getOrangutansToPush() {
+        int temp = orangutansToPush;
+        orangutansToPush = 0;
+        return temp;
+    }
+
     /**
      * hitBy Orangutan
      * <p>
@@ -27,6 +36,7 @@ public class Exit extends AThing {
             nextPanda = (Panda) orangutan.getNextAnimal();
             nextPanda.setPrevAnimal(null);
             orangutan = null;
+            orangutansToPush++;
             return true;
         }
         return false;

@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,8 +16,8 @@ public class Controller {
 	public ArrayList<Animal> animals = new ArrayList<>();
 
 	private Floor floor;
-	private ArrayList<Panda> pandas;
-	private ArrayList<Orangutan> orangutans;
+	public ArrayList<Panda> pandas;
+	public ArrayList<Orangutan> orangutans;
 
 	private InputStreamReader isr = new InputStreamReader(System.in);
 	private BufferedReader br = new BufferedReader(isr);
@@ -37,15 +38,46 @@ public class Controller {
 	public void start(){
 		while(!exit)
 		{
+			entryNextTurn();
+			exitNextTurn();
+			if(!orangutans.isEmpty())
+			{
+				moveOrangutans();
+			}
+			thingsNextTurn();
+			movePandas();
+			exit = checkEnd();
+		}
+	}
+
+	public void entryNextTurn(){
+		if(floor.getEntry() != null)
+		{
+			floor.getEntry().addOrangutan(floor.getExit().getOrangutansToPush());
+			Orangutan orangutan = floor.getEntry().nextTurn();
+			if(orangutan != null)
+			{
+				orangutans.add(orangutan);
+			}
+		}
+	}
+
+	public void exitNextTurn() {
+		if(floor.getExit() != null)
+		{
+			floor.getExit().nextTurn();
+		}
+	}
+
+	public void moveOrangutans(){
+		for(Orangutan o : orangutans){
+			System.out.println("make a move " + o.getName());
+
 			String line = null;
 			try {
 				line = br.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-
-			if (line.length() <= 0) {
-				break;
 			}
 
 			String[] part = line.split(" ");
@@ -65,45 +97,28 @@ public class Controller {
 					if(selected != null)
 					{
 						selected.move(floor.getTile(Integer.parseInt(part[2])));
-						System.out.println(selected.getName()+"moves to "+ part[2]+ "tile");
+						System.out.println(floor.status());
 					}
 				}
 			}
-
-			if(floor.getEntry() != null)
-			{
-				Orangutan orangutan = floor.getEntry().nextTurn();
-				if(orangutan != null)
-				{
-					orangutans.add(orangutan);
-				}
-			}
-			if(floor.getExit() != null)
-			{
-				floor.getExit().nextTurn();
-			}
-			if(!orangutans.isEmpty())
-			{
-				moveOrangutans();
-			}
-			System.out.println(floor.status());
 		}
 	}
 
-	public void moveOrangutans(){
-		for(Orangutan o : orangutans){
-			System.out.println("make a move " + o.getName());
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	public void thingsNextTurn(){
+		for(IPandaEffective ip : floor.getNotifiers()){
+			ip.effect();
 		}
 	}
 
 	public void movePandas(){
-
+		for(Panda p : pandas){
+			movePandaRandomly(p);
+		}
 	}
 
+	public boolean checkEnd(){
+		if(pandas.isEmpty() || orangutans.isEmpty()) {return true;}
+		return false;
+	}
 
 }

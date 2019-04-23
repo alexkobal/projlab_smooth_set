@@ -41,7 +41,7 @@ public class Orangutan extends Animal{
 	public void kill() {
 
 		if(prevAnimal != null) prevAnimal.unchain();
-		//count--;   sehol nem növeljük!
+		count--;
 		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
