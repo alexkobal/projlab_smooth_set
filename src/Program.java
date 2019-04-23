@@ -36,7 +36,7 @@ public class Program {
 					try{
 						floor = Floor.deserialise(part[1]);
 						ctrl = new Controller(floor);
-						System.out.println(floor.status());
+						System.out.println(floor);
 					}catch (Exception e){
 						e.printStackTrace();
 					}
