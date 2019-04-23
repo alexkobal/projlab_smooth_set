@@ -29,8 +29,10 @@ public abstract class Panda extends Animal {
 		isOn = orTile_temp;
 		orTile_temp.setContains(this);
 
-		this.nextAnimal.setPrevAnimal(null);	//Qrva ronda, de mivel az unchain úgy lett specifikálva, hogy csak a mögötte lévő láncot bontja fel, inkább nem írtam át
-		this.nextAnimal = null;
+		if(nextAnimal != null) {
+			this.nextAnimal.setPrevAnimal(null);    //Qrva ronda, de mivel az unchain úgy lett specifikálva, hogy csak a mögötte lévő láncot bontja fel, inkább nem írtam át
+			this.nextAnimal = null;
+		}
 
 		or.connectChain(this);
 
