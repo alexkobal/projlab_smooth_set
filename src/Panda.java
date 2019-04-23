@@ -5,7 +5,7 @@
  * This is Panda which extends the animal class. It represents all Panda kind of objects on the map.
  **/
 public abstract class Panda extends Animal {
-	
+
 	/**
 	 * HitBy Orangutan
 	 * <p>n Orangutan hits a Panda this function will be called.
@@ -18,7 +18,7 @@ public abstract class Panda extends Animal {
 		if(prevAnimal != null) {
 			prevAnimal.unchain();
 		}
-		
+
 		Tile orTile_temp = or.getIsOn(); //Temporális változó
 		or.setPrevTile(or.getIsOn());
 		or.setIsOn(this.isOn);
@@ -28,6 +28,11 @@ public abstract class Panda extends Animal {
 		prevTile = isOn;
 		isOn = orTile_temp;
 		orTile_temp.setContains(this);
+
+		this.nextAnimal.setPrevAnimal(null);	//Qrva ronda, de mivel az unchain úgy lett specifikálva, hogy csak a mögötte lévő láncot bontja fel, inkább nem írtam át
+		this.nextAnimal = null;
+
+		or.connectChain(this);
 
 		return true;
 	}
@@ -46,7 +51,8 @@ public abstract class Panda extends Animal {
 				prevAnimal.setNextAnimal(null);
 				prevAnimal = null;
 				return;
-			} else {//Rekurziv h�v�sok folytat�sa
+			}
+			else {//Rekurziv h�v�sok folytat�sa
 				prevAnimal.unchain();
 			}
 

@@ -72,4 +72,9 @@ public class LazyPanda extends Panda {
 	public int getSleepTime() {
 		return sleepTime;
 	}
+
+	@Override
+	public String toString(){
+		return "l";
+	}
 }

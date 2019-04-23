@@ -5,8 +5,8 @@
  * This is Orangutan which extends the animal class. It represents the Orangutan kind of objects on the map.
  **/
 public class Orangutan extends Animal{
-	
 	private static int count;
+	private static int id = 1;
 	
 	/**
 	 * move(Tile)
@@ -39,16 +39,32 @@ public class Orangutan extends Animal{
 	 * The Orangutan will release its chain, then will reduce the count..
 	 */
 	public void kill() {
-		
-		prevAnimal.unchain();
-		count--;
+
+		if(prevAnimal != null) prevAnimal.unchain();
+		//count--;   sehol nem növeljük!
 		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
 	}
 
+	public Orangutan(){
+		name = "o" + id;
+		id++;
+	}
+
 	@Override
-	public void connectChain(Animal animal) { }
+	public void connectChain(Animal animal) {
+	    if(this.prevAnimal == null){
+	        this.prevAnimal = animal;
+	        animal.setNextAnimal(this);
+        }
+	    else{
+	        this.prevAnimal.setNextAnimal(animal);
+	        animal.setPrevAnimal(this.prevAnimal);
+	        animal.setNextAnimal(this);
+	        this.prevAnimal = animal;
+        }
+    }
 
 	@Override
 	public String toString(){

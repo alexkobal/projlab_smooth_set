@@ -1,4 +1,4 @@
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,13 +8,13 @@ import java.util.function.BiConsumer;
 public class Floor implements Serializable {
 	private int idx;
 	private HashMap<Integer, Tile> tiles;
-	private HashSet<AThing> things;
+	private ArrayList<IPandaEffective> notifiers;
 	private Entry entry;
 	private Exit exit;
 
 	public Floor(){
 		tiles = new HashMap<>();
-		things = new HashSet<>();
+		notifiers = new ArrayList<>();
 		idx = 1;
 		entry = null;
 		exit = null;
@@ -40,28 +40,27 @@ public class Floor implements Serializable {
 	public void addThing(Wardrobe wardrobe, int tileIdx){
 		if(tiles.get(tileIdx).getContains() == null){
 			tiles.get(tileIdx).setContains(wardrobe);
-			things.add(wardrobe);
 		}
 	}
 
 	public void addThing(Armchair armchair, int tileIdx){
 		if(tiles.get(tileIdx).getContains() == null){
 			tiles.get(tileIdx).setContains(armchair);
-			things.add(armchair);
+			notifiers.add(armchair);
 		}
 	}
 
 	public void addThing(VendingMachine vm, int tileIdx){
 		if(tiles.get(tileIdx).getContains() == null){
 			tiles.get(tileIdx).setContains(vm);
-			things.add(vm);
+			notifiers.add(vm);
 		}
 	}
 
 	public void addThing(GameMachine gm, int tileIdx){
 		if(tiles.get(tileIdx).getContains() == null){
 			tiles.get(tileIdx).setContains(gm);
-			things.add(gm);
+			notifiers.add(gm);
 		}
 	}
 
@@ -130,5 +129,42 @@ public class Floor implements Serializable {
 		}
 		sb.append(status());
 		return sb.toString();
+	}
+
+	public static void serialise(Floor floor, String filename){
+		try{
+			FileOutputStream fos = new FileOutputStream(filename);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(floor);
+			oos.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static Floor deserialise(String filename){
+
+		Floor floor = null;
+		try{
+			FileInputStream fis = new FileInputStream(filename);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			floor = (Floor)ois.readObject();
+			ois.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return floor;
+	}
+
+	public ArrayList<IPandaEffective> getNotifiers(){
+		return notifiers;
+	}
+
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public Exit getExit() {
+		return exit;
 	}
 }

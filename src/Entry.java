@@ -33,17 +33,6 @@ public class Entry extends AThing{
 	 */
 	private int orangutansToPush;
 
-	/**
-	 * pushOrangutan
-	 * <p>
-	 *     This function places an orangutan on the floor.
-	 * </p>
-	 */
-	public void pushOrangutan(){
-		Orangutan orangutan = new Orangutan();
-		orangutan.setIsOn(entryTile);
-		entryTile.setContains(orangutan);
-	}
 
 	/**
 	 * addOrangutan
@@ -64,11 +53,15 @@ public class Entry extends AThing{
 	 *     then decrements the number of Orangutans to push.
 	 * </p>
 	 */
-	public void nextTurn(){
+	public Orangutan nextTurn(){
+		Orangutan orangutan = null;
 		if(orangutansToPush > 0){
-			pushOrangutan();
+			orangutan = new Orangutan();
+			orangutan.setIsOn(entryTile);
+			entryTile.setContains(orangutan);
 			orangutansToPush--;
 		}
+		return orangutan;
 	}
 
 	@Override

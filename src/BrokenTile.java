@@ -43,6 +43,7 @@ public class BrokenTile extends Tile
 
     @Override
     public String toString(){
-        return "b" + lifeTime;
+        if(lifeTime > 0) return "b" + lifeTime;
+        else return "0";
     }
 }
