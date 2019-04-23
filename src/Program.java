@@ -36,7 +36,7 @@ public class Program {
 					try{
 						floor = Floor.deserialise(part[1]);
 						ctrl = new Controller(floor);
-						System.out.println(floor);
+						System.out.println(floor.status());
 					}catch (Exception e){
 						e.printStackTrace();
 					}
@@ -50,7 +50,7 @@ public class Program {
 						ctrl.animals.add(o);
 						ctrl.orangutans.add(o);
 						floor.getTile(Integer.parseInt(part[3])).setContains(o);
-						System.out.println(floor);
+						System.out.println(floor.status());
 					}
 					else if(part[1].compareTo("jpanda") == 0){
 						JumpingPanda jp = new JumpingPanda();
