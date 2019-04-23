@@ -32,10 +32,13 @@ public class Controller {
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
 		Random randomiser = new Random();
-		panda.move(neighbors.get(randomiser.nextInt() % neighbors.size()));
+		if(!neighbors.isEmpty()) {
+			panda.move(neighbors.get(randomiser.nextInt() % neighbors.size()));
+		}
 	}
 
 	public void start(){
+		System.out.println(floor.status());
 		while(!exit)
 		{
 			entryNextTurn();

@@ -74,7 +74,7 @@ public class FloorMakingProgram
 		//Entry generates two orangutans and player steps with them
 		//Generating floor
 		Floor floor = new Floor();
-		for(int i = 0; i < 4; i ++){
+		for(int i = 0; i < 5; i ++){
 			floor.addTile(new RegularTile());
 		}
 		//Setting neighbors
@@ -83,7 +83,8 @@ public class FloorMakingProgram
 				{2},	//1
 				{1,3},	//2
 				{2,4},	//3
-				{3}		//4
+				{3},	//4
+				{}		//5
 		};
 		floor.setNeighbors(matrix);
 		//Creating entry point;

@@ -30,9 +30,6 @@ public class Program {
 			}
 
 			String[] part = line.split(" ");
-			for(String s : part){
-				System.out.println(s);
-			}
 
 			if(part.length > 1) {
 				if(part[0].compareTo("cm")==0)
@@ -63,7 +60,7 @@ public class Program {
 						ctrl.animals.add(jp);
 						ctrl.pandas.add(jp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(jp);
-						System.out.println(floor);
+						System.out.println(floor.status());
 					}
 					else if(part[1].compareTo("spanda") == 0){
 						ScaredPanda sp = new ScaredPanda();
@@ -73,7 +70,7 @@ public class Program {
 						ctrl.animals.add(sp);
 						ctrl.pandas.add(sp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(sp);
-						System.out.println(floor);
+						System.out.println(floor.status());
 					}
 					else if(part[1].compareTo("lpanda") == 0){
 						int rnd = new Random().nextInt(5);
@@ -84,7 +81,7 @@ public class Program {
 						ctrl.animals.add(lp);
 						ctrl.pandas.add(lp);
 						floor.getTile(Integer.parseInt(part[3])).setContains(lp);
-						System.out.println(floor);
+						System.out.println(floor.status());
 					}
 				}
 
@@ -125,17 +122,5 @@ public class Program {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
-//		Floor Floor = null;
-//		try{
-//			FileInputStream fis = new FileInputStream("test1.flr");
-//			ObjectInputStream ois = new ObjectInputStream(fis);
-//			Floor = (Floor)ois.readObject();
-//			ois.close();
-//			System.out.println(Floor);
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
 	}
 }
