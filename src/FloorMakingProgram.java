@@ -28,9 +28,8 @@ public class FloorMakingProgram
 	}
 
 
-	private static void test1()
-	{
-		//Program starts and makes a map
+	//Program starts and makes a map
+	private static void test1() {
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 9; i++){
@@ -70,8 +69,8 @@ public class FloorMakingProgram
 		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Entry generates two orangutans and player steps with them
 	private static void test2(){
-		//Entry generates two orangutans and player steps with them
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 5; i ++){
@@ -97,9 +96,9 @@ public class FloorMakingProgram
 		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Two orangutans wandering on the floor and
+	//suddenly one orangutan sees a panda and hits it.
 	private static void test3(){
-		//Two orangutans wandering on the floor and
-		//suddenly one orangutan sees a panda and hits it.
 		//Generating floor
 		Floor floor = new Floor();
 		for(int i = 0; i < 6; i++){
@@ -122,6 +121,7 @@ public class FloorMakingProgram
 		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Orangutan with Panda chain goes through a Wardrobe
 	private static void test4(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 6; i++){
@@ -150,30 +150,14 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 
 		System.out.println(floor.toString());
-
-		try{
-			FileOutputStream fos = new FileOutputStream("test4.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-
-		Floor Floor = null;
-		try{
-			FileInputStream fis = new FileInputStream("test4.flr");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Floor = (Floor)ois.readObject();
-			ois.close();
-			System.out.println(Floor);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		
+		String filename = "test4.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-	private static void test5()
-	{
+	//Armchair notifies some randomly stepping pandas K.Peti
+	private static void test5() {
 		Floor floor = new Floor();
 		for(int i = 0; i < 5; i++)
 		{
@@ -194,34 +178,12 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 
 		System.out.println(floor.toString());
-
-		try
-		{
-			FileOutputStream fos = new FileOutputStream("test5.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		Floor Floor = null;
-		try
-		{
-			FileInputStream fis = new FileInputStream("test5.flr");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Floor = (Floor)ois.readObject();
-			ois.close();
-			System.out.println(Floor);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		String filename = "test5.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Lonely Orangutan walking around a broken tile and breaks it, then the game ends M.M
     private static void test6(){
         Floor floor = new Floor();
         for(int i = 0; i < 3; i++)
@@ -245,6 +207,7 @@ public class FloorMakingProgram
         System.out.println(Floor.deserialise(filename));
     }
 
+	//GameMachine scares a panda M.M
     private static void test7(){
         Floor floor = new Floor();
         for(int i = 0; i < 7; i++){
@@ -272,6 +235,7 @@ public class FloorMakingProgram
         System.out.println(Floor.deserialise(filename));
     }
 
+    //Orangutan steals Pandas from an Orangutan without Panda- chain M.M
     private static void test8(){
         Floor floor = new Floor();
         for(int i = 0; i < 8; i++)
@@ -299,6 +263,7 @@ public class FloorMakingProgram
         System.out.println(Floor.deserialise(filename));
     }
 
+    //Orangutan hits a chained Panda from another chain M.M
     private static void test9(){
         Floor floor = new Floor();
         for(int i = 0; i < 9; i++)
@@ -328,8 +293,7 @@ public class FloorMakingProgram
     }
 
 	// VendingMachine makes JumpingPanda jump
-	private static void test10()
-	{
+	private static void test10(){
 		Floor floor = new Floor();
 
 		for(int i = 0; i < 4; i++)
@@ -349,15 +313,15 @@ public class FloorMakingProgram
 				{2},
 				{2}
 		};
-
+		
+		String filename = "test10.flr";
 		floor.setNeighbors(mtx);
-		Floor.serialise(floor, "test11.flr");
-		System.out.println(Floor.deserialise("test11.flr"));
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
 	// Orangutan hits its own Panda chain
-	private static void test11()
-	{
+	private static void test11(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 5; i++)
 		{
@@ -374,13 +338,13 @@ public class FloorMakingProgram
 		};
 
 		floor.setNeighbors(mtx);
-		Floor.serialise(floor, "test12.flr");
-		System.out.println(Floor.deserialise("test12.flr"));
+		String filename = "test12.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
 	// Orangutan exits with two Pandas
-	private static void test12()
-	{
+	private static void test12(){
 		Floor floor = new Floor();
 
 		RegularTile entryTile = new RegularTile();
@@ -403,16 +367,15 @@ public class FloorMakingProgram
 		floor.setExit(new Exit(), 1);
 
 		floor.setNeighbors(mtx);
-		Floor.serialise(floor, "test13.flr");
-		System.out.println(Floor.deserialise("test13.flr"));
+		String filename = "test12.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-	/* Orangutan is exiting the floor with a Panda chain meanwhile a
-	 * GameMachine scares one ScaredPanda in it who leaves the chain
-	 * with all the Pandas behind.
-	 */
-	private static void test13()
-	{
+	//Orangutan is exiting the floor with a Panda chain meanwhile a
+	//GameMachine scares one ScaredPanda in it who leaves the chain
+	//with all the Pandas behind.
+	private static void test13(){
 		Floor floor = new Floor();
 
 		RegularTile entryTile = new RegularTile();
@@ -439,11 +402,12 @@ public class FloorMakingProgram
 		floor.setExit(new Exit(), 7);
 
 		floor.setNeighbors(mtx);
-		Floor.serialise(floor, "test14.flr");
-		System.out.println(Floor.deserialise("test14.flr"));
+		String filename = "test13.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-
+	//Panda breaks a tile with its move - Előd
 	private static void test14(){
 
 		Floor floor = new Floor();
@@ -462,16 +426,12 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 		floor.setTile(2, new BrokenTile());
 
-		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		String filename = "test14.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Teszteset17 Last Orangutan dies. - Előd
 	private static void test15(){
 
 		Floor floor = new Floor();
@@ -490,16 +450,12 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 		floor.setTile(2, new BrokenTile());
 
-		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		String filename = "test15.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
+	//Teszteset18 Last  Panda dies - Előd
 	private static void test16(){
 
 		Floor floor = new Floor();
@@ -518,18 +474,13 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 		floor.setTile(2, new BrokenTile());
 
-		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		String filename = "test16.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-	private static void test17()
-	{
+	//Teszteset19 Orangutan releases its PandaChain K.Peti
+	private static void test17(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 4; i++)
 		{
@@ -549,29 +500,13 @@ public class FloorMakingProgram
 
 		System.out.println(floor.toString());
 
-		try{
-			FileOutputStream fos = new FileOutputStream("test17.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-
-		Floor Floor = null;
-		try{
-			FileInputStream fis = new FileInputStream("test17.flr");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Floor = (Floor)ois.readObject();
-			ois.close();
-			System.out.println(Floor);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		String filename = "test17.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
-	private static void test18()
-	{
+	//Teszteset20 Orangutan brings PandaChain over broken tile K.Peti
+	private static void test18(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 5; i++)
 		{
@@ -593,25 +528,9 @@ public class FloorMakingProgram
 
 		System.out.println(floor.toString());
 
-		try{
-			FileOutputStream fos = new FileOutputStream("test18.flr");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(floor);
-			oos.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-
-		Floor Floor = null;
-		try{
-			FileInputStream fis = new FileInputStream("test18.flr");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Floor = (Floor)ois.readObject();
-			ois.close();
-			System.out.println(Floor);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		String filename = "test18.flr";
+		Floor.serialise(floor, filename);
+		System.out.println(Floor.deserialise(filename));
 	}
 
 
