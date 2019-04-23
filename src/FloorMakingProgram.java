@@ -224,17 +224,18 @@ public class FloorMakingProgram
 
     private static void test6(){
         Floor floor = new Floor();
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 3; i++)
         {
             floor.addTile(new RegularTile());
         }
-        floor.setTile(2, new BrokenTile(4));
+        floor.setTile(2, new BrokenTile(4)); //Csak tesztelés 4
 
         int[][] matrix =
                 {
                         {},
                         {2},
                         {1},
+						{}
                 };
 
         floor.setNeighbors(matrix);

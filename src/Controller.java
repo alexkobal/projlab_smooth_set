@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.function.Predicate;
 
 /**
  * Controller
@@ -32,8 +34,10 @@ public class Controller {
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
 		Random randomiser = new Random();
-		int n = Math.abs((randomiser.nextInt() % neighbors.size()));
-		panda.move(neighbors.get(n));
+		if(!neighbors.isEmpty()) {
+			int n = Math.abs((randomiser.nextInt() % neighbors.size()));
+			panda.move(neighbors.get(n));
+		}
 	}
 
 	public void start(){
@@ -106,6 +110,7 @@ public class Controller {
 				}
 			}
 		}
+		orangutans.removeIf(Orangutan::getIsDead);
 	}
 
 	public void thingsNextTurn(){
