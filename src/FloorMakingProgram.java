@@ -12,6 +12,7 @@ public class FloorMakingProgram
 		//test3();
 	}
 
+
 	private static void test1()
 	{
 		//Program starts and makes a map
