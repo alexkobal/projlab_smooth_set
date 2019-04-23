@@ -37,6 +37,7 @@ public class Controller {
 	}
 
 	public void start(){
+		System.out.println(floor.status());
 		while(!exit)
 		{
 			entryNextTurn();
