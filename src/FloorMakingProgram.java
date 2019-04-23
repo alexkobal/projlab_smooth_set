@@ -250,7 +250,7 @@ public class FloorMakingProgram
             floor.addTile(new RegularTile());
         }
 
-        floor.addThing(new GameMachine(3), 7);
+        floor.addThing(new GameMachine(1), 7);
 
         int[][] matrix =
                 {
@@ -462,7 +462,7 @@ public class FloorMakingProgram
 		floor.setTile(2, new BrokenTile());
 
 		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
+			FileOutputStream fos = new FileOutputStream("test15.flr");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(floor);
 			oos.close();
@@ -490,7 +490,7 @@ public class FloorMakingProgram
 		floor.setTile(2, new BrokenTile());
 
 		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
+			FileOutputStream fos = new FileOutputStream("test16.flr");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(floor);
 			oos.close();
@@ -518,7 +518,7 @@ public class FloorMakingProgram
 		floor.setTile(2, new BrokenTile());
 
 		try{
-			FileOutputStream fos = new FileOutputStream("test14.flr");
+			FileOutputStream fos = new FileOutputStream("test17.flr");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(floor);
 			oos.close();

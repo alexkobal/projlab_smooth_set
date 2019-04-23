@@ -47,19 +47,12 @@ public abstract class Panda extends Animal {
 	 */
 	public void unchain() {
 		if( isInChain() ) {
-
-			if (nextAnimal == null) {
-				//Megfelel� setterek + return, (rekurzi� v�ge)
-				prevAnimal.setNextAnimal(null);
-				prevAnimal = null;
-				return;
-			}
-			else {//Rekurziv h�v�sok folytat�sa
+			if(prevAnimal != null) {//Rekurziv h�v�sok folytat�sa
 				prevAnimal.unchain();
 			}
 
 			//megfelel� setter + return
-			prevAnimal.setNextAnimal(null);
+			nextAnimal = null;
 			prevAnimal = null;
 			return;
 		}

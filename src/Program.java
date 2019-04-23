@@ -73,7 +73,7 @@ public class Program {
 						System.out.println(floor.status());
 					}
 					else if(part[1].compareTo("lpanda") == 0){
-						int rnd = new Random().nextInt(5);
+						int rnd = Math.abs(new Random().nextInt(4) + 1);
 						LazyPanda lp = new LazyPanda(rnd);
 						lp.setIsOn(floor.getTile(Integer.parseInt(part[3])));
 						lp.setName(part[2]);

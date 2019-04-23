@@ -22,8 +22,7 @@ public class Armchair extends AThing implements IPandaEffective{
 	 * <p>
 	 * This function is called when the controller calls it. (random intervalls)
 	 */
-	public void effect()
-	{
+	public void effect() {
 		notifyNeighbors();
 	}
 
