@@ -107,16 +107,7 @@ public class Program {
 				}
 
 
-				else if(part[0].compareTo("move")==0){
-					Animal an = null;
-					for (Animal a: ctrl.animals) {
-						if (a.getName().compareTo(part[1]) == 0)
-							an = a;
-					}
-					an.move(floor.getTile(Integer.parseInt(part[2])));
 
-					System.out.println(floor);
-				}
 			}else if(part.length == 1){
 				if(part[0].compareTo("run")==0)		//Minek??
 					System.out.println("runolok");

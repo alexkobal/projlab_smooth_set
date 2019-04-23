@@ -58,6 +58,7 @@ public class Entry extends AThing{
 		if(orangutansToPush > 0){
 			orangutan = new Orangutan();
 			orangutan.setIsOn(entryTile);
+			orangutan.prevTile = orangutan.isOn;
 			entryTile.setContains(orangutan);
 			orangutansToPush--;
 		}

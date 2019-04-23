@@ -53,7 +53,12 @@ public class Controller {
 	public void entryNextTurn(){
 		if(floor.getEntry() != null)
 		{
-			floor.getEntry().addOrangutan(floor.getExit().getOrangutansToPush());
+			try {
+				floor.getEntry().addOrangutan(floor.getExit().getOrangutansToPush());
+			} catch (Exception e) {
+
+			}
+
 			Orangutan orangutan = floor.getEntry().nextTurn();
 			if(orangutan != null)
 			{
@@ -81,15 +86,12 @@ public class Controller {
 			}
 
 			String[] part = line.split(" ");
-			for(String s : part){
-				System.out.println(s);
-			}
 
 			if(part.length > 1) {
 				if (part[0].compareTo("move") == 0 && part.length == 3)
 				{
-					Animal selected = null;
-					for (Animal a: animals)
+					Orangutan selected = null;
+					for (Orangutan a: orangutans)
 					{
 						if (a.getName().compareTo(part[1]) == 0)
 							selected = a;
@@ -97,8 +99,8 @@ public class Controller {
 					if(selected != null)
 					{
 						selected.move(floor.getTile(Integer.parseInt(part[2])));
-						System.out.println(floor.status());
 					}
+					System.out.println(floor.status());
 				}
 			}
 		}

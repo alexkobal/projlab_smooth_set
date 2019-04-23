@@ -7,9 +7,24 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		//test9();
-		//test4();
-		//test3();
+		test1();
+		test2();
+		test3();
+		test4();
+		test5();
+		test6();
+		test7();
+		test8();
+		test9();
+		test10();
+		test11();
+		test12();
+		test13();
+		test14();
+		test15();
+		test16();
+		test17();
+		test18();
 	}
 
 
@@ -427,7 +442,7 @@ public class FloorMakingProgram
 	}
 
 
-	private static void test14_panda_breaks(){
+	private static void test14(){
 
 		Floor floor = new Floor();
 		for(int i=0; i<4;++i){
@@ -455,7 +470,7 @@ public class FloorMakingProgram
 		}
 	}
 
-	private static void test15_teszteset17(){
+	private static void test15(){
 
 		Floor floor = new Floor();
 		for(int i=0; i<4;++i){
@@ -483,7 +498,7 @@ public class FloorMakingProgram
 		}
 	}
 
-	private static void test16_teszteset18(){
+	private static void test16(){
 
 		Floor floor = new Floor();
 		for(int i=0; i<4;++i){
