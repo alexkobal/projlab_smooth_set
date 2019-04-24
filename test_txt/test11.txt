@@ -1,0 +1,68 @@
+cm test11.flr
+  0  1  2  3  4  5
+  1  _  X  _  _  _
+  2  X  _  X  X  _
+  3  _  X  _  _  X
+  4  _  X  _  _  X
+  5  _  _  X  X  _
+1r
+2r
+3r
+4r
+5r
+
+put lpanda l1 2
+1r
+2l
+3r
+4r
+5r
+
+put lpanda l2 3
+1r
+2l
+3l
+4r
+5r
+
+put orangutan o1 4
+1r
+2l
+3l
+4o
+5r
+
+put lpanda l3 5
+1r
+2l
+3l
+4o
+5l
+
+chain o1 l3
+chain l3 l2
+chain l2 l1
+start
+1r
+2l
+3l
+4o
+5l
+
+make a move o1
+move o1 2
+1r
+2o
+3l
+4l
+5l
+
+make a move o1
+move o1 1
+1o
+2l
+3r
+4l
+5l
+
+make a move o1

@@ -1,0 +1,151 @@
+cm test9.flr
+  0  1  2  3  4  5  6  7  8  9
+  1  _  X  _  _  _  _  _  _  _
+  2  X  _  _  _  _  X  _  _  _
+  3  _  _  _  X  _  _  _  _  _
+  4  _  _  X  _  X  _  _  _  _
+  5  _  _  _  X  _  X  _  _  _
+  6  _  X  _  _  X  _  X  X  _
+  7  _  _  _  _  _  X  _  _  _
+  8  _  _  _  _  _  X  _  _  X
+  9  _  _  _  _  _  _  _  X  _
+1r
+2r
+3r
+4r
+5r
+6r
+7r
+8r
+9r
+
+put orangutan o1 2
+1r
+2o
+3r
+4r
+5r
+6r
+7r
+8r
+9r
+
+put orangutan o2 4
+1r
+2o
+3r
+4o
+5r
+6r
+7r
+8r
+9r
+
+put lpanda lp1 1
+1l
+2o
+3r
+4o
+5r
+6r
+7r
+8r
+9r
+
+put lpanda lp2 3
+1l
+2o
+3l
+4o
+5r
+6r
+7r
+8r
+9r
+
+chain o1 lp1
+chain o2 lp2
+start
+1l
+2o
+3l
+4o
+5r
+6r
+7r
+8r
+9r
+
+make a move o1
+move o1 6
+1r
+2l
+3l
+4o
+5r
+6o
+7r
+8r
+9r
+
+make a move o2
+move o2 5
+1r
+2l
+3r
+4l
+5o
+6o
+7r
+8r
+9r
+
+make a move o1
+move o1 8
+1r
+2r
+3l
+4r
+5o
+6l
+7r
+8o
+9r
+
+make a move o2
+move o2 6
+1r
+2r
+3l
+4r
+5l
+6o
+7r
+8o
+9r
+
+make a move o1
+move o1 9
+1r
+2r
+3r
+4l
+5l
+6o
+7r
+8r
+9o
+
+make a move o2
+move o2 7
+1r
+2r
+3r
+4l
+5r
+6l
+7o
+8r
+9o
+
+make a move o1

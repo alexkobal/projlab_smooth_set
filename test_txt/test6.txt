@@ -1,0 +1,72 @@
+cm test6.flr
+  0  1  2  3
+  1  _  X  _
+  2  X  _  _
+  3  _  _  _
+1r
+2b4
+3r
+
+put orangutan o1 2
+1r
+2o
+3r
+
+put lpanda l1 3
+1r
+2o
+3l
+
+start
+1r
+2o
+3l
+
+make a move o1
+move o1 1
+1o
+2b4
+3l
+
+make a move o1
+move o1 2
+1r
+2o
+3l
+
+make a move o1
+move o1 1
+1o
+2b3
+3l
+
+make a move o1
+move o1 2
+1r
+2o
+3l
+
+make a move o1
+move o1 1
+1o
+2b2
+3l
+
+make a move o1
+move o1 2
+1r
+2o
+3l
+
+make a move o1
+move o1 1
+1o
+2b1
+3l
+
+make a move o1
+move o1 2
+1r
+20
+3l
+

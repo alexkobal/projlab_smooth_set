@@ -1,0 +1,34 @@
+cm test2.flr
+  0  1  2  3  4
+  1  _  X  _  _
+  2  X  _  X  _
+  3  _  X  _  X
+  4  _  _  X  _
+1:x2
+2:r
+3:r
+4:r
+start
+1:x2
+2:o
+3:r
+4:r
+make a move o1
+move o1 3
+1:x0
+2:o
+3:o
+4:r
+make a move o1
+move o1 4
+1:x0
+2:o
+3:r
+4:o
+make a move o2
+move o2 3
+1:x0
+2:r
+3:o
+4:o
+make a move o1

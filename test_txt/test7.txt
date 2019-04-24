@@ -1,0 +1,78 @@
+cm test7.flr
+  0  1  2  3  4  5  6  7
+  1  _  X  _  _  _  _  _
+  2  X  _  X  _  _  _  _
+  3  _  X  _  X  _  _  _
+  4  _  _  X  _  X  _  X
+  5  _  _  _  X  _  X  _
+  6  _  _  _  _  X  _  _
+  7  _  _  _  X  _  _  _
+1r
+2r
+3r
+4r
+5r
+6r
+7g
+
+put orangutan o1 3
+1r
+2r
+3o
+4r
+5r
+6r
+7g
+
+put spanda sp 2 
+1r
+2s
+3o
+4r
+5r
+6r
+7g
+
+put lpanda lp 1
+1l
+2s
+3o
+4r
+5r
+6r
+7g
+
+chain o1 sp
+chain sp lp
+start
+1l
+2s
+3o
+4r
+5r
+6r
+7g
+
+make a move o1
+moveo o1 4
+make a move o1
+move o1 5
+1r
+2l
+3s
+4r
+5o
+6r
+7g
+
+make a move o1
+move o1 6
+1r
+2r
+3l
+4r
+5s
+6o
+7g
+
+make a move o1

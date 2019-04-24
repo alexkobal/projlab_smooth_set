@@ -1,0 +1,43 @@
+cm test10.flr
+  0  1  2  3  4
+  1  _  X  _  _
+  2  X  _  X  X
+  3  _  X  _  _
+  4  _  X  _  _
+1b20
+2v1
+3b20
+4b20
+
+put jpanda j1 1
+1j
+2v1
+3b20
+4b20
+
+put orangutan o1 3
+1j
+2v1
+3o
+4b20
+
+put spanda s1 4
+1j
+2v1
+3o
+4s
+
+start
+1j
+2v1
+3o
+4s
+
+make a move o1
+move o1 3
+1j
+2v1
+3o
+4s
+
+make a move o1

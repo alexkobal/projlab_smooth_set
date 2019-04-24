@@ -338,7 +338,7 @@ public class FloorMakingProgram
 		};
 
 		floor.setNeighbors(mtx);
-		String filename = "test12.flr";
+		String filename = "test11.flr";
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}

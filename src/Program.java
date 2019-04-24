@@ -5,8 +5,7 @@ import java.util.Random;
 public class Program {
 
 	public static void main(String[] args){
-		FloorMakingProgram.main(new String[3]);
-		System.out.println("Hello World!");
+		//FloorMakingProgram.main(new String[3]);
 		reader();
 	}
 

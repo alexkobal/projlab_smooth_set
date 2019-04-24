@@ -1,4 +1,4 @@
-/**
+/*
  * Animal
  * <p>
  *     This class extends AThing. It represents the animals of the game.
@@ -6,7 +6,7 @@
  * </p>
  */
 public abstract class Animal extends AThing {
-	protected String name; //////////////////////////////////////////////////KONZULTÁLNI!!
+	protected String name;
 	/**
 	 * prevAnimal
 	 * <p>
