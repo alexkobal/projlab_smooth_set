@@ -4,7 +4,7 @@ cm test10.flr
   2  X  _  X  X
   3  _  X  _  _
   4  _  X  _  _
-1b20
+1b1
 2v1
 3b20
 4b20
@@ -37,6 +37,13 @@ make a move o1
 move o1 3
 1j
 2v1
+3o
+4s
+
+make a move o1
+move o1 3
+1j
+2v0
 3o
 4s
 

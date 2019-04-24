@@ -1,0 +1,31 @@
+cm test14.flr
+  0  1  2  3
+  1  _  X  _
+  2  X  _  _
+  3  _  _  _
+1r
+2b1
+3r
+
+put orangutan o 3
+1r
+2b1
+3o
+
+put lpanda l 1
+1l
+2b1
+3o
+
+start
+1l
+2b1
+3o
+
+make a move o
+move o 3
+1l
+2b1
+3o
+
+move o 3

@@ -17,7 +17,7 @@ public class Controller {
 
 	public ArrayList<Animal> animals = new ArrayList<>();
 
-	private Floor floor;
+	public Floor floor;
 	public ArrayList<Panda> pandas;
 	public ArrayList<Orangutan> orangutans;
 
@@ -46,7 +46,6 @@ public class Controller {
 		while(!exit)
 		{
 			entryNextTurn();
-			exitNextTurn();
 			if(!orangutans.isEmpty())
 			{
 				moveOrangutans();
@@ -54,6 +53,7 @@ public class Controller {
 			thingsNextTurn();
 			if(!pandas.isEmpty())
 				movePandas();
+			exitNextTurn();
 			exit = checkEnd();
 		}
 	}
@@ -83,8 +83,9 @@ public class Controller {
 	}
 
 	public void moveOrangutans(){
-		for(Orangutan o : orangutans){
-			System.out.println("make a move " + o.getName());
+		Object[] or = orangutans.toArray();
+		for(Object o : or){
+			System.out.println("make a move " + ((Orangutan)o).getName());
 
 			String line = null;
 			try {
@@ -110,6 +111,20 @@ public class Controller {
 					}
 					System.out.println(floor.status());
 				}
+				if(part[0].compareTo("unchain") == 0 && part.length == 2){
+
+					Orangutan selected = null;
+					for (Orangutan a: orangutans)
+					{
+						if (a.getName().compareTo(part[1]) == 0)
+							selected = a;
+					}
+					if(selected != null)
+					{
+						selected.manualUnchain();
+					}
+					System.out.println(floor.status());
+				}
 			}
 		}
 		orangutans.removeIf(Orangutan::getIsDead);
@@ -122,9 +137,10 @@ public class Controller {
 	}
 
 	public void movePandas(){
-		for(Panda p : pandas){
-			if(!p.isInChain())
-				movePandaRandomly(p);
+		Object[] panda = pandas.toArray();
+		for(Object p : panda){
+			if(!((Panda)p).isInChain())
+				movePandaRandomly((Panda)p);
 		}
 	}
 

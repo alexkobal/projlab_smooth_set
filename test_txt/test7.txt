@@ -24,7 +24,7 @@ put orangutan o1 3
 6r
 7g
 
-put spanda sp 2 
+put spanda sp 2
 1r
 2s
 3o
@@ -54,13 +54,21 @@ start
 7g
 
 make a move o1
-moveo o1 4
-make a move o1
-move o1 5
+move o1 4
 1r
 2l
 3s
-4r
+4o
+5r
+6r
+7g
+
+make a move o1
+move o1 5
+1r
+2r
+3l
+4s
 5o
 6r
 7g
@@ -70,8 +78,8 @@ move o1 6
 1r
 2r
 3l
-4r
-5s
+4s
+5r
 6o
 7g
 

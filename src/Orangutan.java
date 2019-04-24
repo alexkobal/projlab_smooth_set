@@ -72,6 +72,14 @@ public class Orangutan extends Animal{
         }
     }
 
+    public void manualUnchain(){
+		if(prevAnimal != null) {
+			prevAnimal.unchain();
+			prevAnimal = null;
+		}
+
+	}
+
 	@Override
 	public String toString(){
 		return "o";

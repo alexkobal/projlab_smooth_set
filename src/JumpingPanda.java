@@ -17,13 +17,11 @@ public class JumpingPanda extends Panda
 	@Override
 	public boolean hitBy(VendingMachine vm)
 	{
-		
-		this.unchain();
 		if(nextAnimal != null) {
 			this.nextAnimal.setPrevAnimal(null);
 			this.nextAnimal = null;
 		}
-		
+		this.unchain();
 		this.isOn.loseLife();
 		return true;
 	}

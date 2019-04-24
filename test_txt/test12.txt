@@ -1,0 +1,60 @@
+cm test12.flr
+  0  1  2  3  4  5
+  1  _  X  _  _  _
+  2  X  _  X  _  _
+  3  _  X  _  X  _
+  4  _  _  X  _  X
+  5  _  _  _  X  _
+1X
+2r
+3r
+4r
+5x[]
+
+put orangutan o1 2
+1X
+2o
+3r
+4r
+5x[]
+
+put lpanda l1 3
+1X
+2o
+3l
+4r
+5x[]
+
+put lpanda l2 4
+1X
+2o
+3l
+4l
+5x[]
+
+chain o1 l1
+chain l1 l2
+start
+1X
+2o
+3l
+4l
+5x[]
+
+make a move o1
+move o1 1
+1X
+2r
+3l
+4l
+5x[o]
+
+make a move o1
+move o1 4
+1X
+2r
+3r
+4o
+5l
+
+move o1 3

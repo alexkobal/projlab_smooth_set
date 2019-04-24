@@ -17,4 +17,4 @@ cm test1.flr
 6r
 7w
 8b20
-9x2
+9x[o, o]

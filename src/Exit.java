@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Exit
  * <p>
@@ -5,20 +7,20 @@
  * </p>
  */
 public class Exit extends AThing {
-    private int orangutansToPush = 0;
+    private ArrayList<Orangutan> orangutansToPush = new ArrayList<>();
 
     /**
-     * nextPanda
+     * prevPanda
      * <p>
      *     This field is a reference for next Panda that should go through the exit.
      *     It matters when an Orangutan leads a chain of Pandas to the exit.
      * </p>
      */
-    private Panda nextPanda;
+    private Panda prevPanda;
 
-    public int getOrangutansToPush() {
-        int temp = orangutansToPush;
-        orangutansToPush = 0;
+    public ArrayList<Orangutan> getOrangutansToPush() {
+        ArrayList<Orangutan> temp = orangutansToPush;
+        orangutansToPush.clear();
         return temp;
     }
 
@@ -32,11 +34,14 @@ public class Exit extends AThing {
      */
     @Override
     public boolean hitBy(Orangutan orangutan) {
-        if(nextPanda == null) {
-            nextPanda = (Panda) orangutan.getNextAnimal();
-            nextPanda.setPrevAnimal(null);
-            orangutan = null;
-            orangutansToPush++;
+        if(prevPanda == null) {
+            prevPanda = (Panda) orangutan.getPrevAnimal();
+            prevPanda.setNextAnimal(null);
+            orangutan.prevAnimal.move(orangutan.isOn);
+            orangutan.setPrevAnimal(null);
+            orangutan.isOn.setContains(null);
+            orangutan.setIsOn(Tile.ctrl.floor.getEntry().getIsOn());
+            orangutansToPush.add(orangutan);
             return true;
         }
         return false;
@@ -51,12 +56,12 @@ public class Exit extends AThing {
      * @return returns false, if Panda isn't in chain, and true if Panda succeeded to exit
      */
     public boolean hitBy(Panda panda){
-        if(!panda.isInChain()){
-            return false;
+        prevPanda = (Panda) panda.getPrevAnimal();
+        if(prevPanda != null){
+            prevPanda.setNextAnimal(null);
+            panda.setPrevAnimal(null);
         }
-        nextPanda = (Panda) panda.getNextAnimal();
-        nextPanda.setPrevAnimal(null);
-        panda = null;
+        panda.kill(Tile.ctrl);
         return true;
     }
 
@@ -68,8 +73,8 @@ public class Exit extends AThing {
      * </p>
      */
     public void nextTurn(){
-        if(nextPanda != null){
-            nextPanda.move(isOn);
+        if(prevPanda != null){
+            prevPanda.move(isOn);
         }
     }
 

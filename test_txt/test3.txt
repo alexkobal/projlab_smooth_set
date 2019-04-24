@@ -29,7 +29,7 @@ put orangutan o2 1
 5r
 6r
 
-put lpanda p1 6
+put lpanda pl 6
 1o
 2o
 3r
@@ -86,8 +86,8 @@ move o1 5
 1r
 2r
 3o
-4r
+4l
 5o
-6l
+6r
 
 make a move o2

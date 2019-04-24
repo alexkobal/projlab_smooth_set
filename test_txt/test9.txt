@@ -104,8 +104,8 @@ make a move o1
 move o1 8
 1r
 2r
-3l
-4r
+3r
+4l
 5o
 6l
 7r
@@ -116,8 +116,8 @@ make a move o2
 move o2 6
 1r
 2r
-3l
-4r
+3r
+4l
 5l
 6o
 7r
@@ -141,8 +141,8 @@ move o2 7
 1r
 2r
 3r
-4l
-5r
+4r
+5l
 6l
 7o
 8r

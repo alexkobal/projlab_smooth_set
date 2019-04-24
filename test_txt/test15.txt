@@ -1,0 +1,52 @@
+cm test15.flr
+  0  1  2  3  4
+  1  _  X  _  _
+  2  X  _  X  _
+  3  _  X  _  X
+  4  _  _  X  _
+1r
+2r
+3r
+4r
+
+put orangutan o1 2
+1r
+2o
+3r
+4r
+
+put jpanda p1 1
+1j
+2o
+3r
+4r
+
+chain o1 p1
+start
+1j
+2o
+3r
+4r
+
+make a move o1
+move o1 3
+1r
+2j
+3o
+4r
+
+make a move o1
+unchain o1
+1r
+2j
+3o
+4r
+
+make a move o1
+move o1 4
+1j
+2r
+3r
+4o
+
+make a move o1

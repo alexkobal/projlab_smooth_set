@@ -41,12 +41,12 @@ public class LazyPanda extends Panda {
 			isOn = ac.getIsOn();
 			prevTile.setContains(null);
 
-			this.unchain();
+
 			if(nextAnimal != null) {
 				this.nextAnimal.setPrevAnimal(null);
 				this.nextAnimal = null;
 			}
-
+			this.unchain();
 			return false;
 		}
 

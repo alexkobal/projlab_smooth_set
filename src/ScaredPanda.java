@@ -16,11 +16,11 @@ public class ScaredPanda extends Panda
 	@Override
 	public boolean hitBy(GameMachine gm)
 	{
-		unchain();
 		if(nextAnimal != null) {
 			this.nextAnimal.setPrevAnimal(null);
 			this.nextAnimal = null;
 		}
+		unchain();
 		return true;
 	}
 

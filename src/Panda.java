@@ -64,7 +64,7 @@ public abstract class Panda extends Animal {
 	 * Returns whether a Panda is in a chain or not. 
 	 */
 	public boolean isInChain() {
-		if(nextAnimal != null) {
+		if(nextAnimal != null || prevAnimal != null) {
 			return true;
 		}
 		return false;

@@ -1,34 +1,52 @@
 cm test2.flr
-  0  1  2  3  4
-  1  _  X  _  _
-  2  X  _  X  _
-  3  _  X  _  X
-  4  _  _  X  _
-1:x2
-2:r
-3:r
-4:r
+  0  1  2  3  4  5
+  1  _  X  _  _  _
+  2  X  _  X  _  _
+  3  _  X  _  X  _
+  4  _  _  X  _  _
+  5  _  _  _  _  _
+1x[o, o]
+2r
+3r
+4r
+5r
+
+put jpanda p 5
+1x[o, o]
+2r
+3r
+4r
+5j
+
 start
-1:x2
-2:o
-3:r
-4:r
-make a move o1
-move o1 3
-1:x0
-2:o
-3:o
-4:r
-make a move o1
-move o1 4
-1:x0
-2:o
-3:r
-4:o
-make a move o2
-move o2 3
-1:x0
-2:r
-3:o
-4:o
-make a move o1
+1x[o, o]
+2r
+3r
+4r
+5j
+
+make a move o3
+move o3 3
+1x[o]
+2r
+3o
+4r
+5j
+
+make a move o3
+move o3 4
+1x[]
+2o
+3r
+4o
+5j
+
+make a move o4
+move o4 3
+1x[]
+2r
+3o
+4o
+5j
+
+make a move o3

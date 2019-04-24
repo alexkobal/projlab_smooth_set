@@ -49,7 +49,6 @@ public abstract class AThing implements Serializable
 	 */
     public boolean hitBy(VendingMachine vm)
     {
-    	System.out.println("hitBy(VM)");
         return false;
     }
     

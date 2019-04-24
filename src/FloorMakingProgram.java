@@ -22,9 +22,6 @@ public class FloorMakingProgram
 		test13();
 		test14();
 		test15();
-		test16();
-		test17();
-		test18();
 	}
 
 
@@ -47,7 +44,10 @@ public class FloorMakingProgram
 		floor.addThing(new Armchair(), 5);
 		floor.addThing(w2, 7);
 		Entry entry = new Entry(floor.getTile(6));
-		entry.addOrangutan(2);
+		ArrayList<Orangutan> ol = new ArrayList<>();
+		ol.add(new Orangutan());
+		ol.add(new Orangutan());
+		entry.addOrangutan(ol);
 		floor.setEntry(entry, 9);
 		//Setting neighbors
 		int[][] matrix = {
@@ -88,7 +88,10 @@ public class FloorMakingProgram
 		floor.setNeighbors(matrix);
 		//Creating entry point;
 		Entry entry = new Entry(floor.getTile(2));
-		entry.addOrangutan(2);
+		ArrayList<Orangutan> ol = new ArrayList<>();
+		ol.add(new Orangutan());
+		ol.add(new Orangutan());
+		entry.addOrangutan(ol);
 		floor.setEntry(entry, 1);
 		//Serialization
 		String filename = "test2.flr";
@@ -397,9 +400,13 @@ public class FloorMakingProgram
 				{4}
 		};
 
-		floor.addThing(new VendingMachine(1), 8);
-		floor.setEntry(new Entry(entryTile), 1);
-		floor.setExit(new Exit(), 7);
+		floor.addThing(new GameMachine(1), 8);
+		Wardrobe w1 = new Wardrobe();
+		Wardrobe w2 = new Wardrobe();
+		w1.setOutPoint(w2);
+		w2.setOutPoint(w1);
+		floor.addThing(w1, 1);
+		floor.addThing(w2, 7);
 
 		floor.setNeighbors(mtx);
 		String filename = "test13.flr";
@@ -409,78 +416,30 @@ public class FloorMakingProgram
 
 	//Panda breaks a tile with its move - Előd
 	private static void test14(){
-
 		Floor floor = new Floor();
-		for(int i=0; i<4;++i){
-
+		for(int i = 0; i < 3; i++)
+		{
 			floor.addTile(new RegularTile());
 		}
+		floor.setTile(2, new BrokenTile(1)); //Csak tesztelés 1
+
 		int[][] matrix =
 				{
-						{},		//0
-						{2},	//1
-						{1},	//2
-						{4},	//3
-						{3},	//4
+						{},
+						{2},
+						{1},
+						{}
 				};
+
 		floor.setNeighbors(matrix);
-		floor.setTile(2, new BrokenTile());
 
 		String filename = "test14.flr";
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
 
-	//Teszteset17 Last Orangutan dies. - Előd
+	//Teszteset15 Orangutan releases its PandaChain K.Peti
 	private static void test15(){
-
-		Floor floor = new Floor();
-		for(int i=0; i<4;++i){
-
-			floor.addTile(new RegularTile());
-		}
-		int[][] matrix =
-				{
-						{},		//0
-						{2},	//1
-						{1},	//2
-						{4},	//3
-						{3},	//4
-				};
-		floor.setNeighbors(matrix);
-		floor.setTile(2, new BrokenTile());
-
-		String filename = "test15.flr";
-		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
-	}
-
-	//Teszteset18 Last  Panda dies - Előd
-	private static void test16(){
-
-		Floor floor = new Floor();
-		for(int i=0; i<4;++i){
-
-			floor.addTile(new RegularTile());
-		}
-		int[][] matrix =
-				{
-						{},		//0
-						{2},	//1
-						{1},	//2
-						{4},	//3
-						{3},	//4
-				};
-		floor.setNeighbors(matrix);
-		floor.setTile(2, new BrokenTile());
-
-		String filename = "test16.flr";
-		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
-	}
-
-	//Teszteset19 Orangutan releases its PandaChain K.Peti
-	private static void test17(){
 		Floor floor = new Floor();
 		for(int i = 0; i < 4; i++)
 		{
@@ -490,48 +449,19 @@ public class FloorMakingProgram
 		int[][] matrix =
 		{
 				{},
-				{2,4},
-				{1,3},
 				{2},
-				{1},
+				{1,3},
+				{2,4},
+				{3},
 		};
 
 		floor.setNeighbors(matrix);
 
 		System.out.println(floor.toString());
 
-		String filename = "test17.flr";
+		String filename = "test15.flr";
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
-
-	//Teszteset20 Orangutan brings PandaChain over broken tile K.Peti
-	private static void test18(){
-		Floor floor = new Floor();
-		for(int i = 0; i < 5; i++)
-		{
-			floor.addTile(new RegularTile());
-		}
-		floor.setTile(2, new BrokenTile(20));
-
-		int[][] matrix = {
-				{},
-				{2},
-				{1,3},
-				{2,4},
-				{3,5},
-				{4},
-
-		};
-
-		floor.setNeighbors(matrix);
-
-		System.out.println(floor.toString());
-
-		String filename = "test18.flr";
-		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
-	}
-
 
 }

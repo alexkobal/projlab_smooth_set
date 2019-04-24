@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Entry
  * <p>
@@ -31,7 +33,8 @@ public class Entry extends AThing{
 	 *     Number of orangutans to push to the floor.
 	 * </p>
 	 */
-	private int orangutansToPush;
+	//private int orangutansToPush;
+	private ArrayList<Orangutan> orangutansToPush = new ArrayList<>();
 
 
 	/**
@@ -39,10 +42,10 @@ public class Entry extends AThing{
 	 * <p>
 	 *     Adds orangutans to place on the floor.
 	 * </p>
-	 * @param n is the number of Orangutans to add for pushing.
+	 * @param oa is the number of Orangutans to add for pushing.
 	 */
-	public void addOrangutan(int n){
-		orangutansToPush += n;
+	public void addOrangutan(ArrayList<Orangutan> oa){
+		orangutansToPush = oa;
 	}
 
 	/**
@@ -55,12 +58,11 @@ public class Entry extends AThing{
 	 */
 	public Orangutan nextTurn(){
 		Orangutan orangutan = null;
-		if(orangutansToPush > 0){
-			orangutan = new Orangutan();
+		if(orangutansToPush.size() > 0){
+			orangutan = orangutansToPush.remove(0);
 			orangutan.setIsOn(entryTile);
 			orangutan.prevTile = orangutan.isOn;
 			entryTile.setContains(orangutan);
-			orangutansToPush--;
 		}
 		return orangutan;
 	}
