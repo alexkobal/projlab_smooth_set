@@ -29,6 +29,7 @@ public class Controller {
 		this.floor = floor;
 		pandas = new ArrayList<>();
 		orangutans = new ArrayList<>();
+		Tile.ctrl = this;
 	}
 
 	public static void movePandaRandomly(Panda panda){
@@ -51,7 +52,8 @@ public class Controller {
 				moveOrangutans();
 			}
 			thingsNextTurn();
-			movePandas();
+			if(!pandas.isEmpty())
+				movePandas();
 			exit = checkEnd();
 		}
 	}
@@ -121,13 +123,22 @@ public class Controller {
 
 	public void movePandas(){
 		for(Panda p : pandas){
-			movePandaRandomly(p);
+			if(!p.isInChain())
+				movePandaRandomly(p);
 		}
 	}
 
 	public boolean checkEnd(){
 		if(pandas.isEmpty() || orangutans.isEmpty()) {return true;}
 		return false;
+	}
+
+	public void removePanda(Panda p){
+		pandas.remove(p);
+	}
+
+	public void removeOrangutan(Orangutan o){
+		orangutans.remove(o);
 	}
 
 }

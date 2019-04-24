@@ -301,7 +301,7 @@ public class FloorMakingProgram
 			floor.addTile(new RegularTile());
 		}
 
-		floor.setTile(1, new BrokenTile(20));
+		floor.setTile(1, new BrokenTile(1));
 		floor.setTile(3, new BrokenTile(20));
 		floor.setTile(4, new BrokenTile(20));
 		floor.addThing(new VendingMachine(1), 2);

@@ -42,7 +42,7 @@ public class Orangutan extends Animal{
 	 * When an Orangutan dies, this function will be called.
 	 * The Orangutan will release its chain, then will reduce the count..
 	 */
-	public void kill() {
+	public void kill(Controller c) {
 
 		if(prevAnimal != null) prevAnimal.unchain();
 		count--;
@@ -50,6 +50,7 @@ public class Orangutan extends Animal{
 		isOn.setContains(null);
 		isOn = null;
 		isDead = true;
+		c.removeOrangutan(this);
 	}
 
 	public Orangutan(){

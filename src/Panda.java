@@ -64,12 +64,10 @@ public abstract class Panda extends Animal {
 	 * Returns whether a Panda is in a chain or not. 
 	 */
 	public boolean isInChain() {
-		if(prevAnimal == null && nextAnimal== null) {
-			return false;
-		}
-		else {
+		if(nextAnimal != null) {
 			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -93,13 +91,12 @@ public abstract class Panda extends Animal {
 	 * <p>
 	 * When a Panda dies this function will be called..
 	 */
-	public void kill() {
+	public void kill(Controller c) {
 		unchain();
 		//+Megfelel� setterek
 		isOn.setContains(null);
-		//Controller.removePanda(this) - ha majd lesz Controller
 		isOn = null;
-		
+		c.removePanda(this);
 	}
 
 	@Override

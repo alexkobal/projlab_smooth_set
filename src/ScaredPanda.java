@@ -17,6 +17,10 @@ public class ScaredPanda extends Panda
 	public boolean hitBy(GameMachine gm)
 	{
 		unchain();
+		if(nextAnimal != null) {
+			this.nextAnimal.setPrevAnimal(null);
+			this.nextAnimal = null;
+		}
 		return true;
 	}
 

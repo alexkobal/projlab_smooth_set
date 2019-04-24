@@ -47,12 +47,12 @@ public class VendingMachine extends AThing implements IPandaEffective{
 	 */
 	@Override
 	public void notifyNeighbors() {
-		ArrayList<Tile> neighbors = isOn.getNeighbors();
-		for(Tile neighbor : neighbors)
+		Object[] neighbors = isOn.getNeighbors().toArray();
+		for(Object neighbor : neighbors)
 		{
-			if(neighbor.getContains() != null)
+			if(((Tile)neighbor).getContains() != null)
 			{
-				neighbor.placeThing(this);
+				((Tile)neighbor).placeThing(this);
 			}
 		}
 	}

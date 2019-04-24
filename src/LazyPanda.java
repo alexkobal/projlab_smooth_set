@@ -41,12 +41,12 @@ public class LazyPanda extends Panda {
 			isOn = ac.getIsOn();
 			prevTile.setContains(null);
 
+			this.unchain();
+			if(nextAnimal != null) {
+				this.nextAnimal.setPrevAnimal(null);
+				this.nextAnimal = null;
+			}
 
-			//sleepTime = ac.getSleep(); //A fotelre jellemz� alv�si id� - ha �gy j�tszuk
-			
-			/*Main.printer.functionCall("lp", "leaveTile", "ac.getIsOn");
-			leaveTile(ac.getIsOn());
-			Main.printer.returnFromFunctionCall();*/
 			return false;
 		}
 

@@ -71,7 +71,7 @@ public abstract class Animal extends AThing {
 	 * <p>
 	 * This function is called when the Brokentile brokes and the Animal falls with it.
 	 */
-	public abstract void kill();
+	public abstract void kill(Controller c);
 
 	/**
 	 * Animal connect chain
