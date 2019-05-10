@@ -465,3 +465,5 @@ public class FloorMakingProgram
 	}
 
 }
+
+class A{}
