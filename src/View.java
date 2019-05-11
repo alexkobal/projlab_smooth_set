@@ -17,7 +17,7 @@ public class View extends JFrame
 
    
 
-    public View(String mapName, Floor _floor, int _floorSize)
+    public View(String mapName, Floor _floor, int _floorSize) // Why do we need name and size params???
     {
         floor = _floor;
         floorSize = _floorSize;
@@ -149,5 +149,14 @@ public class View extends JFrame
     public void draw(Wardrobe w)
     {
 
+    }
+
+    private static View instance = null;
+    public static View getInstance(){
+        if(instance != null){
+            return instance;
+        }else{
+            return instance = new View("", Floor.getInstance(), 0);
+        }
     }
 }

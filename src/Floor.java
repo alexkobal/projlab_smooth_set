@@ -167,4 +167,14 @@ public class Floor implements Serializable {
 	public Exit getExit() {
 		return exit;
 	}
+
+	private static Floor instance = null;
+
+	public static Floor getInstance() {
+		if(instance != null) {
+			return instance;
+		}else{
+			return instance = new Floor();
+		}
+	}
 }

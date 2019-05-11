@@ -157,4 +157,14 @@ public class Controller {
 		orangutans.remove(o);
 	}
 
+	private static boolean isCreated = false;
+	private static Controller instance = null;
+	public static Controller getInstance(){
+		if(isCreated){
+			return instance;
+		}else{
+			return instance = new Controller(Floor.getInstance());
+		}
+	}
+
 }
