@@ -1,12 +1,16 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.html.ImageView;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 
@@ -20,7 +24,7 @@ import java.util.Map;
 
  */
 
-public class View extends JFrame
+public class View extends JPanel
 {
     // singleton
     private static View instance = null;
@@ -28,6 +32,21 @@ public class View extends JFrame
     private Map<Tile, Node> nodes = new HashMap<>();
     private Floor floor;
     private int floorSize;
+
+
+    private class GraphLine
+    {
+        public int x0, y0, x1, y1;
+
+        GraphLine(int x0, int y0, int x1, int y1)
+        {
+            this.x0 = x0;
+            this.y0 = y0;
+            this.x1 = x1;
+            this.y1 = y1;
+        }
+    }
+    private final LinkedList<GraphLine> lines = new LinkedList<>();
 
    
     private View()
@@ -37,17 +56,9 @@ public class View extends JFrame
 
     private void initComponents()
     {
-        setTitle("Panda Plaza by smooth_set");
-        setSize((int)(1920 * 0.75), (int)(1080 * 0.75));
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
         setLayout(null);
-
-
         updateDraw();
-
-        setVisible(true);
     }
 
     public static View getInstance()
@@ -100,10 +111,33 @@ public class View extends JFrame
         for(int i = 0; i < floorSize; i++)
         {
             Tile key = floor.getTile(i);
-            key.invokeDraw();
 
-            // TODO gráfkirajzolás vhova ide
+            for(int j = i; j < floorSize; j++)
+            {
+                for(int x = 0; x < key.getNeighbors().size(); x++)
+                {
+                    if(floor.getTile(j).equals(key.getNeighbors().get(x)))
+                    {
+                        Node n0 = nodes.get(key);
+                        Node n1 = nodes.get(floor.getTile(j));
+
+                        lines.add(new GraphLine(n0.getX() + 45, n0.getY() + 30, n1.getX() + 45, n1.getY() + 30));
+                    }
+                }
+            }
         }
+
+        repaint();
+
+
+        for(int i = 0; i < floorSize; i++)
+        {
+            Tile key = floor.getTile(i);
+            key.invokeDraw();
+        }
+
+
+        System.out.println(lines.size());
     }
 
     // állatok
@@ -114,11 +148,18 @@ public class View extends JFrame
             if(o.getIsOn().equals(entry.getKey()))      // megkeressük a map-ben, hogy az orángután alatti csempének mi az x,y-ja
             {
                 Node node = entry.getValue();
-                try {
+                try
+                {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX() , node.getY(), 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX() , node.getY(), 65, 65);
+                    add(jb);
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -167,8 +208,13 @@ public class View extends JFrame
         Node node = nodes.get(rt);
         try {
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
-            JLabel jl = new JLabel(new ImageIcon((bi)));
-            jl.setBounds(node.getX(), node.getY(), 65, 65);
+            JButton jb = new JButton(new ImageIcon((bi)));
+            jb.addActionListener(new ClickListener());
+            jb.setContentAreaFilled(false);
+            jb.setFocusPainted(false);
+            jb.setBorderPainted(false);
+            jb.setBorder(null);
+            jb.setBounds(node.getX(), node.getY(), 65, 65);
 
 
             if(rt.getContains() != null)
@@ -176,7 +222,7 @@ public class View extends JFrame
                 rt.getContains().invokeDraw();
 
             }
-            add(jl);        // Z-Order szerint a később rajzolt kerül alulra, először a rajta lévő cuccot rajzoljuk le
+            add(jb);        // Z-Order szerint a később rajzolt kerül alulra, először a rajta lévő cuccot rajzoljuk le
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -188,8 +234,13 @@ public class View extends JFrame
         Node node = nodes.get(bt);
         try {
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
-            JLabel jl = new JLabel(new ImageIcon((bi)));
-            jl.setBounds(node.getX(), node.getY(), 65, 65);
+            JButton jb = new JButton(new ImageIcon((bi)));
+            jb.addActionListener(new ClickListener());
+            jb.setContentAreaFilled(false);
+            jb.setFocusPainted(false);
+            jb.setBorderPainted(false);
+            jb.setBorder(null);
+            jb.setBounds(node.getX(), node.getY(), 65, 65);
 
 
             if(bt.getContains() != null)
@@ -197,7 +248,7 @@ public class View extends JFrame
                 bt.getContains().invokeDraw();
 
             }
-            add(jl);
+            add(jb);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -214,15 +265,20 @@ public class View extends JFrame
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Armchair.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX(), node.getY(), 65, 65);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX(), node.getY(), 65, 65);
 
                     if(a.isOccupied())
                     {
                         a.getPanda().invokeDraw();
                     }
 
-                    add(jl);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -242,9 +298,14 @@ public class View extends JFrame
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/VendingMachine.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX(), node.getY(), 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX(), node.getY(), 65, 65);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -264,9 +325,14 @@ public class View extends JFrame
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/GameMachine.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX() + 5, node.getY(), 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX() + 5, node.getY(), 65, 65);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -350,5 +416,38 @@ public class View extends JFrame
             }
         }
     }
+
+
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        for(GraphLine gl : lines)
+        {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(5));
+            g2.setColor(Color.BLACK);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.drawLine(gl.x0, gl.y0, gl.x1, gl.y1);
+        }
+    }
+
+    public class ClickListener implements ActionListener
+    {
+
+        public ClickListener()
+        {
+
+        }
+
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("xd");
+        }
+    }
+
 
 }

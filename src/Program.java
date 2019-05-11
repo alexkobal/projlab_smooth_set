@@ -7,6 +7,15 @@ public class Program {
 
 	public static void main(String[] args)
 	{
+		JFrame window = new JFrame();
+		window.setTitle("Panda Plaza by smooth_set");
+		window.setSize((int)(1920 * 0.75), (int)(1080 * 0.75));
+		window.setResizable(false);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setLocationRelativeTo(null);
+
+
+
 		Floor floor = new Floor();
 
 		//RANDOMCUCCOK ADDOLÁSA
@@ -21,10 +30,15 @@ public class Program {
 		a.setPanda(new LazyPanda(55));
 		floor.addTile(rt);
 
+		bt.addNeighbor(rt);
+
 		RegularTile rt1 = new RegularTile();
 		Exit ex = new Exit();
 		rt1.setContains(ex);
 		floor.addTile(rt1);
+
+		bt.addNeighbor(rt1);
+		rt.addNeighbor(rt1);
 
 		RegularTile rt4 = new RegularTile();
 		Wardrobe w = new Wardrobe();
@@ -44,10 +58,13 @@ public class Program {
 		floor.setEntry(en, 5);
 		entryTile.setContains(orangutan);
 
+		entryTile.addNeighbor(rt1);
 
 
 		View view = View.getInstance();
 		view.construate("minimap", floor, 6);
+		window.add(view);
+		window.setVisible(true);
 	}
 
 
