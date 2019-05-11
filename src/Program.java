@@ -9,44 +9,45 @@ public class Program {
 	{
 		Floor floor = new Floor();
 
-		/*BrokenTile bt = new BrokenTile();
+		//RANDOMCUCCOK ADDOLÁSA
+		BrokenTile bt = new BrokenTile();
 		Orangutan o = new Orangutan();
 		bt.setContains(o);
-		floor.addTile(bt);*/
+		floor.addTile(bt);
 
-		/*BrokenTile rt = new BrokenTile();
+		BrokenTile rt = new BrokenTile();
 		Armchair a = new Armchair();
 		rt.setContains(a);
 		a.setPanda(new LazyPanda(55));
-		floor.addTile(rt);*/
+		floor.addTile(rt);
 
-		/*RegularTile rt = new RegularTile();
+		RegularTile rt1 = new RegularTile();
 		Exit ex = new Exit();
-		rt.setContains(ex);
-		floor.addTile(rt);*/
+		rt1.setContains(ex);
+		floor.addTile(rt1);
 
-		/*RegularTile rt = new RegularTile();
+		RegularTile rt4 = new RegularTile();
 		Wardrobe w = new Wardrobe();
-		rt.setContains(w);
-		floor.addTile(rt);*/
+		rt4.setContains(w);
+		floor.addTile(rt4);
 
-		/*RegularTile rt = new RegularTile();
-		Armchair gm = new Armchair();
-		rt.setContains(gm);
-		floor.addTile(rt);*/
+		RegularTile rt3 = new RegularTile();
+		GameMachine gm = new GameMachine(6);
+		rt3.setContains(gm);
+		floor.addTile(rt3);
 
-		/*RegularTile entryTile = new RegularTile(); ????
+		RegularTile entryTile = new RegularTile();
 		Orangutan orangutan = new Orangutan();
 		orangutan.setIsOn(entryTile);
 		Entry en = new Entry(entryTile);
 		floor.addTile(entryTile);
-		floor.setEntry(en, 0);
-		entryTile.setContains(orangutan);*/
+		floor.setEntry(en, 5);
+		entryTile.setContains(orangutan);
 
 
 
 		View view = View.getInstance();
-		view.construate("minimap", floor, 1);
+		view.construate("minimap", floor, 6);
 	}
 
 

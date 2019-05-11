@@ -9,6 +9,17 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/*
+
+    Kell még:
+
+    ActionListenerek a a JLabelekre.
+    Utak a csempék között.
+
+
+ */
+
 public class View extends JFrame
 {
     // singleton
