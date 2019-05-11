@@ -143,6 +143,16 @@ public class View extends JFrame
     // csempék
     public void draw(RegularTile rt)
     {
+        // Először megnézzük, hogy nem véletlen bejárati csempéről van szó.
+        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
+        {
+            if(entry.getKey().equals(rt) && floor.getEntry().getEntryTile().equals(entry.getKey()))
+            {
+                draw(floor.getEntry());
+                break;
+            }
+        }
+
         Node node = nodes.get(rt);
         try {
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
@@ -289,7 +299,13 @@ public class View extends JFrame
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
                     JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX() + 2, node.getY() + 5, 65, 65);
+                    jl.setBounds(node.getX() + 2, node.getY() - 6, 65, 65);
+
+                    if(en.getEntryTile().getContains() != null)
+                    {
+                        en.getEntryTile().getContains().invokeDraw();
+                    }
+
                     add(jl);
 
                 } catch (IOException e) {

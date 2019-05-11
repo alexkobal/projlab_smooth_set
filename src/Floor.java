@@ -65,10 +65,10 @@ public class Floor implements Serializable {
 	}
 
 	public void setEntry(Entry entry, int tileIdx){
-		if(tiles.get(tileIdx).getContains() == null){
+
 			tiles.get(tileIdx).setContains(entry);
 			this.entry = entry;
-		}
+
 	}
 
 	public void setExit(Exit exit, int tileIdx){

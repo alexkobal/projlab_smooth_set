@@ -9,11 +9,15 @@ public class Program {
 	{
 		Floor floor = new Floor();
 
+		/*BrokenTile bt = new BrokenTile();
+		Orangutan o = new Orangutan();
+		bt.setContains(o);
+		floor.addTile(bt);*/
+
 		/*BrokenTile rt = new BrokenTile();
 		Armchair a = new Armchair();
-		a.setPanda(new LazyPanda(55));
 		rt.setContains(a);
-
+		a.setPanda(new LazyPanda(55));
 		floor.addTile(rt);*/
 
 		/*RegularTile rt = new RegularTile();
@@ -31,15 +35,18 @@ public class Program {
 		rt.setContains(gm);
 		floor.addTile(rt);*/
 
-		RegularTile entryTile = new RegularTile();
+		/*RegularTile entryTile = new RegularTile(); ????
+		Orangutan orangutan = new Orangutan();
+		orangutan.setIsOn(entryTile);
 		Entry en = new Entry(entryTile);
 		floor.addTile(entryTile);
+		floor.setEntry(en, 0);
+		entryTile.setContains(orangutan);*/
 
 
 
 		View view = View.getInstance();
 		view.construate("minimap", floor, 1);
-		en.invokeDraw();
 	}
 
 
