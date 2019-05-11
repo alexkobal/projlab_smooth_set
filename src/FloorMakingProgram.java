@@ -7,28 +7,16 @@ public class FloorMakingProgram
 
 	public static void main(String[] args)
 	{
-		test1();
+
 		test2();
-		test3();
-		test4();
-		test5();
-		test6();
-		test7();
-		test8();
-		test9();
-		test10();
-		test11();
-		test12();
-		test13();
-		test14();
-		test15();
+
 	}
 
 
 	//Program starts and makes a map
 	private static void test1() {
 		//Generating floor
-		Floor floor = new Floor();
+		Floor floor = Floor.getInstance();
 		for(int i = 0; i < 9; i++){
 			floor.addTile(new RegularTile());
 		}
@@ -67,12 +55,14 @@ public class FloorMakingProgram
 		String filename = "test1.flr";
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
+		Floor.clearInstance();
 	}
+
 
 	//Entry generates two orangutans and player steps with them
 	private static void test2(){
 		//Generating floor
-		Floor floor = new Floor();
+		Floor floor = Floor.getInstance();
 		for(int i = 0; i < 5; i ++){
 			floor.addTile(new RegularTile());
 		}
@@ -97,8 +87,10 @@ public class FloorMakingProgram
 		String filename = "test2.flr";
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
+		Floor.clearInstance();
 	}
 
+	/*
 	//Two orangutans wandering on the floor and
 	//suddenly one orangutan sees a panda and hits it.
 	private static void test3(){
@@ -463,5 +455,7 @@ public class FloorMakingProgram
 		Floor.serialise(floor, filename);
 		System.out.println(Floor.deserialise(filename));
 	}
+
+	 */
 
 }

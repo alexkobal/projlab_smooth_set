@@ -12,12 +12,13 @@ public class Floor implements Serializable {
 	private Entry entry;
 	private Exit exit;
 
-	public Floor(){
+	private Floor(){
 		tiles = new HashMap<>();
 		notifiers = new ArrayList<>();
 		idx = 0;
 		entry = null;
 		exit = null;
+		instance = this;
 	}
 
 	public void addTile(Tile tile){
@@ -169,12 +170,14 @@ public class Floor implements Serializable {
 	}
 
 	private static Floor instance = null;
-
 	public static Floor getInstance() {
 		if(instance != null) {
 			return instance;
 		}else{
 			return instance = new Floor();
 		}
+	}
+	public static void clearInstance(){
+		instance = null;
 	}
 }

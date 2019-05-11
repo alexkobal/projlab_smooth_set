@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -11,19 +13,28 @@ import java.util.Map;
 
 public class View extends JFrame
 {
+    private JMenuItem newMenuItem, openMenuItem;
+    private MenuActionListener menuActionListener;
+
     private Map<Tile, Node> nodes = new HashMap<>();
     private Floor floor;
     private int floorSize;
 
-   
 
-    public View(String mapName, Floor _floor, int _floorSize) // Why do we need name and size params???
+
+    private View() // Why do we need name and size params???
     {
-        floor = _floor;
-        floorSize = _floorSize;
-        Deserialize(mapName);
-
+        instance = this;
         initComponents();
+    }
+
+    private static View instance = null;
+    public static View getInstance(){
+        if(instance != null){
+            return instance;
+        }else{
+            return instance = new View();
+        }
     }
 
     private void initComponents()
@@ -33,12 +44,46 @@ public class View extends JFrame
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(null);
+        setLayout(new BorderLayout());
 
-
-        updateDraw();
+        //Setting up menu bar
+        setUpMenuBar();
+        //updateDraw();
 
         setVisible(true);
+    }
+
+    private void setUpMenuBar(){
+        menuActionListener = new MenuActionListener();
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        newMenuItem = new JMenuItem("New");
+        openMenuItem = new JMenuItem("Open");
+        openMenuItem.addActionListener(menuActionListener);
+
+        fileMenu.add(newMenuItem);
+        fileMenu.add(openMenuItem);
+
+        menuBar.add(fileMenu);
+
+        this.add(menuBar, BorderLayout.NORTH);
+    }
+
+    private class MenuActionListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == openMenuItem){
+                openFloor();
+            }
+        }
+    }
+    private void openFloor(){
+        Floor floor = Floor.getInstance();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showDialog(this, "OpenFloor");
+        floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
+
     }
 
     public void Deserialize(String mapName)
@@ -151,12 +196,4 @@ public class View extends JFrame
 
     }
 
-    private static View instance = null;
-    public static View getInstance(){
-        if(instance != null){
-            return instance;
-        }else{
-            return instance = new View("", Floor.getInstance(), 0);
-        }
-    }
 }

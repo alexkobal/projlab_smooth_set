@@ -25,18 +25,19 @@ public class Controller {
 	private BufferedReader br = new BufferedReader(isr);
 	private boolean exit = false;
 
-	public Controller(Floor floor){
+	private Controller(Floor floor){
 		this.floor = floor;
 		pandas = new ArrayList<>();
 		orangutans = new ArrayList<>();
 		Tile.ctrl = this;
+		instance = this;
 	}
 
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
-		Random randomiser = new Random();
+		Random randomizer = new Random();
 		if(!neighbors.isEmpty()) {
-			int n = Math.abs((randomiser.nextInt() % neighbors.size()));
+			int n = Math.abs((randomizer.nextInt() % neighbors.size()));
 			panda.move(neighbors.get(n));
 		}
 	}
@@ -157,14 +158,12 @@ public class Controller {
 		orangutans.remove(o);
 	}
 
-	private static boolean isCreated = false;
 	private static Controller instance = null;
 	public static Controller getInstance(){
-		if(isCreated){
+		if(instance != null){
 			return instance;
 		}else{
 			return instance = new Controller(Floor.getInstance());
 		}
 	}
-
 }

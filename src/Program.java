@@ -7,15 +7,8 @@ public class Program {
 
 	public static void main(String[] args)
 	{
-		Floor floor = new Floor();
-
-		RegularTile rt = new RegularTile();
-		rt.setContains(new LazyPanda(666));
-
-		floor.addTile(rt);
-
-		new View("minimap", floor, 1);
-
+		View view = View.getInstance();
+		view.setVisible(true);
 	}
 
 

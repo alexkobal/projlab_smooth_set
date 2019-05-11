@@ -13,6 +13,6 @@ public class RegularTile extends Tile
 
 	@Override
 	public void invokeDraw() {
-		View.draw(this);
+		View.getInstance().draw(this);
 	}
 }
