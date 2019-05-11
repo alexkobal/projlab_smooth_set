@@ -1,15 +1,27 @@
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Program {
 
-	public static void main(String[] args){
-		//FloorMakingProgram.main(new String[3]);
-		reader();
+	public static void main(String[] args)
+	{
+		Floor floor = new Floor();
+
+		RegularTile rt = new RegularTile();
+		rt.setContains(new LazyPanda(666));
+
+		floor.addTile(new RegularTile());
+		View view = new View("minimap", floor, 1);
+
 	}
 
-	private static void reader() {
+
+	// Korábbi feladat.. torolheto??
+	//FloorMakingProgram.main(new String[3]);
+	//reader();
+	/*private static void reader() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 		Floor floor = null;
@@ -121,5 +133,5 @@ public class Program {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

@@ -15,7 +15,7 @@ public class Floor implements Serializable {
 	public Floor(){
 		tiles = new HashMap<>();
 		notifiers = new ArrayList<>();
-		idx = 1;
+		idx = 0;
 		entry = null;
 		exit = null;
 	}
