@@ -9,13 +9,37 @@ public class Program {
 	{
 		Floor floor = new Floor();
 
-		RegularTile rt = new RegularTile();
-		rt.setContains(new LazyPanda(666));
+		/*BrokenTile rt = new BrokenTile();
+		Armchair a = new Armchair();
+		a.setPanda(new LazyPanda(55));
+		rt.setContains(a);
 
-		floor.addTile(rt);
+		floor.addTile(rt);*/
 
-		new View("minimap", floor, 1);
+		/*RegularTile rt = new RegularTile();
+		Exit ex = new Exit();
+		rt.setContains(ex);
+		floor.addTile(rt);*/
 
+		/*RegularTile rt = new RegularTile();
+		Wardrobe w = new Wardrobe();
+		rt.setContains(w);
+		floor.addTile(rt);*/
+
+		/*RegularTile rt = new RegularTile();
+		Armchair gm = new Armchair();
+		rt.setContains(gm);
+		floor.addTile(rt);*/
+
+		RegularTile entryTile = new RegularTile();
+		Entry en = new Entry(entryTile);
+		floor.addTile(entryTile);
+
+
+
+		View view = View.getInstance();
+		view.construate("minimap", floor, 1);
+		en.invokeDraw();
 	}
 
 

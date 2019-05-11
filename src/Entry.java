@@ -67,6 +67,11 @@ public class Entry extends AThing{
 		return orangutan;
 	}
 
+	public Tile getEntryTile()
+	{
+		return entryTile;
+	}
+
 	@Override
 	public String toString(){
 		return "x" + orangutansToPush;
@@ -76,6 +81,5 @@ public class Entry extends AThing{
 	public void invokeDraw()
 	{
 		View.getInstance().draw(this);
-		// TODO probably wont work hehexd
 	}
 }

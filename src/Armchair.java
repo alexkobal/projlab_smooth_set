@@ -63,7 +63,9 @@ public class Armchair extends AThing implements IPandaEffective{
 		return "a" + panda.getSleepTime();
 	}
 
-	public void setPanda(LazyPanda p){panda = p;}
+	public Panda getPanda() { return panda; }
+	public void setPanda(LazyPanda p){panda = p;
+	panda.setIsOn(isOn);}
 
 	@Override
 	public void invokeDraw() {

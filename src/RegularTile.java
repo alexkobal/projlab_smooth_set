@@ -7,12 +7,7 @@
 public class RegularTile extends Tile
 {
 	@Override
-	public String toString(){
-		return "r";
-	}
-
-	@Override
 	public void invokeDraw() {
-		View.draw(this);
+		View.getInstance().draw(this);
 	}
 }
