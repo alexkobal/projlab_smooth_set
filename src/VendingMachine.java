@@ -61,4 +61,9 @@ public class VendingMachine extends AThing implements IPandaEffective{
 	public String toString(){
 		return "v" + beepTime;
 	}
+
+	@Override
+	public void invokeDraw() {
+		View.getInstance().draw(this);
+	}
 }

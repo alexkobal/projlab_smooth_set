@@ -46,4 +46,9 @@ public class BrokenTile extends Tile
         if(lifeTime > 0) return "b" + lifeTime;
         else return "0";
     }
+
+    @Override
+    public void invokeDraw() {
+        View.getInstance().draw(this);
+    }
 }

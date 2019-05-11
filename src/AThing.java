@@ -7,7 +7,7 @@ import java.io.Serializable;
 	 * This class has all of the collide (virtual) methods.
 	 * isOn is the Tile where the thing is placed on.
 **/
-public abstract class AThing implements Serializable
+public abstract class AThing implements Serializable, IDrawable
 {
     protected Tile isOn;
 
@@ -73,6 +73,7 @@ public abstract class AThing implements Serializable
     {
         return false;
     }
+
 
 	public void notifyNeighbors(){}
 

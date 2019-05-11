@@ -12,8 +12,9 @@ public class Program {
 		RegularTile rt = new RegularTile();
 		rt.setContains(new LazyPanda(666));
 
-		floor.addTile(new RegularTile());
-		View view = new View("minimap", floor, 1);
+		floor.addTile(rt);
+
+		new View("minimap", floor, 1);
 
 	}
 

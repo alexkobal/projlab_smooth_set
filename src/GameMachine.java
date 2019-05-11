@@ -62,4 +62,9 @@ public class GameMachine extends AThing implements IPandaEffective{
 	public String toString(){
 		return "g" /*+ tinkleTime*/;
 	}
+
+	@Override
+	public void invokeDraw() {
+		View.getInstance().draw(this);
+	}
 }

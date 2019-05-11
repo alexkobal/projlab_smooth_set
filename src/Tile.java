@@ -12,7 +12,7 @@ import java.util.*;
  * List of 'neighbors' stores all the adjacent tiles.</p>  
  * 
  */
-public abstract class Tile implements Serializable
+public abstract class Tile implements Serializable, IDrawable
 {
     static public Controller ctrl = null;
 

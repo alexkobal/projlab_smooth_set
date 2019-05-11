@@ -84,4 +84,9 @@ public class Orangutan extends Animal{
 	public String toString(){
 		return "o";
 	}
+
+	@Override
+	public void invokeDraw() {
+		View.getInstance().draw(this);
+	}
 }

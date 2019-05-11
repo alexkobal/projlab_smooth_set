@@ -103,4 +103,9 @@ public abstract class Panda extends Animal {
 	public void connectChain(Animal animal) {
 
 	}
+
+	@Override
+	public void invokeDraw() {
+		View.getInstance().draw(this);
+	}
 }

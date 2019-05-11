@@ -10,4 +10,9 @@ public class RegularTile extends Tile
 	public String toString(){
 		return "r";
 	}
+
+	@Override
+	public void invokeDraw() {
+		View.draw(this);
+	}
 }

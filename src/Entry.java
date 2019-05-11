@@ -71,4 +71,11 @@ public class Entry extends AThing{
 	public String toString(){
 		return "x" + orangutansToPush;
 	}
+
+	@Override
+	public void invokeDraw()
+	{
+		View.getInstance().draw(this);
+		// TODO probably wont work hehexd
+	}
 }

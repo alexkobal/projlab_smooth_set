@@ -89,4 +89,9 @@ public class Wardrobe extends AThing{
     public String toString(){
         return "w";
     }
+
+    @Override
+    public void invokeDraw() {
+        View.getInstance().draw(this);
+    }
 }

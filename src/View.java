@@ -11,21 +11,11 @@ import java.util.Map;
 
 public class View extends JFrame
 {
-    /* HIBÁK:
-    *
-    * A floorba tárolt Tile-ok nem kirajzolhatók draw-val, mert nincs draw(Tile t) fv.
-    * A tile contains-ét nem lehet drawolni, mert nincs draw(AThing a) -> Legyen minden AThing leszármazottnak egy draw(Node hova) függvénye?
-    *
-    *
-    *
-     */
-
-
-
     private Map<Tile, Node> nodes = new HashMap<>();
     private Floor floor;
     private int floorSize;
 
+   
 
     public View(String mapName, Floor _floor, int _floorSize)
     {
@@ -64,19 +54,11 @@ public class View extends JFrame
                 Tile key = floor.getTile(i);
                 String pos[] = br.readLine().split("\t");
                 Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
-                nodes.put(key, n);
-            }
 
-            //Akkor, ha a floor esetleg hashmap lenne es kozvetlen indexelheto
-            /*
-            for(Map.Entry<Integer, Tile> entry : floor.tiles.entrySet())
-            {
-                Tile value = entry.getValue();
-                String pos[] = br.readLine().split("\t");
-                Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
+
                 nodes.put(key, n);
+
             }
-            */
         }
         catch (IOException e)
         {
@@ -89,67 +71,39 @@ public class View extends JFrame
         for(int i = 0; i < floorSize; i++)
         {
             Tile key = floor.getTile(i);
-            draw(key); // <- hiba nincs draw(Tile)
-
-            //TODO
+            key.invokeDraw();
         }
-
-        //Akkor, ha a floor esetleg hashmap lenne es kozvetlen indexelheto
-        /*
-        for(Map.Entry<Integer, Tile> entry : floor.tiles.entrySet())
-        {
-            Tile value = entry.getValue();
-            //TODO
-        }
-        */
     }
 
     // állatok
     public void draw(Orangutan o)
     {
-        for(int i = 0; i < floorSize; i++)
-        {
-            if(o.getIsOn().equals(floor.getTile(i)))    // megkeressük a cellát amin van
-            {
-                draw(o.getIsOn()); // <- hiba nincs draw(Tile)
-                break;
-            }
-        }
+
     }
 
     public void draw(Panda p)
     {
-        try {
-            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
-            Graphics2D g2D = bi.createGraphics();
-            AlphaComposite ac= AlphaComposite.getInstance(AlphaComposite.SRC_OVER,  0.2f);
-            JLabel jl = new JLabel(new ImageIcon((bi)));
-            jl.setBounds(500, 500, 55, 55); // <-
-            add(jl);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     // csempék
     public void draw(RegularTile rt)
     {
+        System.out.println(floorSize); // instancenak a cuccai.. vmiért full üresek...
+
+
         Node node = nodes.get(rt);
         try {
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
             JLabel jl = new JLabel(new ImageIcon((bi)));
-            jl.setBounds(node.getX(), node.getY(), 55, 55);
+            jl.setBounds(500, 500, 55, 55);
+            jl.setLocation(500, 500);
             add(jl);
 
-            /*if(rt.getContains() != null)
+            if(rt.getContains() != null)
             {
-                if(rt.getContains() instanceof Panda) // NINCSEN draw(AThing) tudni kéne mit rajzolunk
-                {
-                    System.out.print("HEHEXD");
-                    draw(new JumpingPanda());
-                }
-            }*/
+                rt.getContains().invokeDraw();
+            }
 
 
 
@@ -192,11 +146,8 @@ public class View extends JFrame
     }
 
     //etc
-    public void Wardrobe(Armchair a)
+    public void draw(Wardrobe w)
     {
 
     }
-
-
-
 }

@@ -65,4 +65,8 @@ public class Armchair extends AThing implements IPandaEffective{
 
 	public void setPanda(LazyPanda p){panda = p;}
 
+	@Override
+	public void invokeDraw() {
+		View.getInstance().draw(this);
+	}
 }

@@ -82,4 +82,9 @@ public class Exit extends AThing {
     public String toString(){
         return "X";
     }
+
+    @Override
+    public void invokeDraw() {
+        View.getInstance().draw(this);
+    }
 }
