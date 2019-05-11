@@ -89,7 +89,7 @@ public class View extends JFrame
         for(int i = 0; i < floorSize; i++)
         {
             Tile key = floor.getTile(i);
-            draw((RegularTile) key);
+            draw(key); // <- hiba nincs draw(Tile)
 
             //TODO
         }
@@ -107,7 +107,14 @@ public class View extends JFrame
     // állatok
     public void draw(Orangutan o)
     {
-
+        for(int i = 0; i < floorSize; i++)
+        {
+            if(o.getIsOn().equals(floor.getTile(i)))    // megkeressük a cellát amin van
+            {
+                draw(o.getIsOn()); // <- hiba nincs draw(Tile)
+                break;
+            }
+        }
     }
 
     public void draw(Panda p)
@@ -117,7 +124,7 @@ public class View extends JFrame
             Graphics2D g2D = bi.createGraphics();
             AlphaComposite ac= AlphaComposite.getInstance(AlphaComposite.SRC_OVER,  0.2f);
             JLabel jl = new JLabel(new ImageIcon((bi)));
-            jl.setBounds(500, 500, 55, 55); // a node
+            jl.setBounds(500, 500, 55, 55); // <-
             add(jl);
 
         } catch (IOException e) {
@@ -135,14 +142,14 @@ public class View extends JFrame
             jl.setBounds(node.getX(), node.getY(), 55, 55);
             add(jl);
 
-            if(rt.getContains() != null)
+            /*if(rt.getContains() != null)
             {
                 if(rt.getContains() instanceof Panda) // NINCSEN draw(AThing) tudni kéne mit rajzolunk
                 {
                     System.out.print("HEHEXD");
                     draw(new JumpingPanda());
                 }
-            }
+            }*/
 
 
 
