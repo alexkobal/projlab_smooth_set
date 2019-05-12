@@ -18,8 +18,11 @@ import java.util.Map;
 
     Kell még:
 
-    ActionListenerek a a JLabelekre.
-    Utak a csempék között.
+    ActionListenerek a a JButtonokra. (kijelölés/cél)
+
+
+
+
 
 
  */
@@ -36,7 +39,7 @@ public class View extends JPanel
 
     private class GraphLine
     {
-        public int x0, y0, x1, y1;
+        int x0, y0, x1, y1;
 
         GraphLine(int x0, int y0, int x1, int y1)
         {
@@ -135,9 +138,6 @@ public class View extends JPanel
             Tile key = floor.getTile(i);
             key.invokeDraw();
         }
-
-
-        System.out.println(lines.size());
     }
 
     // állatok
@@ -179,9 +179,14 @@ public class View extends JPanel
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX(), node.getY(), 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX(), node.getY(), 65, 65);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -353,9 +358,14 @@ public class View extends JPanel
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Exit.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX(), node.getY() - 13, 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX(), node.getY() - 13, 65, 65);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -375,15 +385,20 @@ public class View extends JPanel
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX() + 2, node.getY() - 6, 65, 65);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX() + 2, node.getY() - 6, 65, 65);
 
                     if(en.getEntryTile().getContains() != null)
                     {
                         en.getEntryTile().getContains().invokeDraw();
                     }
 
-                    add(jl);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -404,9 +419,14 @@ public class View extends JPanel
                 Node node = entry.getValue();
                 try {
                     BufferedImage bi = ImageIO.read(getClass().getResource("/images/Wardrobe.png"));
-                    JLabel jl = new JLabel(new ImageIcon((bi)));
-                    jl.setBounds(node.getX() + 2, node.getY() + 5, 65, 65);
-                    add(jl);
+                    JButton jb = new JButton(new ImageIcon((bi)));
+                    jb.addActionListener(new ClickListener());
+                    jb.setContentAreaFilled(false);
+                    jb.setFocusPainted(false);
+                    jb.setBorderPainted(false);
+                    jb.setBorder(null);
+                    jb.setBounds(node.getX() + 2, node.getY() + 5, 65, 65);
+                    add(jb);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -445,7 +465,7 @@ public class View extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("xd");
+            // TODO lehet hogy ez full nem kell
         }
     }
 

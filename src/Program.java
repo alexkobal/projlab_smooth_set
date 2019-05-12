@@ -50,6 +50,8 @@ public class Program {
 		rt3.setContains(gm);
 		floor.addTile(rt3);
 
+		rt.addNeighbor(rt3);
+
 		RegularTile entryTile = new RegularTile();
 		Orangutan orangutan = new Orangutan();
 		orangutan.setIsOn(entryTile);
