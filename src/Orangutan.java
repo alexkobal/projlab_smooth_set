@@ -46,7 +46,6 @@ public class Orangutan extends Animal{
 
 		if(prevAnimal != null) prevAnimal.unchain();
 		count--;
-		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
 		isDead = true;

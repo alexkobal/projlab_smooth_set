@@ -47,11 +47,10 @@ public abstract class Panda extends Animal {
 	 */
 	public void unchain() {
 		if( isInChain() ) {
-			if(prevAnimal != null) {//Rekurziv h�v�sok folytat�sa
+			if(prevAnimal != null) {
 				prevAnimal.unchain();
 			}
 
-			//megfelel� setter + return
 			nextAnimal = null;
 			prevAnimal = null;
 			return;
@@ -93,7 +92,6 @@ public abstract class Panda extends Animal {
 	 */
 	public void kill(Controller c) {
 		unchain();
-		//+Megfelel� setterek
 		isOn.setContains(null);
 		isOn = null;
 		c.removePanda(this);
