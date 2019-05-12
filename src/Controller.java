@@ -169,6 +169,9 @@ public class Controller {
 		for(Object o : or){
 			System.out.println("make a move " + ((Orangutan)o).getName());
 
+			View.getInstance().setActiveOrangutan((Orangutan) o);
+			View.getInstance().moveActiveOrangutan();
+
 			String line = null;
 			try {
 				line = br.readLine();
