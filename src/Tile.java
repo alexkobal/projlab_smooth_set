@@ -14,7 +14,6 @@ import java.util.*;
  */
 public abstract class Tile implements Serializable, IDrawable
 {
-    static public Controller ctrl = null;
 
     /**
      * contains
@@ -44,8 +43,6 @@ public abstract class Tile implements Serializable, IDrawable
         neighbors = new ArrayList<>();
     }
 
-    public void setCtrl(Controller c) {ctrl = c;}
-    public Controller getCtrl() {return ctrl;}
 
     /**
      * placeThing(panda: Panda)

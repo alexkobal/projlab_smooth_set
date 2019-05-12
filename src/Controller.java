@@ -17,27 +17,28 @@ public class Controller {
 
 	public ArrayList<Animal> animals = new ArrayList<>();
 
-	public Floor floor;
-	public ArrayList<Panda> pandas;
-	public ArrayList<Orangutan> orangutans;
+	private Floor floor = null;
+	private ArrayList<Panda> pandas;
+	private ArrayList<Orangutan> orangutans;
 
 	private InputStreamReader isr = new InputStreamReader(System.in);
 	private BufferedReader br = new BufferedReader(isr);
 	private boolean exit = false;
 
-	private Controller(Floor floor){
-		this.floor = floor;
+	private Controller(){
 		pandas = new ArrayList<>();
 		orangutans = new ArrayList<>();
-		Tile.ctrl = this;
 		instance = this;
+	}
+
+	public void openFloor(){
+		floor = Floor.getInstance();
 	}
 
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
-		Random randomizer = new Random();
 		if(!neighbors.isEmpty()) {
-			int n = Math.abs((randomizer.nextInt() % neighbors.size()));
+			int n = Math.abs((new Random().nextInt() % neighbors.size()));
 			panda.move(neighbors.get(n));
 		}
 	}
@@ -163,7 +164,7 @@ public class Controller {
 		if(instance != null){
 			return instance;
 		}else{
-			return instance = new Controller(Floor.getInstance());
+			return instance = new Controller();
 		}
 	}
 }

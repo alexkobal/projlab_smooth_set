@@ -37,7 +37,7 @@ public class BrokenTile extends Tile
         {
             unlink();
 
-            ((Animal) contains).kill(ctrl);
+            ((Animal) contains).kill(Controller.getInstance());
         }
     }
 

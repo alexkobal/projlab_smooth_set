@@ -7,15 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class View extends JFrame {
 	private JMenuItem newMenuItem, openMenuItem;
@@ -109,35 +108,46 @@ public class View extends JFrame {
 		}
 	}
 	private void openFloor(){
+        Floor.clearInstance();
 		Floor floor = Floor.getInstance();
-		JFileChooser fileChooser = new JFileChooser();
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
 		fileChooser.showDialog(this, "OpenFloor");
 		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
+		StringBuilder sb = new StringBuilder(fileChooser.getSelectedFile().getPath());
+        int idx = sb.lastIndexOf(".flr");
+        sb.replace(idx, idx+4, ".txt");
+        deserialize(sb.toString());
+		Controller.getInstance().openFloor();
 	}
 
-    public void Deserialize(String mapName)
+    public void deserialize(String mapName)
     {
+
         try
         {
             FileInputStream fis = new FileInputStream(mapName + ".txt");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            for(int i = 0; i < floorSize; i++)
+            for(Map.Entry<Integer, Tile> entry : floor.getTiles().entrySet())
             {
-                Tile key = floor.getTile(i);
+                Tile key = entry.getValue();
                 String pos[] = br.readLine().split("\t");
                 Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
-
-
                 nodes.put(key, n);
-
             }
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+
+
+
+        //Akkor, ha a floor esetleg hashmap lenne es kozvetlen indexelheto
+
+
+
     }
 
     public void updateDraw()
@@ -162,6 +172,15 @@ public class View extends JFrame {
         }
 
         repaint();
+
+        //Akkor, ha a floor esetleg hashmap lenne es kozvetlen indexelheto
+        /*
+        for(Map.Entry<Integer, Tile> entry : floor.tiles.entrySet())
+        {
+            Tile value = entry.getValue();
+            //TODO
+        }
+        */
 
 
         for(int i = 0; i < floorSize; i++)
