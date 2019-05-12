@@ -32,14 +32,14 @@ public class FloorMakingProgram
 		floor.addThing(w1, 37);
 		floor.addThing(new Armchair(), 41);
 		floor.addThing(w2, 24);
-		Entry entry = new Entry(floor.getTile(6));
+		Entry entry = new Entry(floor.getTile(17));
 
 		ArrayList<Orangutan> ol = new ArrayList<>();
 		ol.add(new Orangutan());
 		ol.add(new Orangutan());
 		entry.addOrangutan(ol);
 
-		floor.setEntry(entry, 15);
+		floor.setEntry(entry, 16);
 
 		//Setting neighbors
 		int[][] matrix = {
