@@ -61,6 +61,11 @@ public class Entry extends AThing{
 		Orangutan orangutan = null;
 		if(orangutansToPush.size() > 0){
 			orangutan = orangutansToPush.remove(0);
+			if(orangutan.getPrevAnimal() != null) {
+				//System.out.println("Elengedi az orangutan a pandat");
+				orangutan.getPrevAnimal().setNextAnimal(null);
+				orangutan.setPrevAnimal(null);
+			}
 			orangutan.setIsOn(entryTile);
 			orangutan.prevTile = orangutan.isOn;
 			entryTile.setContains(orangutan);

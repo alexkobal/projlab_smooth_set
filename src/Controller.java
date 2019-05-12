@@ -50,11 +50,14 @@ public class Controller {
 	}
 
 	public void start(){
-		System.out.println("Started");
 		addAnimals(2,3);
 		while(!exit)
 		{
 			entryNextTurn();
+
+			exitNextTurn();
+
+
 			if(!orangutans.isEmpty())
 			{
 				moveOrangutans();
@@ -62,10 +65,8 @@ public class Controller {
 			thingsNextTurn();
 			if(!pandas.isEmpty())
 				movePandas();
-			exitNextTurn();
 			exit = checkEnd();
 		}
-		System.out.println("Exited");
 	}
 
 	public void entryNextTurn(){

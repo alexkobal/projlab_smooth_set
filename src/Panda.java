@@ -7,6 +7,8 @@ import java.awt.*;
  **/
 public abstract class Panda extends Animal {
 
+
+	public boolean shouldIKillMyself = false;
 	/**
 	 * HitBy Orangutan
 	 * <p>n Orangutan hits a Panda this function will be called.
@@ -84,6 +86,12 @@ public abstract class Panda extends Animal {
 				prevAnimal.move(prevTile);
 			}
 		}
+
+		if(shouldIKillMyself){
+			//System.out.println("a panda has been removed");
+			Tile.ctrl.removePanda(this);
+		}
+
 	}
 	
 	/**
@@ -92,6 +100,7 @@ public abstract class Panda extends Animal {
 	 * When a Panda dies this function will be called..
 	 */
 	public void kill(Controller c) {
+		//System.out.println("A panda commited suicide");
 		unchain();
 		isOn.setContains(null);
 		isOn = null;
