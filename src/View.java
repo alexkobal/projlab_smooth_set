@@ -2,8 +2,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.html.ImageView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class View extends JFrame {
+public class View extends JFrame  implements KeyListener{
 	private JMenuItem startMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
 	private GameJPanel mainPanel;
@@ -22,8 +21,23 @@ public class View extends JFrame {
 	private Map<Tile, Node> nodes = new HashMap<>();
 	private Floor floor;
 
+    @Override
+    public void keyTyped(KeyEvent e) {
 
-	private class GraphLine {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+
+    private class GraphLine {
 		int x0, y0, x1, y1;
 
 		GraphLine(int x0, int y0, int x1, int y1) {
@@ -93,6 +107,8 @@ public class View extends JFrame {
 		this.add(mainPanel, BorderLayout.CENTER);
 		mainPanel.setPreferredSize(this.getSize());
 		mainPanel.setVisible(true);
+
+		this.addKeyListener(this);
 	}
 	private void setUpMenuBar(){
 		menuActionListener = new MenuActionListener();
