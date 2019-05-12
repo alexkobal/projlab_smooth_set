@@ -25,6 +25,7 @@ public class Controller {
 	private InputStreamReader isr = new InputStreamReader(System.in);
 	private BufferedReader br = new BufferedReader(isr);
 	private boolean exit = false;
+	private int Points = 0;
 
 	private Controller(){
 		pandas = new ArrayList<>();
@@ -118,7 +119,7 @@ public class Controller {
 
 	public void start(){
 		System.out.println("Started");
-		addAnimals(1,20);
+		addAnimals(2,3);
 		while(!exit)
 		{
 			entryNextTurn();
@@ -162,7 +163,6 @@ public class Controller {
 	public void moveOrangutans(){
 		Object[] or = orangutans.toArray();
 		for(Object o : or){
-			System.out.println("make a move " + ((Orangutan)o).getName());
 
 			View.getInstance().setActiveOrangutan((Orangutan) o);
 			Tile selectedTile = View.getInstance().moveActiveOrangutan();

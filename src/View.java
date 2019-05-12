@@ -25,6 +25,7 @@ public class View extends JFrame {
 	private Orangutan activeOrangutan;
 	private Tile activeNeighbor;
 	private boolean confirmed = false;
+	private boolean forceRefresh = false;
 
 	class MyKeylistener implements KeyListener{
 
@@ -35,8 +36,6 @@ public class View extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-
-
             switch (e.getKeyChar()){
                 case 'a':
                     if(!confirmed)
@@ -45,32 +44,56 @@ public class View extends JFrame {
                         {
                             if (activeOrangutan.getIsOn().getNeighbors().get(i) == activeNeighbor)
                             {
-                                if (i == activeOrangutan.getIsOn().getNeighbors().size() - 1)
+                                if (i == activeOrangutan.getIsOn().getNeighbors().size() - 1) {
                                     activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(0);
-                                else
-                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i+1);
+                                    break;
+                                }
+                                else {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i + 1);
+                                    break;
+                                }
                             }
 
-                        }                        /*
-                        for (int i = 0; i < n.length; i++) {
-                            if (n[i] == activeNeighbor) {
-                                if (i == n.length - 1)
-                                    activeNeighbor = n[0];
-                                else
-                                    activeNeighbor = n[i + 1];
-                            }
-                        }*/
+                        }
                     }
                     break;
+
+                case 'd':
+                    if(!confirmed)
+                    {
+                        for(int i = 0; i < activeOrangutan.getIsOn().getNeighbors().size(); i++)
+                        {
+                            if (activeOrangutan.getIsOn().getNeighbors().get(i) == activeNeighbor)
+                            {
+                                if (i == 0) {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(activeOrangutan.getIsOn().getNeighbors().size()-1);
+                                    break;
+                                }
+                                else {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i - 1);
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                    break;
+
                 case ' ':
                     if(!confirmed) {
                         confirmed = true;
                     }
                     break;
+
+                case 'r':
+                    if(!confirmed)
+                    {
+                        activeOrangutan.manualUnchain();
+                        confirmed = true;
+                    }
+                    break;
+
             }
-            System.out.println(e.getKeyChar()+ " gomb leutve");
-            System.out.println(activeNeighbor.toString()+ " az aktiv neighbor");
-            System.out.println(activeOrangutan.getIsOn().getNeighbors().size()+ " a merete");
             mainPanel.repaint();
         }
 
@@ -132,17 +155,20 @@ public class View extends JFrame {
 
     private class GameJPanel extends JPanel
     {
-        public Graphics graphics;
-
         public GameJPanel(){}
 
 		@Override
 		protected void paintComponent(Graphics g)
         {
-            graphics = g;
             super.paintComponent(g);
+            super.setBackground(Color.CYAN);
             if(!nodes.isEmpty()) {
                 updateDraw(g);
+            }
+            if(forceRefresh)
+            {
+                updateDraw(g);
+
             }
         }
 	}
@@ -151,7 +177,7 @@ public class View extends JFrame {
 		mainPanel = new GameJPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
 		mainPanel.setPreferredSize(this.getSize());
-		mainPanel.setVisible(true);
+        mainPanel.setVisible(true);
 
 
 	}
@@ -193,7 +219,7 @@ public class View extends JFrame {
                     }
                 };
 			    swGame.execute();
-
+                setVisible(true);
             }
 		}
 	}
@@ -240,7 +266,6 @@ public class View extends JFrame {
         return new Point(n.getX() + (size.y/2),n.getY() + (size.y/2));
     }
 
-
     public void updateDraw(Graphics g)
     {
 
@@ -281,15 +306,6 @@ public class View extends JFrame {
     public void setActiveOrangutan(Orangutan o)
     {
         activeOrangutan = o;
-        /*
-        for(Tile t: o.getIsOn().getNeighbors()) {
-            if(t.getContains() != null)
-            {
-                activeNeighbor = t;
-                break;
-            }
-        }
-        */
         activeNeighbor = o.getIsOn().getNeighbors().get(0);
         mainPanel.repaint();
     }
@@ -298,7 +314,7 @@ public class View extends JFrame {
     {
         try {
             while (!confirmed) {
-                TimeUnit.MILLISECONDS.sleep(200);
+                TimeUnit.MILLISECONDS.sleep(20);
                 System.out.println("Deadlock :/");
             }
         }
