@@ -118,7 +118,7 @@ public class Controller {
 
 	public void start(){
 		System.out.println("Started");
-		addAnimals(3,3);
+		addAnimals(1,20);
 		while(!exit)
 		{
 			entryNextTurn();
