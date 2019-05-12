@@ -180,4 +180,8 @@ public class Floor implements Serializable {
 	public static void clearInstance(){
 		instance = null;
 	}
+
+	public HashMap<Integer, Tile> getTiles(){
+		return tiles;
+	}
 }

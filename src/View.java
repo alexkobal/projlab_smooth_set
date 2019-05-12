@@ -8,8 +8,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class View extends JFrame
 {
@@ -17,8 +17,6 @@ public class View extends JFrame
     private MenuActionListener menuActionListener;
 
     private Map<Tile, Node> nodes = new HashMap<>();
-    private Floor floor;
-    private int floorSize;
 
 
 
@@ -83,17 +81,18 @@ public class View extends JFrame
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showDialog(this, "OpenFloor");
         floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
-
     }
-
-    public void Deserialize(String mapName)
+	/*
+    public void Deserialize()
     {
         try
         {
-            FileInputStream fis = new FileInputStream(mapName + ".txt");
+            FileInputStream fis = new FileInputStream();
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
+            Set<Integer> idx= Floor.getInstance().getTiles().keySet();
+            idx.
             for(int i = 0; i < floorSize; i++)
             {
                 Tile key = floor.getTile(i);
@@ -119,6 +118,7 @@ public class View extends JFrame
             key.invokeDraw();
         }
     }
+    */
 
     // állatok
     public void draw(Orangutan o)
@@ -134,7 +134,7 @@ public class View extends JFrame
     // csempék
     public void draw(RegularTile rt)
     {
-        System.out.println(floorSize); // instancenak a cuccai.. vmiért full üresek...
+        ///System.out.println(floorSize); // instancenak a cuccai.. vmiért full üresek...
 
 
         Node node = nodes.get(rt);
