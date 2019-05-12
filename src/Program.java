@@ -8,7 +8,6 @@ public class Program {
 	public static void main(String[] args)
 	{
 		View view = View.getInstance();
-		view.setVisible(true);
 	}
 
 

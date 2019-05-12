@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.ToDoubleBiFunction;
 
 /**
  * Controller
@@ -47,6 +48,7 @@ public class Controller {
 		System.out.println(floor.status());
 		while(!exit)
 		{
+			System.out.println("Started");
 			entryNextTurn();
 			if(!orangutans.isEmpty())
 			{
@@ -58,6 +60,7 @@ public class Controller {
 			exitNextTurn();
 			exit = checkEnd();
 		}
+		System.out.println("Exited");
 	}
 
 	public void entryNextTurn(){
@@ -166,5 +169,37 @@ public class Controller {
 		}else{
 			return instance = new Controller();
 		}
+	}
+
+	private void placePandaRandomly(Panda panda){
+		int size = Floor.getInstance().getTiles().size();
+		int random = new Random().nextInt(size);
+		Iterator<Tile> iter = Floor.getInstance().getTiles().values().iterator();
+		while(size > random && iter.hasNext()){
+			iter.next();
+		}
+		if(iter.next().getContains() != null){
+			placePandaRandomly(panda);
+		}
+	}
+
+	public void setAnimals(int nOrangutans, int nPandas){
+		for(int i = 0; i < nPandas; i++){
+			int random = new Random().nextInt(nPandas);
+			switch (random){
+				case 0:
+					placePandaRandomly(new LazyPanda(new Random().nextInt(5)));
+					break;
+				case 1:
+					placePandaRandomly(new JumpingPanda());
+					break;
+				default:
+					placePandaRandomly(new ScaredPanda());
+					break;
+			}
+		}
+
+		//TODO
+		//Floor.getInstance().getEntry().addOrangutan(nOrangutans);
 	}
 }
