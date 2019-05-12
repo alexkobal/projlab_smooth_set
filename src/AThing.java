@@ -9,12 +9,32 @@ import java.io.Serializable;
 **/
 public abstract class AThing implements Serializable, IDrawable
 {
+	/**
+	 * isOn
+	 * <p>
+	 *     Tile on witch the thing is located
+	 * </p>
+	 */
     protected Tile isOn;
 
+	/**
+	 * getIsOn
+	 * <p>
+	 *     Gets the tile on witch the thing is located
+	 * </p>
+	 * @return reference the tile
+	 */
 	public Tile getIsOn() {
 		return isOn;
 	}
 
+	/**
+	 * setIsOn
+	 * <p>
+	 *     Sets the tile where the thing is standing
+	 * </p>
+	 * @param isOn tile that is being set
+	 */
 	public void setIsOn(Tile isOn) {
 		this.isOn = isOn;
 	}
@@ -74,7 +94,13 @@ public abstract class AThing implements Serializable, IDrawable
         return false;
     }
 
-
+	/**
+	 * notifyNeighbors
+	 * <p>
+	 *     This function matters when the thing is a notifier
+	 *     Default implementation, does nothing
+	 * </p>
+	 */
 	public void notifyNeighbors(){}
 
 }
