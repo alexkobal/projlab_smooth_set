@@ -16,14 +16,21 @@ import java.util.function.ToDoubleBiFunction;
  * This is a control class. It generates the map and moves the pandas.
  **/
 public class Controller {
-
-	public ArrayList<Animal> animals = new ArrayList<>();
-
+	/**
+	 * pandas
+	 * <p>
+	 *     Pandas located on the floor
+	 * </p>
+	 */
 	private ArrayList<Panda> pandas;
+	/**
+	 * orangutans
+	 * <p>
+	 *     Orangutans located on the floor
+	 * </p>
+	 */
 	private ArrayList<Orangutan> orangutans;
 
-	private InputStreamReader isr = new InputStreamReader(System.in);
-	private BufferedReader br = new BufferedReader(isr);
 	private boolean exit = false;
 
 	private Controller(){
