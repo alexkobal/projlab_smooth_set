@@ -89,7 +89,7 @@ public abstract class Panda extends Animal {
 
 		if(shouldIKillMyself){
 			//System.out.println("a panda has been removed");
-			Tile.ctrl.removePanda(this);
+			Controller.getInstance().removePanda(this);
 		}
 
 	}
