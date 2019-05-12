@@ -20,6 +20,7 @@ import java.util.Map;
 public class View extends JFrame {
 	private JMenuItem newMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
+	private JPanel mainPanel;
 
 	private Map<Tile, Node> nodes = new HashMap<>();
 	private Floor floor;
@@ -72,6 +73,16 @@ public class View extends JFrame {
         setVisible(true);
     }
 
+    private class GameJPanel extends JPanel {
+		@Override
+		protected void paintComponent(Graphics g) {
+		}
+	}
+
+    private void setUpMainPanel(){
+		mainPanel = new GameJPanel();
+		this.add(mainPanel, BorderLayout.CENTER);
+	}
 	private void setUpMenuBar(){
 		menuActionListener = new MenuActionListener();
 		JMenuBar menuBar = new JMenuBar();
