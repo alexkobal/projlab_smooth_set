@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class View extends JFrame {
 	private JMenuItem startMenuItem, openMenuItem;
@@ -34,27 +35,42 @@ public class View extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("Valami történt!!");
+
 
             switch (e.getKeyChar()){
                 case 'a':
-                    Tile n[] = (Tile[])activeOrangutan.getIsOn().getNeighbors().toArray();
-
-                    for(int i = 0; i < n.length; i++)
+                    if(!confirmed)
                     {
-                        if(n[i] == activeNeighbor){
-                            if(i == n.length-1)
-                                activeNeighbor = n[0];
-                            else
-                                activeNeighbor = n[i+1];
-                        }
-                    }
+                        for(int i = 0; i < activeOrangutan.getIsOn().getNeighbors().size(); i++)
+                        {
+                            if (activeOrangutan.getIsOn().getNeighbors().get(i) == activeNeighbor)
+                            {
+                                if (i == activeOrangutan.getIsOn().getNeighbors().size() - 1)
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(0);
+                                else
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i+1);
+                            }
 
+                        }                        /*
+                        for (int i = 0; i < n.length; i++) {
+                            if (n[i] == activeNeighbor) {
+                                if (i == n.length - 1)
+                                    activeNeighbor = n[0];
+                                else
+                                    activeNeighbor = n[i + 1];
+                            }
+                        }*/
+                    }
                     break;
                 case ' ':
-                    confirmed = true;
+                    if(!confirmed) {
+                        confirmed = true;
+                    }
                     break;
             }
+            System.out.println(e.getKeyChar()+ " gomb leutve");
+            System.out.println(activeNeighbor.toString()+ " az aktiv neighbor");
+            System.out.println(activeOrangutan.getIsOn().getNeighbors().size()+ " a merete");
             mainPanel.repaint();
         }
 
@@ -165,8 +181,19 @@ public class View extends JFrame {
 				openFloor();
 				setUpMainPanel();
 			}
-			if(e.getSource() == startMenuItem){
-			    Controller.getInstance().start();
+			if(e.getSource() == startMenuItem)
+			{
+                SwingWorker<Void, Void> swGame = new SwingWorker<Void, Void>()
+                {
+                    @Override
+                    protected Void doInBackground() throws Exception
+                    {
+                        Controller.getInstance().start();
+                        return null;
+                    }
+                };
+			    swGame.execute();
+
             }
 		}
 	}
@@ -254,6 +281,16 @@ public class View extends JFrame {
     public void setActiveOrangutan(Orangutan o)
     {
         activeOrangutan = o;
+        /*
+        for(Tile t: o.getIsOn().getNeighbors()) {
+            if(t.getContains() != null)
+            {
+                activeNeighbor = t;
+                break;
+            }
+        }
+        */
+        activeNeighbor = o.getIsOn().getNeighbors().get(0);
         mainPanel.repaint();
     }
 
@@ -261,7 +298,7 @@ public class View extends JFrame {
     {
         try {
             while (!confirmed) {
-                //Thread.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(200);
                 System.out.println("Deadlock :/");
             }
         }
@@ -291,8 +328,10 @@ public class View extends JFrame {
                     Node tile = nodes.get(o.getIsOn().getNeighbors().get(i));
                     g.drawOval(tile.getX(), tile.getY(), 75, 75);
                 }
-                g.setColor(Color.pink);
-                g.drawOval(nodes.get(activeNeighbor).getX(),nodes.get(activeNeighbor).getY(), 75, 75);
+                if(activeNeighbor != null) {
+                    g.setColor(Color.pink);
+                    g.drawOval(nodes.get(activeNeighbor).getX(), nodes.get(activeNeighbor).getY(), 75, 75);
+                }
             }
         }
         catch (IOException e)

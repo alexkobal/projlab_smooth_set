@@ -165,47 +165,10 @@ public class Controller {
 			System.out.println("make a move " + ((Orangutan)o).getName());
 
 			View.getInstance().setActiveOrangutan((Orangutan) o);
-			View.getInstance().moveActiveOrangutan();
+			Tile selectedTile = View.getInstance().moveActiveOrangutan();
 
-			String line = null;
-			try {
-				line = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+            ((Orangutan)o).move(selectedTile);
 
-			String[] part = line.split(" ");
-
-			if(part.length > 1) {
-				if (part[0].compareTo("move") == 0 && part.length == 3)
-				{
-					Orangutan selected = null;
-					for (Orangutan a: orangutans)
-					{
-						if (a.getName().compareTo(part[1]) == 0)
-							selected = a;
-					}
-					if(selected != null)
-					{
-						selected.move(Floor.getInstance().getTile(Integer.parseInt(part[2])));
-					}
-					System.out.println(Floor.getInstance().status());
-				}
-				if(part[0].compareTo("unchain") == 0 && part.length == 2){
-
-					Orangutan selected = null;
-					for (Orangutan a: orangutans)
-					{
-						if (a.getName().compareTo(part[1]) == 0)
-							selected = a;
-					}
-					if(selected != null)
-					{
-						selected.manualUnchain();
-					}
-					System.out.println(Floor.getInstance().status());
-				}
-			}
 		}
 		orangutans.removeIf(Orangutan::getIsDead);
 	}
