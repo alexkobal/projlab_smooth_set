@@ -21,6 +21,10 @@ public class View extends JFrame  implements KeyListener{
 	private Map<Tile, Node> nodes = new HashMap<>();
 	private Floor floor;
 
+	private Orangutan activeOrangutan;
+	private Tile activeNeighbor;
+	private boolean confirmed = false;
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -29,6 +33,26 @@ public class View extends JFrame  implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println("Valami történt!!");
+
+        switch (e.getKeyChar()){
+            case 'a':
+                Tile n[] = (Tile[])activeOrangutan.getIsOn().getNeighbors().toArray();
+
+                for(int i = 0; i < n.length; i++)
+                {
+                    if(n[i] == activeNeighbor){
+                        if(i == n.length-1)
+                            activeNeighbor = n[0];
+                        else
+                            activeNeighbor = n[i+1];
+                    }
+                }
+
+                break;
+            case ' ':
+                confirmed = true;
+                break;
+        }
     }
 
     @Override
@@ -159,6 +183,8 @@ public class View extends JFrame  implements KeyListener{
 
     public void deserialize(String mapName)
     {
+        float zoom = 0.85f;
+
         try
         {
             FileInputStream fis = new FileInputStream(mapName+ ".vw");
@@ -168,7 +194,7 @@ public class View extends JFrame  implements KeyListener{
             for(Tile t : Floor.getInstance().getTiles().values())
             {
                 String pos[] = br.readLine().split(" ");
-                Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
+                Node n = new Node((int)(Integer.parseInt(pos[0])*zoom), (int)(Integer.parseInt(pos[1])*zoom));
                 nodes.put(t, n);
             }
         }
@@ -186,6 +212,7 @@ public class View extends JFrame  implements KeyListener{
 
     public void updateDraw(Graphics g)
     {
+
         //BasicTile the Tile which is the p0 in the line
         for(Tile bTile : Floor.getInstance().getTiles().values())
         {
@@ -205,6 +232,7 @@ public class View extends JFrame  implements KeyListener{
         {
             t.invokeDraw(g);
         }
+
         mainPanel.repaint();
     }
 
@@ -219,6 +247,27 @@ public class View extends JFrame  implements KeyListener{
         }
     }
 
+    public void setActiveOrangutan(Orangutan o)
+    {
+        activeOrangutan = o;
+        mainPanel.repaint();
+    }
+
+    public Tile moveActiveOrangutan()
+    {
+        try {
+            while (!confirmed) {
+                Thread.sleep(100);
+            }
+        }
+        catch (Exception e)
+        {
+            //kaki
+        }
+
+        return activeNeighbor;
+    }
+
     // állatok
     public void draw(Orangutan o, Graphics g)
     {
@@ -227,6 +276,18 @@ public class View extends JFrame  implements KeyListener{
             Node currNode = nodes.get(o.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
             g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(activeOrangutan == o){
+                g.setColor(Color.BLUE);
+                g.drawOval(currNode.getX(),currNode.getY(),75,75);
+                g.setColor(Color.yellow);
+                for(int i = 0; i < o.getIsOn().neighbors.size(); i++){
+                    Node tile = nodes.get(o.getIsOn().getNeighbors().get(i));
+                    g.drawOval(tile.getX(), tile.getY(), 75, 75);
+                }
+                g.setColor(Color.pink);
+                g.drawOval(nodes.get(activeNeighbor).getX(),nodes.get(activeNeighbor).getY(), 75, 75);
+            }
         }
         catch (IOException e)
         {
