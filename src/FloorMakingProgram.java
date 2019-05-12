@@ -87,7 +87,7 @@ public class FloorMakingProgram
 		//Serialization
 		String filename = "mainFloor.flr";
 		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
+
 	}
 
 	//Program starts and makes a map
@@ -131,7 +131,6 @@ public class FloorMakingProgram
 		//Serialization
 		String filename = "test1.flr";
 		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
 		Floor.clearInstance();
 	}
 
@@ -163,7 +162,6 @@ public class FloorMakingProgram
 		//Serialization
 		String filename = "test2.flr";
 		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
 		Floor.clearInstance();
 	}
 

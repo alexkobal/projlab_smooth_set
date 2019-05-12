@@ -143,7 +143,7 @@ public class Floor implements Serializable {
 		}
 	}
 
-	public static Floor deserialise(String filename){
+	public static void deserialise(String filename){
 
 		Floor floor = null;
 		try{
@@ -154,7 +154,7 @@ public class Floor implements Serializable {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		return floor;
+		instance = floor;
 	}
 
 	public ArrayList<IPandaEffective> getNotifiers(){

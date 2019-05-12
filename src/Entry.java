@@ -46,7 +46,7 @@ public class Entry extends AThing{
 	 * @param oa is the number of Orangutans to add for pushing.
 	 */
 	public void addOrangutan(ArrayList<Orangutan> oa){
-		orangutansToPush = oa;
+		orangutansToPush.addAll(oa);
 	}
 
 	/**

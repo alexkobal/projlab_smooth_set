@@ -19,7 +19,6 @@ public class Controller {
 
 	public ArrayList<Animal> animals = new ArrayList<>();
 
-	private Floor floor = null;
 	private ArrayList<Panda> pandas;
 	private ArrayList<Orangutan> orangutans;
 
@@ -33,12 +32,9 @@ public class Controller {
 		instance = this;
 	}
 
-	public void openFloor(){
-		floor = Floor.getInstance();
-	}
+
 	public void loadAnimals(String mapName)
 	{
-		View.getInstance().getName();
 		try
 		{
 			FileInputStream fis = new FileInputStream(mapName+ ".ani");
@@ -52,41 +48,41 @@ public class Controller {
 				{
 					case "o":
 						Orangutan o = new Orangutan();
-						o.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						o.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
 						o.setName(param[1]);
 						o.setPrevTile(o.getIsOn());
 						animals.add(o);
 						orangutans.add(o);
-						floor.getTile(Integer.parseInt(param[2])).setContains(o);
+                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(o);
 					break;
 					case "lp":
 						int rnd = Math.abs(new Random().nextInt(4) + 1);
 						LazyPanda lp = new LazyPanda(rnd);
-						lp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						lp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
 						lp.setName(param[1]);
 						lp.setPrevTile(lp.getIsOn());
 						animals.add(lp);
 						pandas.add(lp);
-						floor.getTile(Integer.parseInt(param[2])).setContains(lp);
+                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(lp);
 						break;
 					case "sp":
 						ScaredPanda sp = new ScaredPanda();
-						sp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						sp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
 						sp.setName(param[1]);
 						sp.setPrevTile(sp.getIsOn());
 						animals.add(sp);
 						pandas.add(sp);
-						floor.getTile(Integer.parseInt(param[2])).setContains(sp);
-						System.out.println(floor.status());
+                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(sp);
+						System.out.println(Floor.getInstance().status());
 						break;
 					case "jp":
 						JumpingPanda jp = new JumpingPanda();
-						jp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						jp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
 						jp.setName(param[1]);
 						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
 						animals.add(jp);
 						pandas.add(jp);
-						floor.getTile(Integer.parseInt(param[2])).setContains(jp);
+                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(jp);
 						break;
 					case "chain":
 						Animal elso = null;
@@ -121,10 +117,15 @@ public class Controller {
 	}
 
 	public void start(){
-		System.out.println(floor.status());
 		while(!exit)
 		{
+			//Just for test
 			System.out.println("Started");
+			ArrayList<Orangutan> or = new ArrayList<>();
+			or.add(new Orangutan());
+			Floor.getInstance().getEntry().addOrangutan(or);
+			addAnimals(3,3);
+
 			entryNextTurn();
 			if(!orangutans.isEmpty())
 			{
@@ -140,15 +141,15 @@ public class Controller {
 	}
 
 	public void entryNextTurn(){
-		if(floor.getEntry() != null)
+		if(Floor.getInstance().getEntry() != null)
 		{
 			try {
-				floor.getEntry().addOrangutan(floor.getExit().getOrangutansToPush());
+				Floor.getInstance().getEntry().addOrangutan(Floor.getInstance().getExit().getOrangutansToPush());
 			} catch (Exception e) {
 
 			}
 
-			Orangutan orangutan = floor.getEntry().nextTurn();
+			Orangutan orangutan = Floor.getInstance().getEntry().nextTurn();
 			if(orangutan != null)
 			{
 				orangutans.add(orangutan);
@@ -157,9 +158,9 @@ public class Controller {
 	}
 
 	public void exitNextTurn() {
-		if(floor.getExit() != null)
+		if(Floor.getInstance().getExit() != null)
 		{
-			floor.getExit().nextTurn();
+			Floor.getInstance().getExit().nextTurn();
 		}
 	}
 
@@ -188,9 +189,9 @@ public class Controller {
 					}
 					if(selected != null)
 					{
-						selected.move(floor.getTile(Integer.parseInt(part[2])));
+						selected.move(Floor.getInstance().getTile(Integer.parseInt(part[2])));
 					}
-					System.out.println(floor.status());
+					System.out.println(Floor.getInstance().status());
 				}
 				if(part[0].compareTo("unchain") == 0 && part.length == 2){
 
@@ -204,7 +205,7 @@ public class Controller {
 					{
 						selected.manualUnchain();
 					}
-					System.out.println(floor.status());
+					System.out.println(Floor.getInstance().status());
 				}
 			}
 		}
@@ -212,7 +213,7 @@ public class Controller {
 	}
 
 	public void thingsNextTurn(){
-		for(IPandaEffective ip : floor.getNotifiers()){
+		for(IPandaEffective ip : Floor.getInstance().getNotifiers()){
 			ip.effect();
 		}
 	}
@@ -251,15 +252,17 @@ public class Controller {
 		int size = Floor.getInstance().getTiles().size();
 		int random = new Random().nextInt(size);
 		Iterator<Tile> iter = Floor.getInstance().getTiles().values().iterator();
+		Tile current = null;
 		while(size > random && iter.hasNext()){
-			iter.next();
+			current = iter.next();
+			size--;
 		}
-		if(iter.next().getContains() != null){
+		if(current.getContains() != null){
 			placePandaRandomly(panda);
 		}
 	}
 
-	public void setAnimals(int nOrangutans, int nPandas){
+	public void addAnimals(int nOrangutans, int nPandas){
 		for(int i = 0; i < nPandas; i++){
 			int random = new Random().nextInt(nPandas);
 			switch (random){
