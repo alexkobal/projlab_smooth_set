@@ -46,10 +46,6 @@ public class Controller {
 		while(!exit)
 		{
 			entryNextTurn();
-
-			exitNextTurn();
-
-
 			if(!orangutans.isEmpty())
 			{
 				moveOrangutans();
@@ -57,8 +53,8 @@ public class Controller {
 			thingsNextTurn();
 			if(!pandas.isEmpty())
 				movePandas();
+			exitNextTurn();
 			exit = checkEnd();
-			//System.out.println("pandas.size =" + pandas.size());
 		}
 	}
 
@@ -66,9 +62,7 @@ public class Controller {
 		if(floor.getEntry() != null)
 		{
 			try {
-				ArrayList<Orangutan> masolando = floor.getExit().getOrangutansToPush();
-				//System.out.println("masolando merete:" + masolando.size());
-				floor.getEntry().addOrangutan(masolando);
+				floor.getEntry().addOrangutan(floor.getExit().getOrangutansToPush());
 			} catch (Exception e) {
 
 			}
@@ -162,7 +156,5 @@ public class Controller {
 	public void removeOrangutan(Orangutan o){
 		orangutans.remove(o);
 	}
-
-
 
 }

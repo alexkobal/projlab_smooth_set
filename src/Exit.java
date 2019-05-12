@@ -19,16 +19,10 @@ public class Exit extends AThing {
     private Panda prevPanda;
 
     public ArrayList<Orangutan> getOrangutansToPush() {
-        ArrayList<Orangutan> temp = new ArrayList<Orangutan>(orangutansToPush);
-        //System.out.println("temp lista mérete:" + temp.size());
+        ArrayList<Orangutan> temp = orangutansToPush;
         orangutansToPush.clear();
         return temp;
     }
-
-    /*public int orangutansToPushSize(){
-
-        return orangutansToPush.size();
-    }*/
 
     /**
      * hitBy Orangutan
@@ -40,26 +34,7 @@ public class Exit extends AThing {
      */
     @Override
     public boolean hitBy(Orangutan orangutan) {
-        if(prevPanda == null){
-            orangutan.prevTile = orangutan.isOn;
-            orangutan.isOn.setContains(null);
-            orangutan.setIsOn(Tile.ctrl.floor.getEntry().getIsOn());
-            orangutansToPush.add(orangutan);
-            if(orangutansToPush.size() > 0){
-                //System.out.println("Exit-orangutanstopush > 0");
-            }
-            if(orangutan.getPrevAnimal() != null){
-                prevPanda = (Panda) orangutan.getPrevAnimal();
-            }
-            return true;
-
-        }
-        else{
-            return false;
-        }
-
-
-        /*if(prevPanda == null) {
+        if(prevPanda == null) {
             prevPanda = (Panda) orangutan.getPrevAnimal();
             prevPanda.setNextAnimal(null);
             orangutan.prevAnimal.move(orangutan.isOn);
@@ -69,7 +44,7 @@ public class Exit extends AThing {
             orangutansToPush.add(orangutan);
             return true;
         }
-        return false;*/
+        return false;
     }
     /**
      * hitBy Panda
@@ -81,26 +56,13 @@ public class Exit extends AThing {
      * @return returns false, if Panda isn't in chain, and true if Panda succeeded to exit
      */
     public boolean hitBy(Panda panda){
-        if(prevPanda != null && panda == prevPanda){
-            panda.prevTile = panda.isOn;
-            panda.isOn.setContains(null);
-            panda.isOn = this.isOn;
-            prevPanda = (Panda)panda.getPrevAnimal();
-            panda.shouldIKillMyself = true;
-            //panda.kill(Tile.ctrl);
-            return true;
-        }
-        else{
-            return false;
-        }
-
-        /*prevPanda = (Panda) panda.getPrevAnimal();
+        prevPanda = (Panda) panda.getPrevAnimal();
         if(prevPanda != null){
             prevPanda.setNextAnimal(null);
             panda.setPrevAnimal(null);
         }
         panda.kill(Tile.ctrl);
-        return true;*/
+        return true;
     }
 
     /**
