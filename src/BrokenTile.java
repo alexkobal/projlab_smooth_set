@@ -8,8 +8,22 @@ import java.awt.*;
  */
 public class BrokenTile extends Tile
 {
+    /**
+     * lifeTime
+     * <p>
+     *     Life time counter of a broken tile
+     *     Is always 20 at the start
+     * </p>
+     */
     private int lifeTime;
 
+    /**
+     * BrokenTile
+     * <p>
+     *     Default constructor
+     *     Sets the lifetime to default
+     * </p>
+     */
     public BrokenTile()
     {
         lifeTime = 20;
@@ -43,12 +57,23 @@ public class BrokenTile extends Tile
         }
     }
 
+    /**
+     * toString
+     * <p>
+     *     Overrides the Object.toString() function
+     * </p>
+     * @return "b" string
+     */
     @Override
     public String toString(){
         if(lifeTime > 0) return "b" + lifeTime;
         else return "0";
     }
 
+    /**
+     * IDrawable interface implementation
+     * @param g graphics object of the window
+     */
     @Override
     public void invokeDraw(Graphics g) {
         View.getInstance().draw(this, g);
