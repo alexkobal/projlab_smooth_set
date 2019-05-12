@@ -129,7 +129,7 @@ public class View extends JFrame
     {
         try
         {
-            FileInputStream fis = new FileInputStream(mapName);
+            FileInputStream fis = new FileInputStream(mapName+ ".txt");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
