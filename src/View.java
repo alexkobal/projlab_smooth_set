@@ -183,6 +183,8 @@ public class View extends JFrame  implements KeyListener{
 
     public void deserialize(String mapName)
     {
+        float zoom = 0.85f;
+
         try
         {
             FileInputStream fis = new FileInputStream(mapName+ ".vw");
@@ -192,7 +194,7 @@ public class View extends JFrame  implements KeyListener{
             for(Tile t : Floor.getInstance().getTiles().values())
             {
                 String pos[] = br.readLine().split(" ");
-                Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
+                Node n = new Node((int)(Integer.parseInt(pos[0])*zoom), (int)(Integer.parseInt(pos[1])*zoom));
                 nodes.put(t, n);
             }
         }
@@ -210,6 +212,7 @@ public class View extends JFrame  implements KeyListener{
 
     public void updateDraw(Graphics g)
     {
+
         //BasicTile the Tile which is the p0 in the line
         for(Tile bTile : Floor.getInstance().getTiles().values())
         {

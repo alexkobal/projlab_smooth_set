@@ -12,4 +12,11 @@ public class RegularTile extends Tile
 	public void invokeDraw(Graphics g) {
 		View.getInstance().draw(this, g);
 	}
+
+	@Override
+	public String toString(){
+		return "r";
+	}
 }
+
+

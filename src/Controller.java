@@ -117,15 +117,10 @@ public class Controller {
 	}
 
 	public void start(){
+		System.out.println("Started");
+		addAnimals(3,3);
 		while(!exit)
 		{
-			//Just for test
-			System.out.println("Started");
-			ArrayList<Orangutan> or = new ArrayList<>();
-			or.add(new Orangutan());
-			Floor.getInstance().getEntry().addOrangutan(or);
-			addAnimals(3,3);
-
 			entryNextTurn();
 			if(!orangutans.isEmpty())
 			{
@@ -262,6 +257,9 @@ public class Controller {
 		}
 		if(current.getContains() != null){
 			placePandaRandomly(panda);
+		}else{
+			current.setContains(panda);
+			pandas.add(panda);
 		}
 	}
 
@@ -281,7 +279,10 @@ public class Controller {
 			}
 		}
 
-		//TODO
-		//Floor.getInstance().getEntry().addOrangutan(nOrangutans);
+		ArrayList<Orangutan> or = new ArrayList<>();
+		for(int i = 0; i < nOrangutans; i++) {
+			or.add(new Orangutan());
+		}
+		Floor.getInstance().getEntry().addOrangutan(or);
 	}
 }
