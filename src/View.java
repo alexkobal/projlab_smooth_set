@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class View extends JFrame  implements KeyListener{
+public class View extends JFrame {
 	private JMenuItem startMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
 	private GameJPanel mainPanel;
@@ -25,41 +25,44 @@ public class View extends JFrame  implements KeyListener{
 	private Tile activeNeighbor;
 	private boolean confirmed = false;
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+	class MyKeylistener implements KeyListener{
 
-    }
+        @Override
+        public void keyTyped(KeyEvent e) {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println("Valami történt!!");
+        }
 
-        switch (e.getKeyChar()){
-            case 'a':
-                Tile n[] = (Tile[])activeOrangutan.getIsOn().getNeighbors().toArray();
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("Valami történt!!");
 
-                for(int i = 0; i < n.length; i++)
-                {
-                    if(n[i] == activeNeighbor){
-                        if(i == n.length-1)
-                            activeNeighbor = n[0];
-                        else
-                            activeNeighbor = n[i+1];
+            switch (e.getKeyChar()){
+                case 'a':
+                    Tile n[] = (Tile[])activeOrangutan.getIsOn().getNeighbors().toArray();
+
+                    for(int i = 0; i < n.length; i++)
+                    {
+                        if(n[i] == activeNeighbor){
+                            if(i == n.length-1)
+                                activeNeighbor = n[0];
+                            else
+                                activeNeighbor = n[i+1];
+                        }
                     }
-                }
 
-                break;
-            case ' ':
-                confirmed = true;
-                break;
+                    break;
+                case ' ':
+                    confirmed = true;
+                    break;
+            }
+            mainPanel.repaint();
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
 
     private class GraphLine {
 		int x0, y0, x1, y1;
@@ -80,7 +83,6 @@ public class View extends JFrame  implements KeyListener{
     {
         instance = this;
         initComponents();
-        this.addKeyListener(this);
     }
 
     private static View instance = null;
@@ -106,6 +108,8 @@ public class View extends JFrame  implements KeyListener{
         //Setting up menu bar
         setUpMenuBar();
         //updateDraw();
+
+        this.addKeyListener(new MyKeylistener());
 
         setVisible(true);
     }
@@ -257,13 +261,15 @@ public class View extends JFrame  implements KeyListener{
     {
         try {
             while (!confirmed) {
-                Thread.sleep(100);
+                //Thread.sleep(100);
+                System.out.println("Deadlock :/");
             }
         }
         catch (Exception e)
         {
             //kaki
         }
+        confirmed = false;
 
         return activeNeighbor;
     }
