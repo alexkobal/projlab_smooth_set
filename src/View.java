@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class View extends JFrame {
-	private JMenuItem newMenuItem, openMenuItem;
+	private JMenuItem startMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
 	private GameJPanel mainPanel;
 
@@ -85,9 +85,7 @@ public class View extends JFrame {
             if(!nodes.isEmpty()) {
                 updateDraw(g);
             }
-
-            System.out.println("GameJPanel.paintComponent()");
-		}
+        }
 	}
 
     private void setUpMainPanel(){
@@ -100,11 +98,12 @@ public class View extends JFrame {
 		menuActionListener = new MenuActionListener();
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
-		newMenuItem = new JMenuItem("New");
+		startMenuItem = new JMenuItem("Start");
+		startMenuItem.addActionListener(menuActionListener);
 		openMenuItem = new JMenuItem("Open");
 		openMenuItem.addActionListener(menuActionListener);
 
-		fileMenu.add(newMenuItem);
+		fileMenu.add(startMenuItem);
 		fileMenu.add(openMenuItem);
 
 		menuBar.add(fileMenu);
@@ -119,22 +118,21 @@ public class View extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == openMenuItem){
 				openFloor();
-				setUpMainPanel();
 			}
+			if(e.getSource() == startMenuItem){
+			    Controller.getInstance().start();
+            }
 		}
 	}
 	private void openFloor(){
         Floor.clearInstance();
-		floor = Floor.getInstance();
 		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
 		fileChooser.showDialog(this, "OpenFloor");
-		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
+		Floor.deserialise(fileChooser.getSelectedFile().getPath());
 		StringBuilder sb = new StringBuilder(fileChooser.getSelectedFile().getPath());
         int idx = sb.lastIndexOf(".flr");
         sb.replace(idx, idx+4, ".txt");
         deserialize(sb.toString());
-		Controller.getInstance().openFloor();
-		Controller.getInstance().start();
 		mainPanel.repaint();
 	}
 
@@ -146,7 +144,7 @@ public class View extends JFrame {
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            for(Tile t : floor.getTiles().values())
+            for(Tile t : Floor.getInstance().getTiles().values())
             {
                 String pos[] = br.readLine().split(" ");
                 Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
@@ -168,7 +166,7 @@ public class View extends JFrame {
     public void updateDraw(Graphics g)
     {
         //BasicTile the Tile which is the p0 in the line
-        for(Tile bTile : floor.getTiles().values())
+        for(Tile bTile : Floor.getInstance().getTiles().values())
         {
             //NeighborTile is the Tile which can be the p1 in the line if (p1 != p0)
             for(Tile nTile: bTile.getNeighbors())
@@ -182,7 +180,7 @@ public class View extends JFrame {
         }
 
         drawLines(g);
-        for(Tile t : floor.getTiles().values())
+        for(Tile t : Floor.getInstance().getTiles().values())
         {
             t.invokeDraw(g);
         }
