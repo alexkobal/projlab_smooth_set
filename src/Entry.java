@@ -46,6 +46,8 @@ public class Entry extends AThing{
 	 */
 	public void addOrangutan(ArrayList<Orangutan> oa){
 		orangutansToPush = oa;
+		/*System.out.println("orangutan lista masolasa");
+		System.out.println("Entryben lista merete:" + orangutansToPush.size());*/
 	}
 
 	/**
@@ -58,8 +60,15 @@ public class Entry extends AThing{
 	 */
 	public Orangutan nextTurn(){
 		Orangutan orangutan = null;
+		//System.out.println("entry next turn");
 		if(orangutansToPush.size() > 0){
+			//System.out.println("orangutanstopush size > 0");
 			orangutan = orangutansToPush.remove(0);
+			if(orangutan.getPrevAnimal() != null) {
+				//System.out.println("Elengedi az orangutan a pandat");
+				orangutan.getPrevAnimal().setNextAnimal(null);
+				orangutan.setPrevAnimal(null);
+			}
 			orangutan.setIsOn(entryTile);
 			orangutan.prevTile = orangutan.isOn;
 			entryTile.setContains(orangutan);
