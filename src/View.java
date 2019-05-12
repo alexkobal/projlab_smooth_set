@@ -7,18 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class View extends JFrame
-{
+public class View extends JFrame {
 	private JMenuItem newMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
 	private GameJPanel mainPanel;
@@ -115,17 +111,19 @@ public class View extends JFrame
 		}
 	}
 	private void openFloor(){
+        Floor.clearInstance();
 		Floor floor = Floor.getInstance();
-		JFileChooser fileChooser = new JFileChooser();
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
 		fileChooser.showDialog(this, "OpenFloor");
 		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
-		Deserialize(fileChooser.getSelectedFile().getPath());
-
-		//After Opening the map: Start drawing
-		setUpMainPanel();
+		StringBuilder sb = new StringBuilder(fileChooser.getSelectedFile().getPath());
+        int idx = sb.lastIndexOf(".flr");
+        sb.replace(idx, idx+4, ".txt");
+        deserialize(sb.toString());
+		Controller.getInstance().openFloor();
 	}
 
-    public void Deserialize(String mapName)
+    public void deserialize(String mapName)
     {
         try
         {
@@ -194,8 +192,6 @@ public class View extends JFrame
             t.invokeDraw();
         }
     }
-
-
 
     // állatok
     public void draw(Orangutan o)

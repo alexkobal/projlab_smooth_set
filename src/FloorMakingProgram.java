@@ -8,7 +8,7 @@ public class FloorMakingProgram
 	public static void main(String[] args)
 	{
 
-		test2();
+		test3();
 
 	}
 
@@ -54,7 +54,9 @@ public class FloorMakingProgram
 		//Serialization
 		String filename = "test1.flr";
 		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
+		Floor floorInstance = Floor.getInstance();
+		floorInstance = Floor.deserialise(filename);
+		System.out.println(floorInstance);
 		Floor.clearInstance();
 	}
 
@@ -86,16 +88,19 @@ public class FloorMakingProgram
 		//Serialization
 		String filename = "test2.flr";
 		Floor.serialise(floor, filename);
-		System.out.println(Floor.deserialise(filename));
+		Floor floorInstance = Floor.getInstance();
+		floorInstance = Floor.deserialise(filename);
+		System.out.println(floorInstance);
 		Floor.clearInstance();
 	}
 
-	/*
+
 	//Two orangutans wandering on the floor and
 	//suddenly one orangutan sees a panda and hits it.
 	private static void test3(){
 		//Generating floor
-		Floor floor = new Floor();
+		Floor.clearInstance();
+		Floor floor = Floor.getInstance();
 		for(int i = 0; i < 6; i++){
 			floor.addTile(new RegularTile());
 		}
@@ -116,6 +121,7 @@ public class FloorMakingProgram
 		System.out.println(Floor.deserialise(filename));
 	}
 
+	/*
 	//Orangutan with Panda chain goes through a Wardrobe
 	private static void test4(){
 		Floor floor = new Floor();

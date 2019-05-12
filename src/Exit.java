@@ -40,7 +40,7 @@ public class Exit extends AThing {
             orangutan.prevAnimal.move(orangutan.isOn);
             orangutan.setPrevAnimal(null);
             orangutan.isOn.setContains(null);
-            orangutan.setIsOn(Tile.ctrl.floor.getEntry().getIsOn());
+            orangutan.setIsOn(Floor.getInstance().getEntry().getIsOn());
             orangutansToPush.add(orangutan);
             return true;
         }
@@ -61,7 +61,7 @@ public class Exit extends AThing {
             prevPanda.setNextAnimal(null);
             panda.setPrevAnimal(null);
         }
-        panda.kill(Tile.ctrl);
+        panda.kill(Controller.getInstance());
         return true;
     }
 
