@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class View extends JFrame {
+public class View extends JFrame
+{
 	private JMenuItem newMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
 	private GameJPanel mainPanel;
@@ -93,7 +94,7 @@ public class View extends JFrame {
     private void setUpMainPanel(){
 		mainPanel = new GameJPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
-		mainPanel.setPreferredSize(new Dimension(600,439));
+		mainPanel.setPreferredSize(this.getSize());
 		mainPanel.setVisible(true);
 	}
 	private void setUpMenuBar(){
@@ -120,6 +121,7 @@ public class View extends JFrame {
 			if(e.getSource() == openMenuItem){
 				openFloor();
 				setUpMainPanel();
+
 			}
 		}
 	}
@@ -130,9 +132,11 @@ public class View extends JFrame {
 		fileChooser.showDialog(this, "OpenFloor");
 		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
 		StringBuilder sb = new StringBuilder(fileChooser.getSelectedFile().getPath());
-        int idx = sb.lastIndexOf(".flr");
-        sb.replace(idx, idx+4, ".txt");
+
+		int idx = sb.lastIndexOf(".flr");
+        sb.replace(idx, idx+4, "");
         deserialize(sb.toString());
+        Controller.getInstance().loadAnimals(sb.toString());
 		Controller.getInstance().openFloor();
 		Controller.getInstance().start();
 		mainPanel.repaint();
@@ -140,16 +144,17 @@ public class View extends JFrame {
 
     public void deserialize(String mapName)
     {
+        float zoom = 0.85f;
         try
         {
-            FileInputStream fis = new FileInputStream(mapName+ ".txt");
+            FileInputStream fis = new FileInputStream(mapName+ ".vw");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
             for(Tile t : floor.getTiles().values())
             {
                 String pos[] = br.readLine().split(" ");
-                Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
+                Node n = new Node((int) (Integer.parseInt(pos[0]) * zoom), (int) (Integer.parseInt(pos[1])*zoom));
                 nodes.put(t, n);
             }
         }

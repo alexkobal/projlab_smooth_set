@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -34,6 +35,81 @@ public class Controller {
 
 	public void openFloor(){
 		floor = Floor.getInstance();
+	}
+	public void loadAnimals(String mapName)
+	{
+		View.getInstance().getName();
+		try
+		{
+			FileInputStream fis = new FileInputStream(mapName+ ".ani");
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader br = new BufferedReader(isr);
+			String line = "";
+			while((line = br.readLine()).length() != 0)
+			{
+				String[] param = line.split(" ");
+				switch (param[0])
+				{
+					case "o":
+						Orangutan o = new Orangutan();
+						o.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						o.setName(param[1]);
+						o.setPrevTile(o.getIsOn());
+						animals.add(o);
+						orangutans.add(o);
+						floor.getTile(Integer.parseInt(param[2])).setContains(o);
+					break;
+					case "lp":
+						int rnd = Math.abs(new Random().nextInt(4) + 1);
+						LazyPanda lp = new LazyPanda(rnd);
+						lp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						lp.setName(param[1]);
+						lp.setPrevTile(lp.getIsOn());
+						animals.add(lp);
+						pandas.add(lp);
+						floor.getTile(Integer.parseInt(param[2])).setContains(lp);
+						break;
+					case "sp":
+						ScaredPanda sp = new ScaredPanda();
+						sp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						sp.setName(param[1]);
+						sp.setPrevTile(sp.getIsOn());
+						animals.add(sp);
+						pandas.add(sp);
+						floor.getTile(Integer.parseInt(param[2])).setContains(sp);
+						System.out.println(floor.status());
+						break;
+					case "jp":
+						JumpingPanda jp = new JumpingPanda();
+						jp.setIsOn(floor.getTile(Integer.parseInt(param[2])));
+						jp.setName(param[1]);
+						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
+						animals.add(jp);
+						pandas.add(jp);
+						floor.getTile(Integer.parseInt(param[2])).setContains(jp);
+						break;
+					case "chain":
+						Animal elso = null;
+						Animal masodik = null;
+						for (Animal a: animals) {
+							if(a.getName().compareTo(param[1]) == 0)
+								elso = a;
+							if(a.getName().compareTo(param[2]) == 0)
+								masodik = a;
+						}
+
+						if(elso != null && masodik != null){		//Bemeneti nyelv szerint ezt csinálja, de van az animalnak connectChain függvénye!!!
+							elso.prevAnimal = masodik;
+							masodik.nextAnimal = elso;
+						}
+						break;
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public static void movePandaRandomly(Panda panda){

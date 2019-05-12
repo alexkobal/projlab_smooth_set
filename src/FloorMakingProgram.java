@@ -12,7 +12,8 @@ public class FloorMakingProgram
 
 	}
 
-	private static void mainFloor() {
+	private static void mainFloor()
+	{
 		//Generating floor
 		Floor floor = Floor.getInstance();
 		for(int i = 0; i < 43; i++){
@@ -33,13 +34,8 @@ public class FloorMakingProgram
 		floor.addThing(new Armchair(), 41);
 		floor.addThing(w2, 24);
 		Entry entry = new Entry(floor.getTile(17));
-
-		ArrayList<Orangutan> ol = new ArrayList<>();
-		ol.add(new Orangutan());
-		ol.add(new Orangutan());
-		entry.addOrangutan(ol);
-
 		floor.setEntry(entry, 16);
+
 
 		//Setting neighbors
 		int[][] matrix = {
