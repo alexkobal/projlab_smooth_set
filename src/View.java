@@ -17,14 +17,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class View extends JFrame {
+public class View extends JFrame
+{
 	private JMenuItem newMenuItem, openMenuItem;
 	private MenuActionListener menuActionListener;
-	private JPanel mainPanel;
+	private GameJPanel mainPanel;
 
 	private Map<Tile, Node> nodes = new HashMap<>();
 	private Floor floor;
-	private int floorSize;
 
 
 	private class GraphLine {
@@ -73,9 +73,15 @@ public class View extends JFrame {
         setVisible(true);
     }
 
-    private class GameJPanel extends JPanel {
+    private class GameJPanel extends JPanel
+    {
+        public Graphics graphics;
+
 		@Override
-		protected void paintComponent(Graphics g) {
+		protected void paintComponent(Graphics g)
+        {
+            graphics = g;
+            System.out.println("GameJPanel.paintComponent()");
 		}
 	}
 
@@ -113,25 +119,25 @@ public class View extends JFrame {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.showDialog(this, "OpenFloor");
 		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
+		Deserialize(fileChooser.getSelectedFile().getPath());
+
+		//After Opening the map: Start drawing
+		setUpMainPanel();
 	}
 
     public void Deserialize(String mapName)
     {
         try
         {
-            FileInputStream fis = new FileInputStream(mapName + ".txt");
+            FileInputStream fis = new FileInputStream(mapName);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            for(int i = 0; i < floorSize; i++)
+            for(Tile t : floor.getTiles().values())
             {
-                Tile key = floor.getTile(i);
                 String pos[] = br.readLine().split("\t");
                 Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
-
-
-                nodes.put(key, n);
-
+                nodes.put(t, n);
             }
         }
         catch (IOException e)
@@ -140,8 +146,28 @@ public class View extends JFrame {
         }
     }
 
+    public Point getPivotPosition(Node n, Point size)
+    {
+        return new Point(n.getX() + (size.y/2),n.getY() + (size.y/2));
+    }
+
+
     public void updateDraw()
     {
+        //BasicTile the Tile which is the p0 in the line
+        for(Tile bTile : floor.getTiles().values())
+        {
+            //NeighborTile is the Tile which can be the p1 in the line if (p1 != p0)
+            for(Tile nTile: bTile.getNeighbors())
+            {
+                Node n0 = nodes.get(bTile);
+                Node n1 = nodes.get(nTile);
+                Point pivotedN0 = getPivotPosition(n0, new Point(90, 60));
+                Point pivotedN1 = getPivotPosition(n1, new Point(90, 60));
+                lines.add(new GraphLine(pivotedN0.x, pivotedN0.y, pivotedN1.x, pivotedN1.y));
+            }
+        }
+        /*
         for(int i = 0; i < floorSize; i++)
         {
             Tile key = floor.getTile(i);
@@ -160,20 +186,32 @@ public class View extends JFrame {
                 }
             }
         }
+        */
 
         repaint();
-
-
-        for(int i = 0; i < floorSize; i++)
+        for(Tile t : floor.getTiles().values())
         {
-            Tile key = floor.getTile(i);
-            key.invokeDraw();
+            t.invokeDraw();
         }
     }
+
+
 
     // állatok
     public void draw(Orangutan o)
     {
+        try
+        {
+            Node currNode = nodes.get(o.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Orangutan.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(o.getIsOn().equals(entry.getKey()))      // megkeressük a map-ben, hogy az orángután alatti csempének mi az x,y-ja
@@ -199,10 +237,24 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     public void draw(Panda p)
     {
+        try
+        {
+            Node currNode = nodes.get(p.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Panda.png missing");
+        }
+
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(p.getIsOn().equals(entry.getKey()))      // megkeressük a map-ben, hogy a panda alatti csempének mi az x,y-ja
@@ -226,11 +278,32 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     // csempék
     public void draw(RegularTile rt)
     {
+
+        try
+        {
+            Node currNode = nodes.get(rt);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(rt.getContains() != null)
+            {
+                rt.getContains().invokeDraw();
+
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/RegularTile.png missing");
+        }
+
+
+        /*
         // Először megnézzük, hogy nem véletlen bejárati csempéről van szó.
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
@@ -263,10 +336,29 @@ public class View extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void draw(BrokenTile bt)
     {
+        try
+        {
+            Node currNode = nodes.get(bt);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(bt.getContains() != null)
+            {
+                bt.getContains().invokeDraw();
+
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/BrokenTile.png missing");
+        }
+
+        /*
         Node node = nodes.get(bt);
         try {
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
@@ -289,11 +381,30 @@ public class View extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     // gépettyűk
     public void draw(Armchair a)
     {
+
+        try
+        {
+            Node currNode = nodes.get(a.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Armchair.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(a.isOccupied())
+            {
+                a.getPanda().invokeDraw();
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Armchair.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(a.getIsOn().equals(entry.getKey()))
@@ -323,10 +434,24 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     public void draw(VendingMachine vm)
     {
+
+        try
+        {
+            Node currNode = nodes.get(vm.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/VendingMachine.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/VendingMachine.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(vm.getIsOn().equals(entry.getKey()))
@@ -350,10 +475,24 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
+
 
     public void draw(GameMachine gm)
     {
+        try
+        {
+            Node currNode = nodes.get(gm.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/GameMachine.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/GameMachine.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(gm.getIsOn().equals(entry.getKey()))
@@ -377,11 +516,24 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     // bejárat/kijárat
     public void draw(Exit ex)
     {
+        try
+        {
+            Node currNode = nodes.get(ex.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Exit.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Exit.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(ex.getIsOn().equals(entry.getKey()))
@@ -405,10 +557,23 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     public void draw(Entry en)
     {
+        try
+        {
+            Node currNode = nodes.get(en.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Entry.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(en.getEntryTile().equals(entry.getKey()))    // Megkeressük az a csempét, amire az Entry kiléptet
@@ -438,11 +603,25 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
     //etc
     public void draw(Wardrobe w)
     {
+
+        try
+        {
+            Node currNode = nodes.get(w.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Wardrobe.png"));
+            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Wardrobe.png missing");
+        }
+
+        /*
         for(Map.Entry<Tile, Node> entry : nodes.entrySet())
         {
             if(w.getIsOn().equals(entry.getKey()))
@@ -466,6 +645,7 @@ public class View extends JFrame {
                 break;
             }
         }
+        */
     }
 
 	// A pályát egy JPanelben kell kirajzolni, amit egyszerüen
