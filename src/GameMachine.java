@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class GameMachine extends AThing implements IPandaEffective{
 	}
 
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

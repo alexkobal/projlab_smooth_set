@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,6 @@ public class Exit extends AThing {
 
     public ArrayList<Orangutan> getOrangutansToPush() {
         ArrayList<Orangutan> temp = new ArrayList<Orangutan>(orangutansToPush);
-        //System.out.println("temp lista mérete:" + temp.size());
         orangutansToPush.clear();
         return temp;
     }
@@ -43,7 +43,7 @@ public class Exit extends AThing {
         if(prevPanda == null){
             orangutan.prevTile = orangutan.isOn;
             orangutan.isOn.setContains(null);
-            orangutan.setIsOn(Tile.ctrl.floor.getEntry().getIsOn());
+            orangutan.setIsOn(Floor.getInstance().getEntry().getIsOn());
             orangutansToPush.add(orangutan);
             if(orangutansToPush.size() > 0){
                 //System.out.println("Exit-orangutanstopush > 0");
@@ -65,7 +65,7 @@ public class Exit extends AThing {
             orangutan.prevAnimal.move(orangutan.isOn);
             orangutan.setPrevAnimal(null);
             orangutan.isOn.setContains(null);
-            orangutan.setIsOn(Tile.ctrl.floor.getEntry().getIsOn());
+            orangutan.setIsOn(Floor.getInstance().getEntry().getIsOn());
             orangutansToPush.add(orangutan);
             return true;
         }
@@ -99,10 +99,11 @@ public class Exit extends AThing {
             prevPanda.setNextAnimal(null);
             panda.setPrevAnimal(null);
         }
-        panda.kill(Tile.ctrl);
-        return true;*/
-    }
+        panda.kill(Controller.getInstance());
+        return true;
 
+         */
+    }
     /**
      * nextTurn
      * <p>
@@ -122,7 +123,7 @@ public class Exit extends AThing {
     }
 
     @Override
-    public void invokeDraw() {
-        View.getInstance().draw(this);
+    public void invokeDraw(Graphics g) {
+        View.getInstance().draw(this, g);
     }
 }

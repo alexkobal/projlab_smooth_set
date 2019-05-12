@@ -7,66 +7,7 @@ public class Program {
 
 	public static void main(String[] args)
 	{
-		JFrame window = new JFrame();
-		window.setTitle("Panda Plaza by smooth_set");
-		window.setSize((int)(1920 * 0.75), (int)(1080 * 0.75));
-		window.setResizable(false);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setLocationRelativeTo(null);
-
-
-
-		Floor floor = new Floor();
-
-		//RANDOMCUCCOK ADDOLÁSA
-		BrokenTile bt = new BrokenTile();
-		Orangutan o = new Orangutan();
-		bt.setContains(o);
-		floor.addTile(bt);
-
-		BrokenTile rt = new BrokenTile();
-		Armchair a = new Armchair();
-		rt.setContains(a);
-		a.setPanda(new LazyPanda(55));
-		floor.addTile(rt);
-
-		bt.addNeighbor(rt);
-
-		RegularTile rt1 = new RegularTile();
-		Exit ex = new Exit();
-		rt1.setContains(ex);
-		floor.addTile(rt1);
-
-		bt.addNeighbor(rt1);
-		rt.addNeighbor(rt1);
-
-		RegularTile rt4 = new RegularTile();
-		Wardrobe w = new Wardrobe();
-		rt4.setContains(w);
-		floor.addTile(rt4);
-
-		RegularTile rt3 = new RegularTile();
-		GameMachine gm = new GameMachine(6);
-		rt3.setContains(gm);
-		floor.addTile(rt3);
-
-		rt.addNeighbor(rt3);
-
-		RegularTile entryTile = new RegularTile();
-		Orangutan orangutan = new Orangutan();
-		orangutan.setIsOn(entryTile);
-		Entry en = new Entry(entryTile);
-		floor.addTile(entryTile);
-		floor.setEntry(en, 5);
-		entryTile.setContains(orangutan);
-
-		entryTile.addNeighbor(rt1);
-
-
 		View view = View.getInstance();
-		view.construate("minimap", floor, 6);
-		window.add(view);
-		window.setVisible(true);
 	}
 
 

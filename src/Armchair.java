@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
@@ -55,6 +56,13 @@ public class Armchair extends AThing implements IPandaEffective{
 		}
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString() method
+	 * </p>
+	 * @return "a" character
+	 */
 	@Override
 	public String toString(){
 		if(panda == null) {
@@ -63,15 +71,37 @@ public class Armchair extends AThing implements IPandaEffective{
 		return "a" + panda.getSleepTime();
 	}
 
+	/**
+	 * getPanda
+	 * <p>
+	 *     Gets the panda that is sitting in the armchair
+	 * </p>
+	 * @return panda
+	 */
 	public Panda getPanda() { return panda; }
+
+	/**
+	 * setPanda
+	 * <p>
+	 *     Sets the panda that is sitting in the armchair
+	 * </p>
+	 * @param p panda
+	 */
 	public void setPanda(LazyPanda p)
 	{
 		panda = p;
 		panda.setIsOn(isOn);
 	}
 
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     Implements the IDrawable interface
+	 * </p>
+	 * @param g graphics object of the drawing panel
+	 */
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

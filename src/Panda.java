@@ -1,3 +1,4 @@
+import java.awt.*;
 
 /**
  * Panda
@@ -49,11 +50,10 @@ public abstract class Panda extends Animal {
 	 */
 	public void unchain() {
 		if( isInChain() ) {
-			if(prevAnimal != null) {//Rekurziv h�v�sok folytat�sa
+			if(prevAnimal != null) {
 				prevAnimal.unchain();
 			}
 
-			//megfelel� setter + return
 			nextAnimal = null;
 			prevAnimal = null;
 			return;
@@ -89,7 +89,7 @@ public abstract class Panda extends Animal {
 
 		if(shouldIKillMyself){
 			//System.out.println("a panda has been removed");
-			Tile.ctrl.removePanda(this);
+			Controller.getInstance().removePanda(this);
 		}
 
 	}
@@ -102,7 +102,6 @@ public abstract class Panda extends Animal {
 	public void kill(Controller c) {
 		//System.out.println("A panda commited suicide");
 		unchain();
-		//+Megfelel� setterek
 		isOn.setContains(null);
 		isOn = null;
 		c.removePanda(this);
@@ -114,7 +113,7 @@ public abstract class Panda extends Animal {
 	}
 
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

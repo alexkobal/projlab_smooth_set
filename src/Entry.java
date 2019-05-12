@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -45,9 +46,7 @@ public class Entry extends AThing{
 	 * @param oa is the number of Orangutans to add for pushing.
 	 */
 	public void addOrangutan(ArrayList<Orangutan> oa){
-		orangutansToPush = oa;
-		/*System.out.println("orangutan lista masolasa");
-		System.out.println("Entryben lista merete:" + orangutansToPush.size());*/
+		orangutansToPush.addAll(oa);
 	}
 
 	/**
@@ -60,9 +59,7 @@ public class Entry extends AThing{
 	 */
 	public Orangutan nextTurn(){
 		Orangutan orangutan = null;
-		//System.out.println("entry next turn");
 		if(orangutansToPush.size() > 0){
-			//System.out.println("orangutanstopush size > 0");
 			orangutan = orangutansToPush.remove(0);
 			if(orangutan.getPrevAnimal() != null) {
 				//System.out.println("Elengedi az orangutan a pandat");
@@ -87,8 +84,8 @@ public class Entry extends AThing{
 	}
 
 	@Override
-	public void invokeDraw()
+	public void invokeDraw(Graphics g)
 	{
-		View.getInstance().draw(this);
+		View.getInstance().draw(this, g);
 	}
 }

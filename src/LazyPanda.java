@@ -11,8 +11,8 @@ public class LazyPanda extends Panda {
 	 * <p>
 	 * This is the variable which defines how long sleeps the panda in an armchair.
 	 */
-	private int sleepTime; //Jelenlegi alv�si id�
-	private int pandasRegularSleepTime; //Pand�ra jellemz� alv�si id�
+	private int sleepTime;
+	private int pandasRegularSleepTime;
 
 	/**
 	 * Lazy Panda contstructor

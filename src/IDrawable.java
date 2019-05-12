@@ -1,4 +1,6 @@
+import java.awt.*;
+
 public interface IDrawable
 {
-    public void invokeDraw();
+    public void invokeDraw(Graphics g);
 }

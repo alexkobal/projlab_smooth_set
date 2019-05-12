@@ -1,3 +1,4 @@
+import java.awt.*;
 
 /**
  * Orangutan
@@ -46,7 +47,6 @@ public class Orangutan extends Animal{
 
 		if(prevAnimal != null) prevAnimal.unchain();
 		count--;
-		//Plusz a sz�ks�ges setterek
 		isOn.setContains(null);
 		isOn = null;
 		isDead = true;
@@ -86,7 +86,7 @@ public class Orangutan extends Animal{
 	}
 
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

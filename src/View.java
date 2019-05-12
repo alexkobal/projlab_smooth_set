@@ -2,105 +2,257 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.html.ImageView;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
+import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+public class View extends JFrame {
+	private JMenuItem startMenuItem, openMenuItem;
+	private MenuActionListener menuActionListener;
+	private GameJPanel mainPanel;
 
-/*
+	private Map<Tile, Node> nodes = new HashMap<>();
+	private Floor floor;
 
-    Kell még:
+	private Orangutan activeOrangutan;
+	private Tile activeNeighbor;
+	private boolean confirmed = false;
+	private boolean forceRefresh = false;
 
-    ActionListenerek a a JButtonokra. (kijelölés/cél)
+	class MyKeylistener implements KeyListener{
 
+        @Override
+        public void keyTyped(KeyEvent e) {
 
+        }
 
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyChar()){
+                case 'a':
+                    if(!confirmed)
+                    {
+                        for(int i = 0; i < activeOrangutan.getIsOn().getNeighbors().size(); i++)
+                        {
+                            if (activeOrangutan.getIsOn().getNeighbors().get(i) == activeNeighbor)
+                            {
+                                if (i == activeOrangutan.getIsOn().getNeighbors().size() - 1) {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(0);
+                                    break;
+                                }
+                                else {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i + 1);
+                                    break;
+                                }
+                            }
 
+                        }
+                    }
+                    break;
 
+                case 'd':
+                    if(!confirmed)
+                    {
+                        for(int i = 0; i < activeOrangutan.getIsOn().getNeighbors().size(); i++)
+                        {
+                            if (activeOrangutan.getIsOn().getNeighbors().get(i) == activeNeighbor)
+                            {
+                                if (i == 0) {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(activeOrangutan.getIsOn().getNeighbors().size()-1);
+                                    break;
+                                }
+                                else {
+                                    activeNeighbor = activeOrangutan.getIsOn().getNeighbors().get(i - 1);
+                                    break;
+                                }
+                            }
 
- */
+                        }
+                    }
+                    break;
 
-public class View extends JPanel
-{
-    // singleton
-    private static View instance = null;
+                case ' ':
+                    if(!confirmed) {
+                        confirmed = true;
+                    }
+                    break;
 
-    private Map<Tile, Node> nodes = new HashMap<>();
-    private Floor floor;
-    private int floorSize;
+                case 'r':
+                    if(!confirmed)
+                    {
+                        activeOrangutan.manualUnchain();
+                        confirmed = true;
+                    }
+                    break;
 
+            }
+            mainPanel.repaint();
+        }
 
-    private class GraphLine
-    {
-        int x0, y0, x1, y1;
+        @Override
+        public void keyReleased(KeyEvent e) {
 
-        GraphLine(int x0, int y0, int x1, int y1)
-        {
-            this.x0 = x0;
-            this.y0 = y0;
-            this.x1 = x1;
-            this.y1 = y1;
         }
     }
-    private final LinkedList<GraphLine> lines = new LinkedList<>();
 
-   
+    private class GraphLine {
+		int x0, y0, x1, y1;
+
+		GraphLine(int x0, int y0, int x1, int y1) {
+			this.x0 = x0;
+			this.y0 = y0;
+			this.x1 = x1;
+			this.y1 = y1;
+		}
+	}
+
+	private final LinkedList<GraphLine> lines = new LinkedList<>();
+
+
+
     private View()
     {
+        instance = this;
+        initComponents();
+    }
 
+    private static View instance = null;
+    public static View getInstance(){
+        if(instance != null){
+            return instance;
+        }else{
+            return instance = new View();
+        }
     }
 
     private void initComponents()
     {
+        setTitle("Panda Plaza by smooth_set");
+        setSize((int)(1920 * 0.75), (int)(1080 * 0.75));
+        setResizable(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        setLayout(null);
-        updateDraw();
+        setUpMainPanel();
+
+        //Setting up menu bar
+        setUpMenuBar();
+        //updateDraw();
+
+        this.addKeyListener(new MyKeylistener());
+
+        setVisible(true);
     }
 
-    public static View getInstance()
+    private class GameJPanel extends JPanel
     {
-        if(instance == null)
+        public GameJPanel(){}
+
+		@Override
+		protected void paintComponent(Graphics g)
         {
-            instance = new View();
+            super.paintComponent(g);
+            super.setBackground(Color.CYAN);
+            if(!nodes.isEmpty()) {
+                updateDraw(g);
+            }
+            if(forceRefresh)
+            {
+                updateDraw(g);
+
+            }
         }
+	}
 
-        return instance;
-    }
+    private void setUpMainPanel(){
+		mainPanel = new GameJPanel();
+		this.add(mainPanel, BorderLayout.CENTER);
+		mainPanel.setPreferredSize(this.getSize());
+        mainPanel.setVisible(true);
 
-    public void construate(String mapName, Floor _floor, int _floorSize)
+
+	}
+	private void setUpMenuBar(){
+		menuActionListener = new MenuActionListener();
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		startMenuItem = new JMenuItem("Start");
+		startMenuItem.addActionListener(menuActionListener);
+		openMenuItem = new JMenuItem("Open");
+		openMenuItem.addActionListener(menuActionListener);
+
+		fileMenu.add(startMenuItem);
+		fileMenu.add(openMenuItem);
+
+		menuBar.add(fileMenu);
+
+		this.add(menuBar, BorderLayout.NORTH);
+		this.pack();
+	}
+
+	private class MenuActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == openMenuItem){
+				openFloor();
+				setUpMainPanel();
+			}
+			if(e.getSource() == startMenuItem)
+			{
+                SwingWorker<Void, Void> swGame = new SwingWorker<Void, Void>()
+                {
+                    @Override
+                    protected Void doInBackground() throws Exception
+                    {
+                        Controller.getInstance().start();
+                        return null;
+                    }
+                };
+			    swGame.execute();
+                setVisible(true);
+            }
+		}
+	}
+	private void openFloor(){
+        Floor.clearInstance();
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+		fileChooser.showDialog(this, "OpenFloor");
+		Floor.deserialise(fileChooser.getSelectedFile().getPath());
+		StringBuilder sb = new StringBuilder(fileChooser.getSelectedFile().getPath());
+        int idx = sb.lastIndexOf(".flr");
+        sb.replace(idx, idx+4, "");
+        deserialize(sb.toString());
+        //Controller.getInstance().loadAnimals(sb.toString());
+		//Controller.getInstance().openFloor();
+		//Controller.getInstance().start();
+		mainPanel.repaint();
+	}
+
+    public void deserialize(String mapName)
     {
-        floor = _floor;
-        floorSize = _floorSize;
-        Deserialize(mapName);
+        float zoom = 0.85f;
 
-        initComponents();
-    }
-
-
-    public void Deserialize(String mapName)
-    {
         try
         {
-            FileInputStream fis = new FileInputStream(mapName + ".txt");
+            FileInputStream fis = new FileInputStream(mapName+ ".vw");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
 
-            for(int i = 0; i < floorSize; i++)
+            for(Tile t : Floor.getInstance().getTiles().values())
             {
-                Tile key = floor.getTile(i);
-                String pos[] = br.readLine().split("\t");
-                Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
-
-
-                nodes.put(key, n);
-
+                String pos[] = br.readLine().split(" ");
+                Node n = new Node((int)(Integer.parseInt(pos[0])*zoom), (int)(Integer.parseInt(pos[1])*zoom));
+                nodes.put(t, n);
             }
         }
         catch (IOException e)
@@ -109,340 +261,38 @@ public class View extends JPanel
         }
     }
 
-    public void updateDraw()
+    public Point getPivotPosition(Node n, Point size)
     {
-        for(int i = 0; i < floorSize; i++)
-        {
-            Tile key = floor.getTile(i);
-
-            for(int j = i; j < floorSize; j++)
-            {
-                for(int x = 0; x < key.getNeighbors().size(); x++)
-                {
-                    if(floor.getTile(j).equals(key.getNeighbors().get(x)))
-                    {
-                        Node n0 = nodes.get(key);
-                        Node n1 = nodes.get(floor.getTile(j));
-
-                        lines.add(new GraphLine(n0.getX() + 45, n0.getY() + 30, n1.getX() + 45, n1.getY() + 30));
-                    }
-                }
-            }
-        }
-
-        repaint();
-
-
-        for(int i = 0; i < floorSize; i++)
-        {
-            Tile key = floor.getTile(i);
-            key.invokeDraw();
-        }
+        return new Point(n.getX() + (size.y/2),n.getY() + (size.y/2));
     }
 
-    // állatok
-    public void draw(Orangutan o)
+    public void updateDraw(Graphics g)
     {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
+
+        //BasicTile the Tile which is the p0 in the line
+        for(Tile bTile : Floor.getInstance().getTiles().values())
         {
-            if(o.getIsOn().equals(entry.getKey()))      // megkeressük a map-ben, hogy az orángután alatti csempének mi az x,y-ja
+            //NeighborTile is the Tile which can be the p1 in the line if (p1 != p0)
+            for(Tile nTile: bTile.getNeighbors())
             {
-                Node node = entry.getValue();
-                try
-                {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX() , node.getY(), 65, 65);
-                    add(jb);
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
+                Node n0 = nodes.get(bTile);
+                Node n1 = nodes.get(nTile);
+                Point pivotedN0 = getPivotPosition(n0, new Point(90, 60));
+                Point pivotedN1 = getPivotPosition(n1, new Point(90, 60));
+                lines.add(new GraphLine(pivotedN0.x, pivotedN0.y, pivotedN1.x, pivotedN1.y));
             }
         }
-    }
 
-    public void draw(Panda p)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
+        drawLines(g);
+        for(Tile t : Floor.getInstance().getTiles().values())
         {
-            if(p.getIsOn().equals(entry.getKey()))      // megkeressük a map-ben, hogy a panda alatti csempének mi az x,y-ja
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX(), node.getY(), 65, 65);
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
+            t.invokeDraw(g);
         }
+
+        mainPanel.repaint();
     }
 
-    // csempék
-    public void draw(RegularTile rt)
-    {
-        // Először megnézzük, hogy nem véletlen bejárati csempéről van szó.
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(entry.getKey().equals(rt) && floor.getEntry().getEntryTile().equals(entry.getKey()))
-            {
-                draw(floor.getEntry());
-                break;
-            }
-        }
-
-        Node node = nodes.get(rt);
-        try {
-            BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
-            JButton jb = new JButton(new ImageIcon((bi)));
-            jb.addActionListener(new ClickListener());
-            jb.setContentAreaFilled(false);
-            jb.setFocusPainted(false);
-            jb.setBorderPainted(false);
-            jb.setBorder(null);
-            jb.setBounds(node.getX(), node.getY(), 65, 65);
-
-
-            if(rt.getContains() != null)
-            {
-                rt.getContains().invokeDraw();
-
-            }
-            add(jb);        // Z-Order szerint a később rajzolt kerül alulra, először a rajta lévő cuccot rajzoljuk le
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void draw(BrokenTile bt)
-    {
-        Node node = nodes.get(bt);
-        try {
-            BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
-            JButton jb = new JButton(new ImageIcon((bi)));
-            jb.addActionListener(new ClickListener());
-            jb.setContentAreaFilled(false);
-            jb.setFocusPainted(false);
-            jb.setBorderPainted(false);
-            jb.setBorder(null);
-            jb.setBounds(node.getX(), node.getY(), 65, 65);
-
-
-            if(bt.getContains() != null)
-            {
-                bt.getContains().invokeDraw();
-
-            }
-            add(jb);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // gépettyűk
-    public void draw(Armchair a)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(a.getIsOn().equals(entry.getKey()))
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Armchair.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX(), node.getY(), 65, 65);
-
-                    if(a.isOccupied())
-                    {
-                        a.getPanda().invokeDraw();
-                    }
-
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-    public void draw(VendingMachine vm)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(vm.getIsOn().equals(entry.getKey()))
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/VendingMachine.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX(), node.getY(), 65, 65);
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-    public void draw(GameMachine gm)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(gm.getIsOn().equals(entry.getKey()))
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/GameMachine.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX() + 5, node.getY(), 65, 65);
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-    // bejárat/kijárat
-    public void draw(Exit ex)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(ex.getIsOn().equals(entry.getKey()))
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Exit.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX(), node.getY() - 13, 65, 65);
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-    public void draw(Entry en)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(en.getEntryTile().equals(entry.getKey()))    // Megkeressük az a csempét, amire az Entry kiléptet
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX() + 2, node.getY() - 6, 65, 65);
-
-                    if(en.getEntryTile().getContains() != null)
-                    {
-                        en.getEntryTile().getContains().invokeDraw();
-                    }
-
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-    //etc
-    public void draw(Wardrobe w)
-    {
-        for(Map.Entry<Tile, Node> entry : nodes.entrySet())
-        {
-            if(w.getIsOn().equals(entry.getKey()))
-            {
-                Node node = entry.getValue();
-                try {
-                    BufferedImage bi = ImageIO.read(getClass().getResource("/images/Wardrobe.png"));
-                    JButton jb = new JButton(new ImageIcon((bi)));
-                    jb.addActionListener(new ClickListener());
-                    jb.setContentAreaFilled(false);
-                    jb.setFocusPainted(false);
-                    jb.setBorderPainted(false);
-                    jb.setBorder(null);
-                    jb.setBounds(node.getX() + 2, node.getY() + 5, 65, 65);
-                    add(jb);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            }
-        }
-    }
-
-
-
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g);
+    public void drawLines(Graphics g){
         for(GraphLine gl : lines)
         {
             Graphics2D g2 = (Graphics2D) g;
@@ -453,21 +303,204 @@ public class View extends JPanel
         }
     }
 
-    public class ClickListener implements ActionListener
+    public void setActiveOrangutan(Orangutan o)
+    {
+        activeOrangutan = o;
+        activeNeighbor = o.getIsOn().getNeighbors().get(0);
+        mainPanel.repaint();
+    }
+
+    public Tile moveActiveOrangutan()
+    {
+        try {
+            while (!confirmed) {
+                TimeUnit.MILLISECONDS.sleep(20);
+                System.out.println("Deadlock :/");
+            }
+        }
+        catch (Exception e)
+        {
+            //kaki
+        }
+        confirmed = false;
+
+        return activeNeighbor;
+    }
+
+    // állatok
+    public void draw(Orangutan o, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(o.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(activeOrangutan == o){
+                g.setColor(Color.BLUE);
+                g.drawOval(currNode.getX(),currNode.getY(),75,75);
+                g.setColor(Color.yellow);
+                for(int i = 0; i < o.getIsOn().neighbors.size(); i++){
+                    Node tile = nodes.get(o.getIsOn().getNeighbors().get(i));
+                    g.drawOval(tile.getX(), tile.getY(), 75, 75);
+                }
+                if(activeNeighbor != null) {
+                    g.setColor(Color.pink);
+                    g.drawOval(nodes.get(activeNeighbor).getX(), nodes.get(activeNeighbor).getY(), 75, 75);
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Orangutan.png missing");
+        }
+    }
+
+    public void draw(Panda p, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(p.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Panda.png missing");
+        }
+    }
+
+    // csempék
+    public void draw(RegularTile rt, Graphics g)
     {
 
-        public ClickListener()
+        try
         {
+            Node currNode = nodes.get(rt);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
 
+            if(rt.getContains() != null)
+            {
+                rt.getContains().invokeDraw(g);
+
+            }
         }
-
-
-        @Override
-        public void actionPerformed(ActionEvent e)
+        catch (IOException e)
         {
-            // TODO lehet hogy ez full nem kell
+            System.out.println("/images/RegularTile.png missing");
+        }
+    }
+
+    public void draw(BrokenTile bt, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(bt);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(bt.getContains() != null)
+            {
+                bt.getContains().invokeDraw(g);
+
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/BrokenTile.png missing");
+        }
+    }
+
+    // gépettyűk
+    public void draw(Armchair a, Graphics g)
+    {
+
+        try
+        {
+            Node currNode = nodes.get(a.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Armchair.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+
+            if(a.isOccupied())
+            {
+                a.getPanda().invokeDraw(g);
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Armchair.png missing");
+        }
+    }
+
+    public void draw(VendingMachine vm, Graphics g)
+    {
+
+        try
+        {
+            Node currNode = nodes.get(vm.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/VendingMachine.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/VendingMachine.png missing");
         }
     }
 
 
+    public void draw(GameMachine gm, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(gm.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/GameMachine.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/GameMachine.png missing");
+        }
+    }
+
+    // bejárat/kijárat
+    public void draw(Exit ex, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(ex.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Exit.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Exit.png missing");
+        }
+    }
+
+    public void draw(Entry en, Graphics g)
+    {
+        try
+        {
+            Node currNode = nodes.get(en.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
+        }
+        catch (IOException e)
+        {
+            System.out.println("/images/Entry.png missing");
+        }
+    }
+
+    //etc
+    public void draw(Wardrobe w, Graphics g) {
+
+        try {
+            Node currNode = nodes.get(w.isOn);
+            BufferedImage bi = ImageIO.read(getClass().getResource("/images/Wardrobe.png"));
+            g.drawImage(bi, currNode.getX(), currNode.getY(), null);
+        } catch (IOException e) {
+            System.out.println("/images/Wardrobe.png missing");
+        }
+    }
 }
