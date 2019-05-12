@@ -1,4 +1,4 @@
-/*
+/**
  * Animal
  * <p>
  *     This class extends AThing. It represents the animals of the game.
@@ -33,27 +33,71 @@ public abstract class Animal extends AThing {
 	 */
 	protected Tile prevTile;
 
+	/**
+	 * setName
+	 * <p>
+	 *     Sets the name parameter
+	 * </p>
+	 * @param n name string
+	 */
 	public void setName(String n) {this.name = n;}
 
-	public String getName() {return this.name;}
-
+	/**
+	 * setPrevAnimal
+	 * <p>
+	 *     Sets the animal that stands before the current
+	 *     (closer to orangutan)
+	 * </p>
+	 * @param prevAnimal animal to be set a previous
+	 */
 	public void setPrevAnimal(Animal prevAnimal) {
 		this.prevAnimal = prevAnimal;
 	}
 
+	/**
+	 * setNextAnimal
+	 * <p>
+	 *     Sets the animal behind the current
+	 *     (Further from orangutan)
+	 * </p>
+	 * @param nextAnimal animal to be set as next
+	 */
 	public void setNextAnimal(Animal nextAnimal) {
 		this.nextAnimal = nextAnimal;
 	}
 
+	/**
+	 * setPrevTile
+	 * <p>
+	 *     Sets the tile from where the animal came
+	 * </p>
+	 * @param prevTile previous tile
+	 */
 	public void setPrevTile(Tile prevTile)
 	{
 		this.prevTile = prevTile;
 	}
 
+	/**
+	 * getPrevAnimal
+	 * <p>
+	 *     Gets the previous animal
+	 *     (closer to orangutan)
+	 * </p>
+	 * @return reference to previous animal
+	 */
 	public Animal getPrevAnimal() {
 		return prevAnimal;
 	}
 
+	/**
+	 * getNextAnimal
+	 * <p>
+	 *     Gets the next animal
+	 *     (further from orangutan)
+	 * </p>
+	 * @return reference to the next animal
+	 */
 	public Animal getNextAnimal() {
 		return nextAnimal;
 	}
@@ -88,8 +132,7 @@ public abstract class Animal extends AThing {
 	 * @param  t is the Tile where the Animal goes to.
 	 */
 	public void leaveTile(Tile t) {
-		//megfelelő setterek ami átmozgatja az állatot (loseLife()- al együtt)
-		//prevTile.setContains(null);
+
 		isOn.setContains(null);
 		prevTile = isOn;
 		isOn = t;

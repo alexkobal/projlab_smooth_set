@@ -33,81 +33,6 @@ public class Controller {
 	}
 
 
-	public void loadAnimals(String mapName)
-	{
-		try
-		{
-			FileInputStream fis = new FileInputStream(mapName+ ".ani");
-			InputStreamReader isr = new InputStreamReader(fis);
-			BufferedReader br = new BufferedReader(isr);
-			String line = "";
-			while((line = br.readLine()).length() != 0)
-			{
-				String[] param = line.split(" ");
-				switch (param[0])
-				{
-					case "o":
-						Orangutan o = new Orangutan();
-						o.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
-						o.setName(param[1]);
-						o.setPrevTile(o.getIsOn());
-						animals.add(o);
-						orangutans.add(o);
-                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(o);
-					break;
-					case "lp":
-						int rnd = Math.abs(new Random().nextInt(4) + 1);
-						LazyPanda lp = new LazyPanda(rnd);
-						lp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
-						lp.setName(param[1]);
-						lp.setPrevTile(lp.getIsOn());
-						animals.add(lp);
-						pandas.add(lp);
-                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(lp);
-						break;
-					case "sp":
-						ScaredPanda sp = new ScaredPanda();
-						sp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
-						sp.setName(param[1]);
-						sp.setPrevTile(sp.getIsOn());
-						animals.add(sp);
-						pandas.add(sp);
-                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(sp);
-						System.out.println(Floor.getInstance().status());
-						break;
-					case "jp":
-						JumpingPanda jp = new JumpingPanda();
-						jp.setIsOn(Floor.getInstance().getTile(Integer.parseInt(param[2])));
-						jp.setName(param[1]);
-						jp.setPrevTile(jp.getIsOn());										//FONTOS HOGY A PREVTILE BE LEGYEN SETTELVE!!
-						animals.add(jp);
-						pandas.add(jp);
-                        Floor.getInstance().getTile(Integer.parseInt(param[2])).setContains(jp);
-						break;
-					case "chain":
-						Animal elso = null;
-						Animal masodik = null;
-						for (Animal a: animals) {
-							if(a.getName().compareTo(param[1]) == 0)
-								elso = a;
-							if(a.getName().compareTo(param[2]) == 0)
-								masodik = a;
-						}
-
-						if(elso != null && masodik != null){		//Bemeneti nyelv szerint ezt csinálja, de van az animalnak connectChain függvénye!!!
-							elso.prevAnimal = masodik;
-							masodik.nextAnimal = elso;
-						}
-						break;
-				}
-			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	public static void movePandaRandomly(Panda panda){
 		ArrayList<Tile> neighbors = panda.getIsOn().getNeighbors();
 		if(!neighbors.isEmpty()) {
@@ -162,13 +87,9 @@ public class Controller {
 	public void moveOrangutans(){
 		Object[] or = orangutans.toArray();
 		for(Object o : or){
-			System.out.println("make a move " + ((Orangutan)o).getName());
-
 			View.getInstance().setActiveOrangutan((Orangutan) o);
 			Tile selectedTile = View.getInstance().moveActiveOrangutan();
-
             ((Orangutan)o).move(selectedTile);
-
 		}
 		orangutans.removeIf(Orangutan::getIsDead);
 	}
