@@ -28,7 +28,7 @@ public class View extends JFrame  implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        System.out.println("Valami történt!!");
     }
 
     @Override
@@ -56,6 +56,7 @@ public class View extends JFrame  implements KeyListener{
     {
         instance = this;
         initComponents();
+        this.addKeyListener(this);
     }
 
     private static View instance = null;
@@ -108,7 +109,7 @@ public class View extends JFrame  implements KeyListener{
 		mainPanel.setPreferredSize(this.getSize());
 		mainPanel.setVisible(true);
 
-		this.addKeyListener(this);
+
 	}
 	private void setUpMenuBar(){
 		menuActionListener = new MenuActionListener();
