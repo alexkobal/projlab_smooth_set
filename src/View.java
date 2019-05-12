@@ -57,10 +57,12 @@ public class View extends JFrame {
     {
         setTitle("Panda Plaza by smooth_set");
         setSize((int)(1920 * 0.75), (int)(1080 * 0.75));
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+
+        setUpMainPanel();
 
         //Setting up menu bar
         setUpMenuBar();
@@ -73,10 +75,17 @@ public class View extends JFrame {
     {
         public Graphics graphics;
 
+        public GameJPanel(){}
+
 		@Override
 		protected void paintComponent(Graphics g)
         {
             graphics = g;
+            super.paintComponent(g);
+            if(!nodes.isEmpty()) {
+                updateDraw(g);
+            }
+
             System.out.println("GameJPanel.paintComponent()");
 		}
 	}
@@ -84,6 +93,8 @@ public class View extends JFrame {
     private void setUpMainPanel(){
 		mainPanel = new GameJPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
+		mainPanel.setPreferredSize(new Dimension(600,439));
+		mainPanel.setVisible(true);
 	}
 	private void setUpMenuBar(){
 		menuActionListener = new MenuActionListener();
@@ -99,6 +110,7 @@ public class View extends JFrame {
 		menuBar.add(fileMenu);
 
 		this.add(menuBar, BorderLayout.NORTH);
+		this.pack();
 	}
 
 	private class MenuActionListener implements ActionListener {
@@ -107,12 +119,15 @@ public class View extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == openMenuItem){
 				openFloor();
+				setUpMainPanel();
+				mainPanel.repaint();
+				mainPanel.setVisible(true);
 			}
 		}
 	}
 	private void openFloor(){
         Floor.clearInstance();
-		Floor floor = Floor.getInstance();
+		floor = Floor.getInstance();
 		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
 		fileChooser.showDialog(this, "OpenFloor");
 		floor = Floor.deserialise(fileChooser.getSelectedFile().getPath());
@@ -133,7 +148,7 @@ public class View extends JFrame {
 
             for(Tile t : floor.getTiles().values())
             {
-                String pos[] = br.readLine().split("\t");
+                String pos[] = br.readLine().split(" ");
                 Node n = new Node(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
                 nodes.put(t, n);
             }
@@ -150,7 +165,7 @@ public class View extends JFrame {
     }
 
 
-    public void updateDraw()
+    public void updateDraw(Graphics g)
     {
         //BasicTile the Tile which is the p0 in the line
         for(Tile bTile : floor.getTiles().values())
@@ -186,21 +201,33 @@ public class View extends JFrame {
         }
         */
 
-        repaint();
+        drawLines(g);
         for(Tile t : floor.getTiles().values())
         {
-            t.invokeDraw();
+            t.invokeDraw(g);
+        }
+        mainPanel.repaint();
+    }
+
+    public void drawLines(Graphics g){
+        for(GraphLine gl : lines)
+        {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(5));
+            g2.setColor(Color.BLACK);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.drawLine(gl.x0, gl.y0, gl.x1, gl.y1);
         }
     }
 
     // állatok
-    public void draw(Orangutan o)
+    public void draw(Orangutan o, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(o.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Orangutan.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -236,13 +263,13 @@ public class View extends JFrame {
         */
     }
 
-    public void draw(Panda p)
+    public void draw(Panda p, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(p.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Panda.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -278,18 +305,18 @@ public class View extends JFrame {
     }
 
     // csempék
-    public void draw(RegularTile rt)
+    public void draw(RegularTile rt, Graphics g)
     {
 
         try
         {
             Node currNode = nodes.get(rt);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/RegularTile.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
 
             if(rt.getContains() != null)
             {
-                rt.getContains().invokeDraw();
+                rt.getContains().invokeDraw(g);
 
             }
         }
@@ -335,17 +362,17 @@ public class View extends JFrame {
         */
     }
 
-    public void draw(BrokenTile bt)
+    public void draw(BrokenTile bt, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(bt);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/BrokenTile.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
 
             if(bt.getContains() != null)
             {
-                bt.getContains().invokeDraw();
+                bt.getContains().invokeDraw(g);
 
             }
         }
@@ -381,18 +408,18 @@ public class View extends JFrame {
     }
 
     // gépettyűk
-    public void draw(Armchair a)
+    public void draw(Armchair a, Graphics g)
     {
 
         try
         {
             Node currNode = nodes.get(a.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Armchair.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
 
             if(a.isOccupied())
             {
-                a.getPanda().invokeDraw();
+                a.getPanda().invokeDraw(g);
             }
         }
         catch (IOException e)
@@ -433,14 +460,14 @@ public class View extends JFrame {
         */
     }
 
-    public void draw(VendingMachine vm)
+    public void draw(VendingMachine vm, Graphics g)
     {
 
         try
         {
             Node currNode = nodes.get(vm.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/VendingMachine.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -475,13 +502,13 @@ public class View extends JFrame {
     }
 
 
-    public void draw(GameMachine gm)
+    public void draw(GameMachine gm, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(gm.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/GameMachine.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -516,13 +543,13 @@ public class View extends JFrame {
     }
 
     // bejárat/kijárat
-    public void draw(Exit ex)
+    public void draw(Exit ex, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(ex.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Exit.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -556,13 +583,13 @@ public class View extends JFrame {
         */
     }
 
-    public void draw(Entry en)
+    public void draw(Entry en, Graphics g)
     {
         try
         {
             Node currNode = nodes.get(en.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Entry.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {
@@ -603,14 +630,14 @@ public class View extends JFrame {
     }
 
     //etc
-    public void draw(Wardrobe w)
+    public void draw(Wardrobe w, Graphics g)
     {
 
         try
         {
             Node currNode = nodes.get(w.isOn);
             BufferedImage bi = ImageIO.read(getClass().getResource("/images/Wardrobe.png"));
-            mainPanel.graphics.drawImage(bi,currNode.getX(), currNode.getY(), null);
+            g.drawImage(bi,currNode.getX(), currNode.getY(), null);
         }
         catch (IOException e)
         {

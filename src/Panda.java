@@ -1,3 +1,4 @@
+import java.awt.*;
 
 /**
  * Panda
@@ -103,7 +104,7 @@ public abstract class Panda extends Animal {
 	}
 
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

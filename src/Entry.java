@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -78,8 +79,8 @@ public class Entry extends AThing{
 	}
 
 	@Override
-	public void invokeDraw()
+	public void invokeDraw(Graphics g)
 	{
-		View.getInstance().draw(this);
+		View.getInstance().draw(this, g);
 	}
 }

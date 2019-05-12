@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * RegularTile
  * <p>
@@ -7,7 +9,7 @@
 public class RegularTile extends Tile
 {
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }

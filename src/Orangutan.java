@@ -1,3 +1,4 @@
+import java.awt.*;
 
 /**
  * Orangutan
@@ -85,7 +86,7 @@ public class Orangutan extends Animal{
 	}
 
 	@Override
-	public void invokeDraw() {
-		View.getInstance().draw(this);
+	public void invokeDraw(Graphics g) {
+		View.getInstance().draw(this, g);
 	}
 }
