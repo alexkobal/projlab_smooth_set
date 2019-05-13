@@ -10,9 +10,19 @@ import java.util.ArrayList;
  * </p>
  */
 public class GameMachine extends AThing implements IPandaEffective{
-
+	/**
+	 * baseTinkleTime
+	 * <p>
+	 *     Tinkle time set by default, this is the revert value
+	 * </p>
+	 */
 	private int baseTinkleTime;
-
+	/**
+	 * tinkleTime
+	 * <p>
+	 *     Actual tinkle time (time left to before next tinkle)
+	 * </p>
+	 */
 	private int tinkleTime;
 
 	/**
@@ -59,9 +69,16 @@ public class GameMachine extends AThing implements IPandaEffective{
 		}
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString() in case of better readability
+	 * </p>
+	 * @return "g" string
+	 */
 	@Override
 	public String toString(){
-		return "g" /*+ tinkleTime*/;
+		return "g";
 	}
 
 	@Override

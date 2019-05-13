@@ -5,5 +5,11 @@
  * </p>
  */
 public interface IPandaEffective {
+	/**
+	 * effect
+	 * <p>
+	 *     Meant to effect pandas standing near the object
+	 * </p>
+	 */
 	public void effect();	
 }
