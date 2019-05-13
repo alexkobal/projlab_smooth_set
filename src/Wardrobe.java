@@ -30,10 +30,15 @@ public class Wardrobe extends AThing{
      *     if it uses this Wardrobe.
      * </p>
      */
-
-    public Wardrobe(){};
     private Wardrobe outPoint;
-    
+
+    /**
+     * setOutPoint
+     * <p>
+     *     Sets the wardrobe where the current wardrobe lead
+     * </p>
+     * @param wd out point wardrobe
+     */
     public void setOutPoint(Wardrobe wd) {
     	outPoint = wd;
     }
@@ -86,11 +91,25 @@ public class Wardrobe extends AThing{
         return true;
     }
 
+    /**
+     * toString
+     * <p>
+     *     Overrides the Object.toString in case of better readability
+     * </p>
+     * @return "w" string
+     */
     @Override
     public String toString(){
         return "w";
     }
 
+    /**
+     * invokeDraw
+     * <p>
+     *     Implementation of IDrawable interface
+     * </p>
+     * @param g graphics object
+     */
     @Override
     public void invokeDraw(Graphics g) {
         View.getInstance().draw(this, g);

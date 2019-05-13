@@ -43,7 +43,6 @@ public abstract class Tile implements Serializable, IDrawable
         neighbors = new ArrayList<>();
     }
 
-
     /**
      * placeThing(panda: Panda)
      * <p>Operation that checks whether our tile is empty and if so then it steps the panda there. 
@@ -161,12 +160,26 @@ public abstract class Tile implements Serializable, IDrawable
             neighbor.getNeighbors().remove(this);
         }
     }
-    
+
+    /**
+     * getNeighbors
+     * <p>
+     *     Gets a list of the tile's neighbors
+     * </p>
+     * @return neighbors list
+     */
     public ArrayList<Tile> getNeighbors()
     {
         return neighbors;
     }
 
+    /**
+     * addNeighbor
+     * <p>
+     *     Adds a neighbor to the tile
+     * </p>
+     * @param tile tile to add as a neighbor
+     */
     public void addNeighbor(Tile tile)
     {
     	for(Tile n : neighbors) {
@@ -178,6 +191,14 @@ public abstract class Tile implements Serializable, IDrawable
 		tile.getNeighbors().add(this);
     }
 
+    /**
+     * setContains
+     * <p>
+     *     Sets the object that is located on the tile
+     *     Also sets sets the tile on witch the thing is "standing" as the parameter of the thing
+     * </p>
+     * @param thing
+     */
     public void setContains(AThing thing)
     {
         contains = thing;
@@ -185,6 +206,13 @@ public abstract class Tile implements Serializable, IDrawable
             thing.setIsOn(this);
     }
 
+    /**
+     * getContains
+     * <p>
+     *     Gets the thing that is located on the tile
+     * </p>
+     * @return thing that is on the tile
+     */
     public AThing getContains()
     {
         return contains;

@@ -11,7 +11,22 @@ import java.util.ArrayList;
  */
 public class VendingMachine extends AThing implements IPandaEffective{
 
+	/**
+	 * beepTime
+	 * <p>
+	 *     Time left to the next beep
+	 *     After beeped is equal with the baseBeepTime
+	 * </p>
+	 */
 	private int beepTime;
+
+	/**
+	 * baseBeepTime
+	 * <p>
+	 *     Default time left to the next beep
+	 *     beepTime is set to this value after beeped
+	 * </p>
+	 */
 	private int baseBeepTime;
 
 	/**
@@ -58,11 +73,25 @@ public class VendingMachine extends AThing implements IPandaEffective{
 		}
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides the Object.toString() in case of readability
+	 * </p>
+	 * @return "v" string and the time left to the next beep
+	 */
 	@Override
 	public String toString(){
 		return "v" + beepTime;
 	}
 
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     Implementation of IDrawable interface
+	 * </p>
+	 * @param g graphics object
+	 */
 	@Override
 	public void invokeDraw(Graphics g) {
 		View.getInstance().draw(this, g);
