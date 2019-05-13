@@ -12,6 +12,13 @@ public class LazyPanda extends Panda {
 	 * This is the variable which defines how long sleeps the panda in an armchair.
 	 */
 	private int sleepTime;
+
+	/**
+	 * pandasRegularSleepTime
+	 * <p>
+	 *     Default time for panda to sleep
+	 * </p>
+	 */
 	private int pandasRegularSleepTime;
 
 	/**
@@ -69,10 +76,24 @@ public class LazyPanda extends Panda {
 		}
 	}
 
+	/**
+	 * getSleepTime
+	 * <p>
+	 *     Gets the remaining sleep time
+	 * </p>
+	 * @return remaining sleep time
+	 */
 	public int getSleepTime() {
 		return sleepTime;
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides the Object.toString() in case of better readability
+	 * </p>
+	 * @return "l" string
+	 */
 	@Override
 	public String toString(){
 		return "l";

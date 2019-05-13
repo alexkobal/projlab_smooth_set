@@ -26,6 +26,13 @@ public class JumpingPanda extends Panda
 		return true;
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString() in case of better readability
+	 * </p>
+	 * @return "j" string
+	 */
 	@Override
 	public String toString(){
 		return "j";

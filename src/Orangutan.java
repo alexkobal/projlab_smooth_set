@@ -6,13 +6,25 @@ import java.awt.*;
  * This is Orangutan which extends the animal class. It represents the Orangutan kind of objects on the map.
  **/
 public class Orangutan extends Animal{
+	/**
+	 * isDead
+	 * <p>
+	 *     Flag that tells if the orangutan is dead
+	 * </p>
+	 */
 	private boolean isDead = false;
-	private static int count;
-	private static int id = 1;
 
+	/**
+	 * getIsDead
+	 * <p>
+	 *     Gets the value of isDead flag
+	 * </p>
+	 * @return isDad flag
+	 */
 	public boolean getIsDead(){
 		return isDead;
 	}
+
 	/**
 	 * move(Tile)
 	 * <p>
@@ -46,18 +58,20 @@ public class Orangutan extends Animal{
 	public void kill(Controller c) {
 
 		if(prevAnimal != null) prevAnimal.unchain();
-		count--;
 		isOn.setContains(null);
 		isOn = null;
 		isDead = true;
 		c.removeOrangutan(this);
 	}
 
-	public Orangutan(){
-		name = "o" + id;
-		id++;
-	}
-
+	/**
+	 * connectChain
+	 * <p>
+	 *     Overrides base function
+	 *     Connects an orangutan with another animal
+	 * </p>
+	 * @param  animal The animal, which joins to the chain.
+	 */
 	@Override
 	public void connectChain(Animal animal) {
 	    if(this.prevAnimal == null){
@@ -72,7 +86,13 @@ public class Orangutan extends Animal{
         }
     }
 
-    public void manualUnchain(){
+	/**
+	 * manualUnchain
+	 * <p>
+	 *     Provides opportunity to manually unchain pandas behind the orangutan
+	 * </p>
+	 */
+	public void manualUnchain(){
 		if(prevAnimal != null) {
 			prevAnimal.unchain();
 			prevAnimal = null;
@@ -80,11 +100,25 @@ public class Orangutan extends Animal{
 
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString for better readability
+	 * </p>
+	 * @return "o" string
+	 */
 	@Override
 	public String toString(){
 		return "o";
 	}
 
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     Implementation of IDrawable
+	 * </p>
+	 * @param g graphics object
+	 */
 	@Override
 	public void invokeDraw(Graphics g) {
 		View.getInstance().draw(this, g);
