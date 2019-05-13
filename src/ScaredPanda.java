@@ -24,6 +24,13 @@ public class ScaredPanda extends Panda
 		return true;
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString() in case of readability
+	 * </p>
+	 * @return "s" string
+	 */
 	@Override
 	public String toString(){
 		return "s";

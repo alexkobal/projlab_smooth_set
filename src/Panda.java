@@ -107,11 +107,24 @@ public abstract class Panda extends Animal {
 		c.removePanda(this);
 	}
 
+	/**
+	 * connectChain
+	 * <p>
+	 *     Overrides base function
+	 *     Does nothing, cause panda cant connect other animals
+	 * </p>
+	 * @param  animal The animal, which joins to the chain.
+	 */
 	@Override
-	public void connectChain(Animal animal) {
+	public void connectChain(Animal animal) {}
 
-	}
-
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     Implements IDrawable
+	 * </p>
+	 * @param g graphics object
+	 */
 	@Override
 	public void invokeDraw(Graphics g) {
 		View.getInstance().draw(this, g);

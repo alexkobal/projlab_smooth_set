@@ -8,11 +8,25 @@ import java.awt.*;
  */
 public class RegularTile extends Tile
 {
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     Implementation of IDrawable
+	 * </p>
+	 * @param g graphics object
+	 */
 	@Override
 	public void invokeDraw(Graphics g) {
 		View.getInstance().draw(this, g);
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overrides Object.toString() in case of readability
+	 * </p>
+	 * @return "r" string
+	 */
 	@Override
 	public String toString(){
 		return "r";
