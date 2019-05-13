@@ -73,16 +73,38 @@ public class Entry extends AThing{
 		return orangutan;
 	}
 
+	/**
+	 * getEntryTile
+	 * <p>
+	 *     Gets the tile where an orangutan enters
+	 * </p>
+	 * @return
+	 */
 	public Tile getEntryTile()
 	{
 		return entryTile;
 	}
 
+	/**
+	 * toString
+	 * <p>
+	 *     Overriding Object.toString()
+	 *     Readability
+	 * </p>
+	 * @return "x" string
+	 */
 	@Override
 	public String toString(){
 		return "x" + orangutansToPush;
 	}
 
+	/**
+	 * invokeDraw
+	 * <p>
+	 *     IDrawable interface implementation
+	 * </p>
+	 * @param g panel graphics object
+	 */
 	@Override
 	public void invokeDraw(Graphics g)
 	{

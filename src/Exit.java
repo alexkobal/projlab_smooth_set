@@ -8,6 +8,13 @@ import java.util.ArrayList;
  * </p>
  */
 public class Exit extends AThing {
+
+    /**
+     * orangutansToPush
+     * <p>
+     *     A list of orangutans that need to be placed on the floor
+     * </p>
+     */
     private ArrayList<Orangutan> orangutansToPush = new ArrayList<>();
 
     /**
@@ -24,11 +31,6 @@ public class Exit extends AThing {
         orangutansToPush.clear();
         return temp;
     }
-
-    /*public int orangutansToPushSize(){
-
-        return orangutansToPush.size();
-    }*/
 
     /**
      * hitBy Orangutan
@@ -57,20 +59,8 @@ public class Exit extends AThing {
         else{
             return false;
         }
-
-
-        /*if(prevPanda == null) {
-            prevPanda = (Panda) orangutan.getPrevAnimal();
-            prevPanda.setNextAnimal(null);
-            orangutan.prevAnimal.move(orangutan.isOn);
-            orangutan.setPrevAnimal(null);
-            orangutan.isOn.setContains(null);
-            orangutan.setIsOn(Floor.getInstance().getEntry().getIsOn());
-            orangutansToPush.add(orangutan);
-            return true;
-        }
-        return false;*/
     }
+
     /**
      * hitBy Panda
      * <p>
@@ -87,22 +77,11 @@ public class Exit extends AThing {
             panda.isOn = this.isOn;
             prevPanda = (Panda)panda.getPrevAnimal();
             panda.shouldIKillMyself = true;
-            //panda.kill(Tile.ctrl);
             return true;
         }
         else{
             return false;
         }
-
-        /*prevPanda = (Panda) panda.getPrevAnimal();
-        if(prevPanda != null){
-            prevPanda.setNextAnimal(null);
-            panda.setPrevAnimal(null);
-        }
-        panda.kill(Controller.getInstance());
-        return true;
-
-         */
     }
     /**
      * nextTurn
@@ -117,11 +96,25 @@ public class Exit extends AThing {
         }
     }
 
+    /**
+     * toString
+     * <p>
+     *     Overrides Object.toString() in case of readability
+     * </p>
+     * @return "X" string
+     */
     @Override
     public String toString(){
         return "X";
     }
 
+    /**
+     * invokeDraw
+     * <p>
+     *     IDrawable implementation
+     * </p>
+     * @param g panel graphics object
+     */
     @Override
     public void invokeDraw(Graphics g) {
         View.getInstance().draw(this, g);
