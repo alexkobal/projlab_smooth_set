@@ -13,17 +13,6 @@ import java.util.Random;
 public class Wardrobe extends AThing{
 
     /**
-     * Wardrobe outPoint
-     * <p>
-     *     Constructor for class Wardrobe
-     * </p>
-     * @param outPoint Wardrobe to be set as outPoint
-     */
-    public Wardrobe(Wardrobe outPoint){
-        this.outPoint = outPoint;
-    }
-
-    /**
      * outPoint
      * <p>
      *     This field is a reference to the Wardrobe where the Animal will come out

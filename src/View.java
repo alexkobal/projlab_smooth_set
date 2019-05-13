@@ -14,25 +14,89 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * class View
+ * <p>
+ *     Representing the main frame of the game
+ *     extends JFrame
+ * </p>
+ */
 public class View extends JFrame {
+    /**
+     * startMenuItem
+     * openMenuItem
+     * <p>
+     *     startMenuItem - "Start" menu item
+     *     openMenuItem - "Open" menu item
+     * </p>
+     */
+    
 	private JMenuItem startMenuItem, openMenuItem;
+    /**
+     * menuActionListener
+     * <p>
+     *     Handles events on the menu bar
+     * </p>
+     */
 	private MenuActionListener menuActionListener;
+
+    /**
+     * mainPanel
+     * <p>
+     *     Panel where the game user interface is shown
+     * </p>
+     */
 	private GameJPanel mainPanel;
 
+    /**
+     * nodes
+     * <p>
+     *     Pairs of nodes and tiles
+     *     Needed to draw the floor
+     * </p>
+     */
 	private Map<Tile, Node> nodes = new HashMap<>();
-	private Floor floor;
 
+    /**
+     * activeOrangutan
+     * <p>
+     *     Reference to the currently selected orangutan
+     * </p>
+     */
 	private Orangutan activeOrangutan;
-	private Tile activeNeighbor;
-	private boolean confirmed = false;
-	private boolean forceRefresh = false;
 
-	class MyKeylistener implements KeyListener{
+    /**
+     * activeNeighbor
+     * <p>
+     *     Reference to the currently selected neighbor where player can step next
+     * </p>
+     */
+	private Tile activeNeighbor;
+
+    /**
+     * confirmed
+     * <p>
+     *     Flag:
+     *     false if the next step target tile is still not selected
+     *     true if the next step target tile has been selected
+     * </p>
+     */
+	private boolean confirmed = false;
+
+    /**
+     * inner class MyKeyListener
+     * <p>
+     *     Implementation of KeyListener
+     *     if 'd' key is pressed moves forward in the selectable neighbor list
+     *     if 'a' key is pressed moves backwards in the selectable neighbor list
+     *     if ' ' key is pressed moves the currently active orangutan to selected tile
+     *     if 'r' key is pressed releases the panda chain of currently selected orangutan
+     * </p>
+     */
+    class MyKeyListener implements KeyListener{
 
         @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
+        public void keyTyped(KeyEvent e) {}
 
         @Override
         public void keyPressed(KeyEvent e) {
@@ -96,13 +160,17 @@ public class View extends JFrame {
             }
             mainPanel.repaint();
         }
-
+        
         @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
+        public void keyReleased(KeyEvent e) {}
     }
 
+    /**
+     * inner class GraphLine
+     * <p>
+     *     represents a line of the graph
+     * </p>
+     */
     private class GraphLine {
 		int x0, y0, x1, y1;
 
@@ -114,17 +182,46 @@ public class View extends JFrame {
 		}
 	}
 
+    /**
+     * lines
+     * <p>
+     *     Lines of the graph
+     * </p>
+     */
 	private final LinkedList<GraphLine> lines = new LinkedList<>();
 
 
-
+    /**
+     * View
+     * <p>
+     *     Constructor
+     *     Initialises the View
+     *     Sets instance
+     * </p>
+     */
     private View()
     {
         instance = this;
         initComponents();
     }
 
+    /**
+     * instance
+     * <p>
+     *     Singleton implementation
+     *     Represents a reference to the one and only one view instance
+     * </p>
+     */
     private static View instance = null;
+
+    /**
+     * getInstance
+     * <p>
+     *     Creates new instance if not existing yet
+     *     Gets the singleton instance of the view
+     * </p>
+     * @return instance of view
+     */
     public static View getInstance(){
         if(instance != null){
             return instance;
@@ -133,6 +230,13 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * initComponents
+     * <p>
+     *     Sets the main frame parameters
+     *     Calls the inner panel init functions
+     * </p>
+     */
     private void initComponents()
     {
         setTitle("Panda Plaza by smooth_set");
@@ -148,7 +252,7 @@ public class View extends JFrame {
         setUpMenuBar();
         //updateDraw();
 
-        this.addKeyListener(new MyKeylistener());
+        this.addKeyListener(new MyKeyListener());
 
         setVisible(true);
     }
@@ -165,6 +269,7 @@ public class View extends JFrame {
             if(!nodes.isEmpty()) {
                 updateDraw(g);
             }
+            boolean forceRefresh = false;
             if(forceRefresh)
             {
                 updateDraw(g);
@@ -173,14 +278,29 @@ public class View extends JFrame {
         }
 	}
 
+    /**
+     * setUpMainPanel
+     * <p>
+     *     SetsUp the main game panel
+     *     There the game is shown
+     * </p>
+     */
     private void setUpMainPanel(){
 		mainPanel = new GameJPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
 		mainPanel.setPreferredSize(this.getSize());
         mainPanel.setVisible(true);
-
-
 	}
+
+    /**
+     * setUpMenuBar
+     * <p>
+     *     Initialises top menu bar
+     *     Creates one "File" menu
+     *     Creates one "Open" menu item
+     *     Creates one "Start" menu item
+     * </p>
+     */
 	private void setUpMenuBar(){
 		menuActionListener = new MenuActionListener();
 		JMenuBar menuBar = new JMenuBar();
@@ -199,6 +319,15 @@ public class View extends JFrame {
 		this.pack();
 	}
 
+    /**
+     * inner class MenuActionListener
+     * <p>
+     *     Implements interface ActionListener
+     *     Handles menu click events
+     *     If "Open" menu item is clicked, the program asks the user to choose a floor file for the game
+     *     If "Start" menu item is clicked, the loaded game starts
+     * </p>
+     */
 	private class MenuActionListener implements ActionListener {
 
 		@Override
@@ -223,6 +352,15 @@ public class View extends JFrame {
             }
 		}
 	}
+
+    /**
+     * openFloor
+     * <p>
+     *     Function opens a JFileChooser dialog
+     *     The player can choose witch floor he wants to play
+     *     And the selected floor is loaded
+     * </p>
+     */
 	private void openFloor(){
         Floor.clearInstance();
 		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
@@ -232,12 +370,16 @@ public class View extends JFrame {
         int idx = sb.lastIndexOf(".flr");
         sb.replace(idx, idx+4, "");
         deserialize(sb.toString());
-        //Controller.getInstance().loadAnimals(sb.toString());
-		//Controller.getInstance().openFloor();
-		//Controller.getInstance().start();
 		mainPanel.repaint();
 	}
 
+    /**
+     * deserialize
+     * <p>
+     *     Reads the coordinate file for the floor
+     * </p>
+     * @param mapName file name of the coordinate map
+     */
     public void deserialize(String mapName)
     {
         float zoom = 0.85f;
@@ -261,11 +403,28 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * getPivotPosition
+     * <p>
+     *     Gets the center of the graphical object
+     * </p>
+     * @param n
+     * @param size
+     * @return
+     */
     public Point getPivotPosition(Node n, Point size)
     {
         return new Point(n.getX() + (size.y/2),n.getY() + (size.y/2));
     }
 
+    /**
+     * updateDraw
+     * <p>
+     *     Updates the view
+     *     Draws the tiles(nodes) and the connecting lines (connecting neighbors)
+     * </p>
+     * @param g
+     */
     public void updateDraw(Graphics g)
     {
 
@@ -292,6 +451,13 @@ public class View extends JFrame {
         mainPanel.repaint();
     }
 
+    /**
+     * drawLines
+     * <p>
+     *     Draws the lines between neighbors
+     * </p>
+     * @param g
+     */
     public void drawLines(Graphics g){
         for(GraphLine gl : lines)
         {
@@ -303,6 +469,14 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * setActiveOrangutan
+     * <p>
+     *     Sets the active orangutan
+     *     Gets the neighbors of the tile where orangutan is standing
+     * </p>
+     * @param o
+     */
     public void setActiveOrangutan(Orangutan o)
     {
         activeOrangutan = o;
@@ -310,24 +484,38 @@ public class View extends JFrame {
         mainPanel.repaint();
     }
 
+    /**
+     * moveActiveOrangutan
+     * <p>
+     *     Moves the selected orangutan to the selected tile if the selection is confirmed
+     * </p>
+     * @return
+     */
     public Tile moveActiveOrangutan()
     {
         try {
             while (!confirmed) {
                 TimeUnit.MILLISECONDS.sleep(20);
-                System.out.println("Deadlock :/");
             }
         }
-        catch (Exception e)
-        {
-            //kaki
-        }
+        catch (Exception e) {}
         confirmed = false;
 
         return activeNeighbor;
     }
 
-    // állatok
+    //Draw functions for things
+
+    //Animal draw functions
+
+    /**
+     * draw
+     * <p>
+     *     Draws an orangutan over it's tile
+     * </p>
+     * @param o orangutan to draw
+     * @param g graphics object
+     */
     public void draw(Orangutan o, Graphics g)
     {
         try
@@ -356,6 +544,14 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * draw
+     * <p>
+     *     Draws a panda over it's tile
+     * </p>
+     * @param p panda to draw
+     * @param g graphics object
+     */
     public void draw(Panda p, Graphics g)
     {
         try
@@ -370,7 +566,16 @@ public class View extends JFrame {
         }
     }
 
-    // csempék
+    // Tile draw functions
+
+    /**
+     * draw
+     * <p>
+     *     Draws a regular tile
+     * </p>
+     * @param rt RegularTile to draw
+     * @param g graphics object
+     */
     public void draw(RegularTile rt, Graphics g)
     {
 
@@ -392,6 +597,14 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * draw
+     * <p>
+     *     Draws a broken tile
+     * </p>
+     * @param bt BrokenTile to draw
+     * @param g graphics object
+     */
     public void draw(BrokenTile bt, Graphics g)
     {
         try
@@ -412,7 +625,16 @@ public class View extends JFrame {
         }
     }
 
-    // gépettyűk
+    //Drawing notify-capable machines
+
+    /**
+     * draw
+     * <p>
+     *     Drawing an armchair over the tile it's located on
+     * </p>
+     * @param a Armchair
+     * @param g graphics object
+     */
     public void draw(Armchair a, Graphics g)
     {
 
@@ -433,6 +655,14 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * draw
+     * <p>
+     *     Drawing a VendingMachine over the tile it is located on
+     * </p>
+     * @param vm VendingMachine
+     * @param g graphics object
+     */
     public void draw(VendingMachine vm, Graphics g)
     {
 
@@ -448,7 +678,14 @@ public class View extends JFrame {
         }
     }
 
-
+    /**
+     * draw
+     * <p>
+     *     Drawing a Game machine over the tile it is located on
+     * </p>
+     * @param gm game machine to draw
+     * @param g graphics object
+     */
     public void draw(GameMachine gm, Graphics g)
     {
         try
@@ -463,7 +700,16 @@ public class View extends JFrame {
         }
     }
 
-    // bejárat/kijárat
+    // Exit and Entry drawing functions
+
+    /**
+     * draw
+     * <p>
+     *     Drawing an Exit object over the tile it is located on
+     * </p>
+     * @param ex exit
+     * @param g graphics object
+     */
     public void draw(Exit ex, Graphics g)
     {
         try
@@ -478,6 +724,14 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * draw
+     * <p>
+     *     Drawing an Entry over the tile it is located on
+     * </p>
+     * @param en entry object
+     * @param g graphics object
+     */
     public void draw(Entry en, Graphics g)
     {
         try
@@ -492,7 +746,16 @@ public class View extends JFrame {
         }
     }
 
-    //etc
+    //Wardrobe drawing function
+
+    /**
+     * draw
+     * <p>
+     *     Drawing a Wardrobe over the tile it is located on
+     * </p>
+     * @param w Wardrobe to draw
+     * @param g graphics objects
+     */
     public void draw(Wardrobe w, Graphics g) {
 
         try {
