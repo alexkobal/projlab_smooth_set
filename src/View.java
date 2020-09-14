@@ -346,6 +346,11 @@ public class View extends JFrame {
                         Controller.getInstance().start();
                         return null;
                     }
+                    @Override
+                    protected void done()
+                    {
+                        JOptionPane.showMessageDialog(getParent(),"Game Over!");
+                    }
                 };
 			    swGame.execute();
                 setVisible(true);

@@ -37,8 +37,8 @@ public class FloorMakingProgram
 		}
 
 
-		floor.setTile(32, new BrokenTile(2));
-		floor.setTile(27, new BrokenTile(2));
+		floor.setTile(32, new BrokenTile(20));
+		floor.setTile(27, new BrokenTile(20));
 		//Adding things to the floor
 		floor.setExit(new Exit(), 23);
 		floor.addThing(new GameMachine(3), 13);
